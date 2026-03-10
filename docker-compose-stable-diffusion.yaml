@@ -1,0 +1,32 @@
+# Stable Diffusion WebUI for Open WebUI Image Generation
+# Using official AUTOMATIC1111 image
+
+services:
+  automatic1111:
+    image: ghcr.io/ai-dock/stable-diffusion-webui:latest
+    container_name: automatic1111
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:7860:7860"
+    volumes:
+      - automatic1111-data:/workspace
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - WEBUI_FLAGS=--api --listen --port 7860 --medvram --xformers --no-half-vae
+      - WEB_ENABLE_AUTH=false
+    networks:
+      - open-webui_default
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+volumes:
+  automatic1111-data:
+
+networks:
+  open-webui_default:
+    external: true

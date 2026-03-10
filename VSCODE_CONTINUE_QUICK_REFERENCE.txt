@@ -1,0 +1,236 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║  🤖 VSCode + Continue - Quick Reference                                      ║
+║  Your Local Agentic IDE Setup                                               ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+🎯 YOUR BEST MODELS FOR CODING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  1. qwen2.5-coder:7b (4.7GB) ⭐⭐⭐⭐⭐
+     → Specialized for coding
+     → Best for: Code generation, refactoring, debugging
+     → Speed: Fast (3-5 seconds)
+
+  2. qwen2.5:14b (9.0GB) ⭐⭐⭐⭐⭐
+     → Best overall quality
+     → Best for: Complex refactoring, architecture
+     → Speed: Medium (5-8 seconds)
+
+  3. llama3.1:8b (4.9GB) ⭐⭐⭐⭐
+     → Fast and efficient
+     → Best for: Autocomplete, quick questions
+     → Speed: Very fast (2-4 seconds)
+
+  4. mistral:7b (4.4GB) ⭐⭐⭐
+     → General purpose
+     → Best for: Simple tasks, explanations
+     → Speed: Fast (2-4 seconds)
+
+🚀 AUTOMATED SETUP
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Run this script to set up everything automatically:
+
+    ./setup-complete-agentic-ide.sh
+
+  This will:
+    ✓ Install VSCode (if needed)
+    ✓ Pull qwen2.5-coder:7b
+    ✓ Pull nomic-embed-text
+    ✓ Create Continue configuration
+    ✓ Test Ollama connection
+
+📋 MANUAL SETUP STEPS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Step 1: Install VSCode
+    sudo snap install code --classic
+
+  Step 2: Pull recommended models
+    docker exec ollama ollama pull qwen2.5-coder:7b
+    docker exec ollama ollama pull nomic-embed-text
+
+  Step 3: Open VSCode
+    code
+
+  Step 4: Install Continue extension
+    • Press Ctrl+Shift+X
+    • Search "Continue"
+    • Click Install
+
+  Step 5: Configure Continue
+    • Press Ctrl+Shift+P
+    • Type "Continue: Open Config"
+    • Paste configuration (see full guide)
+
+⌨️  KEYBOARD SHORTCUTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Ctrl+L              Open AI chat
+  Ctrl+I              Inline code edit
+  Ctrl+Shift+R        Refactor code
+  Tab                 Accept autocomplete
+  Ctrl+Shift+L        New chat session
+  Esc                 Cancel/close
+
+💬 EXAMPLE PROMPTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Chat (Ctrl+L):
+    "Explain how this function works"
+    "What's the best way to handle errors here?"
+    "Generate unit tests for this class"
+    "@codebase where is the authentication logic?"
+
+  Inline Edit (Ctrl+I):
+    "Add error handling"
+    "Add type hints and docstring"
+    "Optimize for performance"
+    "Convert to async/await"
+    "Add logging statements"
+
+🎯 CONTEXT PROVIDERS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  @codebase          Search entire codebase
+  @folder            Search specific folder
+  @terminal          Include terminal output
+  @problems          Include VSCode errors
+  @docs              Search documentation
+  @code              Reference specific code
+
+  Example:
+    "@codebase where is the database connection setup?"
+
+🔧 TROUBLESHOOTING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Problem: "Failed to connect to Ollama"
+  Solution:
+    docker restart ollama
+    curl http://localhost:11434/api/tags
+
+  Problem: "Model not found"
+  Solution:
+    docker exec ollama ollama list
+    docker exec ollama ollama pull qwen2.5-coder:7b
+
+  Problem: Slow responses
+  Solution:
+    • Switch to llama3.1:8b (faster model)
+    • Check GPU: nvidia-smi
+    • Close other GPU applications
+
+  Problem: Autocomplete not working
+  Solution:
+    • Wait 2-3 seconds after typing
+    • Check tabAutocompleteModel in config
+    • Try pressing Tab manually
+
+📊 PERFORMANCE GUIDE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Task                    | Best Model          | Speed
+  ────────────────────────┼─────────────────────┼──────────
+  Code completion         | llama3.1:8b         | 2-4s
+  Simple questions        | llama3.1:8b         | 2-4s
+  Code generation         | qwen2.5-coder:7b    | 3-5s
+  Refactoring             | qwen2.5-coder:7b    | 3-5s
+  Complex architecture    | qwen2.5:14b         | 5-8s
+  Documentation           | qwen2.5-coder:7b    | 3-5s
+  Debugging               | qwen2.5-coder:7b    | 3-5s
+
+💡 PRO TIPS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  1. Switch models based on task complexity
+     Click model name in chat to change
+
+  2. Use @codebase for better context
+     "@codebase how does authentication work?"
+
+  3. Be specific in prompts
+     ✓ "Add error handling for network requests"
+     ✗ "improve this"
+
+  4. Iterate on results
+     If not perfect, ask for refinements
+
+  5. Use inline edit for quick changes
+     Select code → Ctrl+I → describe change
+
+  6. Use chat for explanations
+     Ctrl+L → ask questions
+
+🎨 EXAMPLE WORKFLOWS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  1. Understand New Codebase:
+     Ctrl+L → "@codebase explain the project structure"
+
+  2. Add Feature:
+     Ctrl+L → "How should I implement user authentication?"
+     Write code → Ctrl+I → "Add error handling"
+
+  3. Debug Issue:
+     Select buggy code → Ctrl+L → "Why isn't this working?"
+     Apply fix → Ctrl+I → "Add logging"
+
+  4. Refactor Code:
+     Select function → Ctrl+I → "Refactor to use async/await"
+     Ctrl+L → "Generate tests for this"
+
+  5. Document Code:
+     Select class → Ctrl+I → "Add comprehensive docstrings"
+
+📁 FILES CREATED
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  VSCODE_CONTINUE_COMPLETE_SETUP.md
+    → Complete step-by-step guide with all details
+
+  setup-complete-agentic-ide.sh
+    → Automated setup script
+
+  VSCODE_CONTINUE_QUICK_REFERENCE.txt
+    → This file - quick reference
+
+  CONNECT_LOCAL_LLMS_TO_AGENTIC_IDES.md
+    → Comparison of all IDE options
+
+✅ QUICK START
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  1. Run setup script:
+     ./setup-complete-agentic-ide.sh
+
+  2. Open VSCode:
+     code
+
+  3. Install Continue extension:
+     Ctrl+Shift+X → Search "Continue" → Install
+
+  4. Start coding:
+     Ctrl+L for chat, Ctrl+I for inline edit
+
+🎯 YOUR OPTIMAL CONFIGURATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Primary Model:    qwen2.5-coder:7b (best for coding)
+  Autocomplete:     llama3.1:8b (fast)
+  Heavy Tasks:      qwen2.5:14b (best quality)
+  Embeddings:       nomic-embed-text (codebase search)
+
+  Total Memory:     ~14GB (all models loaded)
+  Your RAM:         32GB (plenty of space!)
+  GPU:              RTX 2080 SUPER 8GB (perfect!)
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║  You have everything you need for a professional agentic IDE! 🚀             ║
+║                                                                              ║
+║  100% Free • 100% Local • 100% Private                                       ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝

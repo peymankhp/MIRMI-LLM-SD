@@ -1,0 +1,87 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║  📝 How to Add Your LLM Models to Continue                                   ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+METHOD 1: Via Continue UI (Easiest)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 1: Open Continue Settings
+  In VSCode:
+  • Click the Continue icon in left sidebar (looks like ">_")
+  • Click the gear icon ⚙️ at the bottom of Continue panel
+  • Or press Ctrl+Shift+P → type "Continue: Open Config"
+
+STEP 2: Add Ollama Provider
+  In the config file that opens, you'll see a JSON structure.
+  
+  Look for "models": [] section
+  
+  Add your models like this:
+
+  {
+    "models": [
+      {
+        "title": "Qwen 2.5 Coder 7B",
+        "provider": "ollama",
+        "model": "qwen2.5-coder:7b"
+      },
+      {
+        "title": "Qwen 2.5 14B",
+        "provider": "ollama",
+        "model": "qwen2.5:14b"
+      },
+      {
+        "title": "Llama 3.1 8B",
+        "provider": "ollama",
+        "model": "llama3.1:8b-instruct-q4_K_M"
+      }
+    ]
+  }
+
+STEP 3: Save the file
+  Press Ctrl+S
+
+STEP 4: Reload Continue
+  • Close and reopen Continue panel
+  • Or reload VSCode window (Ctrl+Shift+P → "Reload Window")
+
+METHOD 2: Via Command Line (Automatic)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Run this command in terminal:
+
+  cat ~/.continue/config.json
+
+If you see the configuration, Continue should detect it automatically.
+If not, the file might be in a different location.
+
+TROUBLESHOOTING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Problem: Can't find config file
+Solution:
+  Continue config might be in:
+  • ~/.continue/config.json
+  • ~/.continue/config.ts
+  • VSCode settings
+
+Problem: Models still not showing
+Solution:
+  1. Verify Ollama is running:
+     docker ps | grep ollama
+  
+  2. Test Ollama API:
+     curl http://localhost:11434/api/tags
+  
+  3. Restart VSCode completely
+
+Problem: "Connection refused"
+Solution:
+  Make sure apiBase is set to:
+  "apiBase": "http://localhost:11434"
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║  Follow the steps above to add your models! 🚀                               ║
+╚══════════════════════════════════════════════════════════════════════════════╝

@@ -1,0 +1,83 @@
+server {
+    listen 443 ssl;
+    server_name mirmi-llm.mirmi.tum.de;
+
+    ssl_certificate /etc/letsencrypt/live/mirmi-llm.mirmi.tum.de/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/mirmi-llm.mirmi.tum.de/privkey.pem;
+
+    # Increase timeouts for LLM responses
+    proxy_read_timeout 600s;
+    proxy_connect_timeout 600s;
+    proxy_send_timeout 600s;
+
+    # Increase buffer sizes for streaming responses
+    proxy_buffering off;
+    proxy_buffer_size 4k;
+    proxy_buffers 8 4k;
+    proxy_busy_buffers_size 8k;
+
+    location / {
+        proxy_pass http://10.157.174.177:8080;
+        proxy_http_version 1.1;
+        
+        # WebSocket support - CRITICAL for Open WebUI
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        
+        # Standard proxy headers
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Port $server_port;
+    }
+
+    # WebSocket endpoint - explicit configuration
+    location /ws/ {
+        proxy_pass http://10.157.174.177:8080;
+        proxy_http_version 1.1;
+        
+        # WebSocket upgrade headers
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        
+        # Disable buffering for WebSocket
+        proxy_buffering off;
+        
+        # Increase timeouts for long-running connections
+        proxy_read_timeout 3600s;
+        proxy_send_timeout 3600s;
+    }
+
+    # API endpoints - optimize for streaming
+    location /api/ {
+        proxy_pass http://10.157.174.177:8080;
+        proxy_http_version 1.1;
+        
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        
+        # Disable buffering for streaming responses
+        proxy_buffering off;
+        proxy_cache off;
+        
+        # Increase timeouts for LLM generation
+        proxy_read_timeout 600s;
+        proxy_connect_timeout 600s;
+        proxy_send_timeout 600s;
+    }
+}
+
+server {
+    listen 80;
+    server_name mirmi-llm.mirmi.tum.de;
+    return 301 https://$host$request_uri;
+}

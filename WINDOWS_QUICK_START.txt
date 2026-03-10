@@ -1,0 +1,148 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║  🪟 WINDOWS QUICK START GUIDE                                                ║
+║  Connect to LLM Server from VSCode                                          ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+📋 WHAT YOU'LL GET
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ✓ AI coding assistant in VSCode (like GitHub Copilot)
+  ✓ Free and unlimited
+  ✓ Code completion, chat, refactoring
+  ✓ Uses powerful LLMs from server
+
+🚀 SETUP (3 STEPS - 10 MINUTES)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 1: Install VSCode
+  1. Go to: https://code.visualstudio.com/
+  2. Click "Download for Windows"
+  3. Run the installer
+  4. Check "Add to PATH" during installation
+  5. Click Install → Finish
+
+STEP 2: Install Continue Extension
+  1. Open VSCode
+  2. Press Ctrl+Shift+X
+  3. Search: "Continue"
+  4. Click Install
+  5. Wait 30 seconds
+
+STEP 3: Configure Server Connection
+  1. Press Ctrl+Shift+P
+  2. Type: "Continue: Open Config"
+  3. Press Enter
+  4. Delete everything and paste this:
+
+┌──────────────────────────────────────────────────────────────────────────┐
+│ import { defineConfig } from "continue";                                 │
+│                                                                          │
+│ export default defineConfig({                                            │
+│   models: [                                                              │
+│     {                                                                    │
+│       title: "Qwen 2.5 Coder 7B ⭐",                                     │
+│       provider: "ollama",                                                │
+│       model: "qwen2.5-coder:7b",                                         │
+│       apiBase: "http://10.157.174.177:11434"                             │
+│     },                                                                   │
+│     {                                                                    │
+│       title: "Llama 3.1 8B (Fast)",                                      │
+│       provider: "ollama",                                                │
+│       model: "llama3.1:8b-instruct-q4_K_M",                              │
+│       apiBase: "http://10.157.174.177:11434"                             │
+│     }                                                                    │
+│   ],                                                                     │
+│   tabAutocompleteModel: {                                                │
+│     title: "Autocomplete",                                               │
+│     provider: "ollama",                                                  │
+│     model: "qwen2.5-coder:1.5b",                                         │
+│     apiBase: "http://10.157.174.177:11434"                               │
+│   }                                                                      │
+│ });                                                                      │
+└──────────────────────────────────────────────────────────────────────────┘
+
+  5. Press Ctrl+S to save
+  6. Press Ctrl+Shift+P → Type "Reload Window" → Enter
+
+✅ TEST IT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  1. Press Ctrl+L
+  2. Type: "Write a Python hello world function"
+  3. Wait 3-5 seconds
+  4. You should see AI-generated code!
+
+⌨️  HOW TO USE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Ctrl+L              Open AI chat
+  Ctrl+I              Edit selected code
+  Tab                 Accept autocomplete
+  Ctrl+Shift+L        New chat
+
+💡 EXAMPLES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Generate Code:
+    Ctrl+L → "Create a function to sort a list"
+
+  Edit Code:
+    Select code → Ctrl+I → "Add error handling"
+
+  Explain Code:
+    Select code → Ctrl+L → "Explain what this does"
+
+  Autocomplete:
+    Start typing → Wait 1-2 seconds → Press Tab
+
+🔧 TROUBLESHOOTING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Problem: Can't connect to server
+  Solution:
+    1. Open Command Prompt
+    2. Run: ping 10.157.174.177
+    3. Should see replies
+    4. If not, check network connection
+
+  Problem: Models not showing
+  Solution:
+    1. Check config has: http://10.157.174.177:11434
+    2. Press Ctrl+Shift+P → "Reload Window"
+
+  Problem: Slow responses
+  Solution:
+    1. Click model name in chat
+    2. Select "Llama 3.1 8B (Fast)"
+
+📊 SERVER INFO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Server IP:    10.157.174.177
+  Port:         11434
+  Network:      10.157.174.0/23
+  Available:    24/7
+
+  Models:
+    • Qwen 2.5 Coder 7B (best for coding)
+    • Llama 3.1 8B (fast)
+    • Qwen 2.5 14B (best quality)
+    • Mistral 7B (efficient)
+
+🔒 PRIVACY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ✓ All processing on local server (10.157.174.177)
+  ✓ No data sent to external cloud
+  ✓ Your code stays within the network
+  ✓ No internet required (except to server)
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║  📖 Full Guide: WINDOWS_CLIENT_SETUP_GUIDE.md                                ║
+║                                                                              ║
+║  Need help? Contact your IT administrator                                   ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝

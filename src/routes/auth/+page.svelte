@@ -208,8 +208,12 @@
 	}}
 />
 
-<div class="w-full h-screen max-h-[100dvh] text-white relative" id="auth-page">
-	<div class="w-full h-full absolute top-0 left-0 bg-white dark:bg-black"></div>
+<div
+	class="w-full h-screen max-h-[100dvh] text-white relative"
+	id="auth-page"
+	style={`background-image: url('${WEBUI_BASE_URL}/assets/images/backG/galaxy.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;`}
+>
+	<div class="w-full h-full absolute top-0 left-0 bg-black/60"></div>
 
 	<div class="w-full absolute top-0 left-0 right-0 h-8 drag-region" />
 

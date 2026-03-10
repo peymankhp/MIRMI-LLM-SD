@@ -1,0 +1,104 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║  STABLE DIFFUSION - QUICK START GUIDE                                        ║
+║  Image Generation for Open WebUI                                             ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+✅ STATUS: READY TO USE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ✓ Container running
+  ✓ Model loaded (Stable Diffusion v1.5)
+  ✓ API working
+  ✓ Test passed
+
+⚙️ CONFIGURE OPEN WEBUI (2 minutes)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  1. Open: https://mirmi-llm.mirmi.tum.de
+  2. Admin Panel → Settings → Images → Image Generation
+  3. Copy these values:
+
+     ┌────────────────────────────────────────────────────────────────────┐
+     │ Image Generation Engine:     AUTOMATIC1111                         │
+     │                                                                    │
+     │ AUTOMATIC1111 Base URL:      http://automatic1111:7860            │
+     │                                                                    │
+     │ Api Auth String:             (leave empty)                        │
+     │                                                                    │
+     │ Image Size:                  768x768                              │
+     │                                                                    │
+     │ Steps:                       30                                   │
+     │                                                                    │
+     │ Additional Parameters:                                            │
+     │ {                                                                 │
+     │   "cfg_scale": 8,                                                 │
+     │   "sampler_name": "DPM++ 2M Karras",                              │
+     │   "negative_prompt": "blurry, low quality, distorted"             │
+     │ }                                                                 │
+     └────────────────────────────────────────────────────────────────────┘
+
+  4. Click Save
+
+🎨 TEST IT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  In Open WebUI chat, type:
+
+    "Generate an image of a beautiful sunset over mountains"
+
+  Wait 10-15 seconds → Image appears!
+
+💡 EXAMPLE PROMPTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  • "a beautiful landscape with mountains and a lake, sunset, highly 
+     detailed, 8k, photorealistic"
+
+  • "portrait of a cat wearing a hat, studio lighting, professional 
+     photography, sharp focus"
+
+  • "futuristic city at night, neon lights, cyberpunk style, detailed 
+     architecture"
+
+📊 PERFORMANCE (RTX 2080 SUPER)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  512x512, 20 steps:    5-8 seconds
+  768x768, 30 steps:    10-15 seconds
+  1024x1024, 50 steps:  25-35 seconds
+
+🔧 TROUBLESHOOTING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Problem: "Connection error"
+  
+  Solution:
+    docker restart automatic1111
+    # Wait 30 seconds and try again
+
+  Problem: Images are slow
+  
+  Solution:
+    • Reduce Image Size to 512x512
+    • Reduce Steps to 20
+
+  Problem: Images are low quality
+  
+  Solution:
+    • Increase Steps to 40-50
+    • Add quality keywords: "highly detailed, 8k, photorealistic"
+
+📁 MORE INFO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Detailed guide:  CONFIGURE_OPENWEBUI_IMAGES.txt
+  Full status:     STABLE_DIFFUSION_READY.md
+  Test script:     ./test-stable-diffusion-api.sh
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║  Ready to generate images! Configure Open WebUI and start creating. 🎨      ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝

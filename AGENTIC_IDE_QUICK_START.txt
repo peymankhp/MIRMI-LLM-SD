@@ -1,0 +1,163 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║  🤖 CONNECT LOCAL LLMS TO AGENTIC IDE - QUICK START                          ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+✅ YES! You can connect your Ollama LLMs to agentic IDEs via API
+
+🎯 BEST OPTION: VSCode + Continue Extension
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ✓ 100% FREE and open source
+  ✓ Full agentic capabilities
+  ✓ Works with your local Ollama
+  ✓ Complete privacy (no cloud)
+  ✓ Code completion, chat, refactoring
+  ✓ Multi-file editing
+
+🚀 QUICK SETUP (5 minutes)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  1. Install VSCode:
+     sudo snap install code --classic
+
+  2. Open VSCode:
+     code
+
+  3. Install Continue extension:
+     - Press Ctrl+Shift+X
+     - Search "Continue"
+     - Click Install
+
+  4. Configure Continue:
+     - Press Ctrl+Shift+P
+     - Type "Continue: Open Config"
+     - Paste configuration (see below)
+
+  5. Start coding with AI!
+     - Ctrl+L = Open chat
+     - Ctrl+I = Inline edit
+
+⚙️ CONFIGURATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+{
+  "models": [
+    {
+      "title": "Qwen 2.5 14B",
+      "provider": "ollama",
+      "model": "qwen2.5:14b",
+      "apiBase": "http://localhost:11434"
+    },
+    {
+      "title": "Llama 3.1 8B",
+      "provider": "ollama",
+      "model": "llama3.1:8b",
+      "apiBase": "http://localhost:11434"
+    }
+  ],
+  "tabAutocompleteModel": {
+    "title": "Llama 3.1 8B",
+    "provider": "ollama",
+    "model": "llama3.1:8b",
+    "apiBase": "http://localhost:11434"
+  }
+}
+
+🎮 HOW TO USE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Chat with AI:
+    Ctrl+L → Ask questions about code
+
+  Inline Editing:
+    Select code → Ctrl+I → "Add error handling"
+
+  Code Completion:
+    Just start typing → AI suggests completions
+
+  Refactoring:
+    Select code → Ctrl+L → "Refactor this function"
+
+  Documentation:
+    Select code → Ctrl+L → "Add docstrings"
+
+💡 OTHER OPTIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Cursor IDE ($20/month):
+    - Most advanced agentic features
+    - Can use local LLMs via proxy
+    - Professional option
+
+  Windsurf IDE ($15/month):
+    - New agentic IDE by Codeium
+    - Currently cloud-based only
+    - Worth watching
+
+  VSCode + Ollama AI Agent (Free):
+    - Simpler alternative to Continue
+    - Direct Ollama integration
+    - Less features but easier
+
+📊 COMPARISON
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Feature          | Continue | Cursor  | Windsurf
+  ─────────────────┼──────────┼─────────┼──────────
+  Price            | FREE     | $20/mo  | $15/mo
+  Local LLMs       | ✅ Yes   | ⚠️ Proxy | ❌ No
+  Agentic          | ✅ Yes   | ✅✅ Best | ✅✅ Best
+  Privacy          | ✅✅ 100% | ✅ Local | ❌ Cloud
+  Open Source      | ✅ Yes   | ❌ No    | ❌ No
+
+🎯 RECOMMENDED MODELS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  For Chat/Refactoring:
+    qwen2.5:14b (9GB) - Best quality
+
+  For Autocomplete:
+    llama3.1:8b (4.9GB) - Fast
+
+  For Embeddings:
+    ollama pull nomic-embed-text (274MB)
+
+  Specialized Coding:
+    ollama pull qwen2.5-coder:7b (4.7GB)
+    ollama pull deepseek-coder-v2:16b (9.9GB)
+
+🔧 AUTOMATED SETUP
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Run this script:
+    ./setup-vscode-continue.sh
+
+  Or manually follow steps above
+
+📖 FULL DOCUMENTATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  See: CONNECT_LOCAL_LLMS_TO_AGENTIC_IDES.md
+
+  Includes:
+    - Detailed setup for all options
+    - Configuration examples
+    - Troubleshooting
+    - Advanced features
+
+🔒 PRIVACY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  With Continue + Ollama:
+    ✅ 100% local processing
+    ✅ No internet required
+    ✅ No data sent to cloud
+    ✅ Complete privacy
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║  Your local LLMs + VSCode + Continue = Free Agentic IDE! 🚀                 ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝

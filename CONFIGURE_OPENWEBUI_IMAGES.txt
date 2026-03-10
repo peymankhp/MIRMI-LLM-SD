@@ -1,0 +1,200 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║  OPEN WEBUI - IMAGE GENERATION CONFIGURATION GUIDE                           ║
+║  Step-by-Step Instructions                                                   ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+📍 STEP 1: ACCESS ADMIN PANEL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  1. Open browser: https://mirmi-llm.mirmi.tum.de
+  2. Login with admin credentials
+  3. Click your profile icon (top right corner)
+  4. Select "Admin Panel" from dropdown
+
+📍 STEP 2: NAVIGATE TO IMAGE SETTINGS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  1. In Admin Panel, click "Settings" (left sidebar)
+  2. Click "Images" tab
+  3. You'll see "Image Generation" section
+
+📍 STEP 3: CONFIGURE IMAGE GENERATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+┌──────────────────────────────────────────────────────────────────────────┐
+│ CREATE IMAGE                                                             │
+├──────────────────────────────────────────────────────────────────────────┤
+│                                                                          │
+│ Image Generation Engine:                                                 │
+│ ┌────────────────────────────────────────────────────────────────────┐  │
+│ │ AUTOMATIC1111                                          ▼           │  │
+│ └────────────────────────────────────────────────────────────────────┘  │
+│                                                                          │
+│ AUTOMATIC1111 Base URL:                                                  │
+│ ┌────────────────────────────────────────────────────────────────────┐  │
+│ │ http://automatic1111:7860                                          │  │
+│ └────────────────────────────────────────────────────────────────────┘  │
+│ ℹ️  Include `--api` flag when running stable-diffusion-webui           │
+│    (Already configured in docker-compose)                               │
+│                                                                          │
+│ AUTOMATIC1111 Api Auth String:                                           │
+│ ┌────────────────────────────────────────────────────────────────────┐  │
+│ │                                                                    │  │
+│ └────────────────────────────────────────────────────────────────────┘  │
+│ ℹ️  Leave empty (no authentication needed for internal network)        │
+│                                                                          │
+│ Model: (Optional)                                                        │
+│ ┌────────────────────────────────────────────────────────────────────┐  │
+│ │                                                                    │  │
+│ └────────────────────────────────────────────────────────────────────┘  │
+│ ℹ️  Leave empty to use default model                                   │
+│                                                                          │
+│ Image Size: (Optional)                                                   │
+│ ┌────────────────────────────────────────────────────────────────────┐  │
+│ │ 768x768                                                            │  │
+│ └────────────────────────────────────────────────────────────────────┘  │
+│ ℹ️  Recommended: 512x512 (fast) or 768x768 (balanced)                  │
+│                                                                          │
+│ Steps: (Optional)                                                        │
+│ ┌────────────────────────────────────────────────────────────────────┐  │
+│ │ 30                                                                 │  │
+│ └────────────────────────────────────────────────────────────────────┘  │
+│ ℹ️  Recommended: 20 (fast), 30 (balanced), 50 (quality)                │
+│                                                                          │
+│ Additional Parameters: (Optional)                                        │
+│ ┌────────────────────────────────────────────────────────────────────┐  │
+│ │ {                                                                  │  │
+│ │   "cfg_scale": 8,                                                  │  │
+│ │   "sampler_name": "DPM++ 2M Karras",                               │  │
+│ │   "negative_prompt": "blurry, low quality, distorted"              │  │
+│ │ }                                                                  │  │
+│ └────────────────────────────────────────────────────────────────────┘  │
+│                                                                          │
+└──────────────────────────────────────────────────────────────────────────┘
+
+📍 STEP 4: CONFIGURE IMAGE EDITING (Optional)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+┌──────────────────────────────────────────────────────────────────────────┐
+│ EDIT IMAGE                                                               │
+├──────────────────────────────────────────────────────────────────────────┤
+│                                                                          │
+│ Image Edit Engine:                                                       │
+│ ┌────────────────────────────────────────────────────────────────────┐  │
+│ │ AUTOMATIC1111                                          ▼           │  │
+│ └────────────────────────────────────────────────────────────────────┘  │
+│                                                                          │
+│ AUTOMATIC1111 Base URL:                                                  │
+│ ┌────────────────────────────────────────────────────────────────────┐  │
+│ │ http://automatic1111:7860                                          │  │
+│ └────────────────────────────────────────────────────────────────────┘  │
+│                                                                          │
+│ Model: (Optional)                                                        │
+│ ┌────────────────────────────────────────────────────────────────────┐  │
+│ │                                                                    │  │
+│ └────────────────────────────────────────────────────────────────────┘  │
+│                                                                          │
+│ Image Size: (Optional)                                                   │
+│ ┌────────────────────────────────────────────────────────────────────┐  │
+│ │ 512x512                                                            │  │
+│ └────────────────────────────────────────────────────────────────────┘  │
+│                                                                          │
+└──────────────────────────────────────────────────────────────────────────┘
+
+📍 STEP 5: SAVE SETTINGS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  1. Scroll to bottom of page
+  2. Click "Save" button
+  3. Wait for confirmation message
+  4. Settings are now active!
+
+📍 STEP 6: TEST IMAGE GENERATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  1. Go back to main chat interface
+  2. In chat, type one of these:
+
+     "Generate an image of a beautiful sunset over mountains"
+     
+     "Create an image of a cat wearing a hat, professional photography"
+     
+     "Generate a futuristic city at night with neon lights"
+
+  3. Wait 10-15 seconds
+  4. Image should appear in chat!
+
+✅ CONFIGURATION SUMMARY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Required Settings:
+  ✓ Image Generation Engine:     AUTOMATIC1111
+  ✓ AUTOMATIC1111 Base URL:      http://automatic1111:7860
+  
+  Optional Settings (Recommended):
+  ✓ Api Auth String:             (empty)
+  ✓ Model:                       (empty - uses default)
+  ✓ Image Size:                  768x768
+  ✓ Steps:                       30
+  ✓ Additional Parameters:       See JSON above
+
+🔍 TROUBLESHOOTING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Problem: "Connection error" when generating image
+  
+  Solution:
+    1. Check if Stable Diffusion is running:
+       docker ps | grep automatic1111
+    
+    2. If not running, start it:
+       docker start automatic1111
+    
+    3. Wait 30 seconds and try again
+
+  Problem: Image generation is very slow
+  
+  Solution:
+    1. Reduce Image Size to 512x512
+    2. Reduce Steps to 20
+    3. Check GPU usage: nvidia-smi
+
+  Problem: Images are low quality
+  
+  Solution:
+    1. Increase Steps to 40-50
+    2. Add quality keywords to your prompt:
+       "highly detailed, 8k, photorealistic"
+    3. Use negative prompt in Additional Parameters
+
+💡 TIPS FOR BETTER IMAGES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ✓ Be specific and descriptive in prompts
+  ✓ Add quality keywords: "highly detailed", "8k", "professional"
+  ✓ Specify style: "photorealistic", "oil painting", "anime style"
+  ✓ Include lighting: "studio lighting", "golden hour", "dramatic"
+  ✓ Use negative prompts to avoid unwanted elements
+
+📊 EXPECTED PERFORMANCE (RTX 2080 SUPER)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  512x512, 20 steps:    5-8 seconds
+  768x768, 30 steps:    10-15 seconds
+  1024x1024, 50 steps:  25-35 seconds
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║  QUICK REFERENCE                                                             ║
+║                                                                              ║
+║  Engine:     AUTOMATIC1111                                                   ║
+║  Base URL:   http://automatic1111:7860                                       ║
+║  Auth:       (empty)                                                         ║
+║  Size:       768x768                                                         ║
+║  Steps:      30                                                              ║
+║                                                                              ║
+║  Copy these values into Open WebUI Admin Panel → Settings → Images          ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝

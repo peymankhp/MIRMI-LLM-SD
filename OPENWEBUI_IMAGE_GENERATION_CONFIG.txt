@@ -1,0 +1,191 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║  OPEN WEBUI - IMAGE GENERATION CONFIGURATION                                 ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+📍 LOCATION IN OPEN WEBUI
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  1. Go to: https://mirmi-llm.mirmi.tum.de
+  2. Login as admin
+  3. Click your profile icon (top right)
+  4. Select: Admin Panel
+  5. Navigate to: Settings → Images → Image Generation
+
+🔧 IMAGE GENERATION SETTINGS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Image Generation Engine:     AUTOMATIC1111
+  
+  OpenAI API Base URL:         http://automatic1111:7860
+  
+  OpenAI API Key:              (leave empty - not needed)
+  
+  OpenAI API Version:          (leave empty)
+  
+  Additional Parameters:       (optional, see below)
+
+🎨 IMAGE EDIT SETTINGS (Optional)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Image Edit Engine:           AUTOMATIC1111
+  
+  OpenAI API Base URL:         http://automatic1111:7860
+  
+  OpenAI API Key:              (leave empty)
+  
+  OpenAI API Version:          (leave empty)
+
+⚙️  ADDITIONAL PARAMETERS (Optional)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+For better quality, you can add these parameters:
+
+{
+  "steps": 30,
+  "cfg_scale": 7,
+  "sampler_name": "DPM++ 2M Karras",
+  "negative_prompt": "blurry, low quality, distorted, ugly, bad anatomy"
+}
+
+📝 PARAMETER EXPLANATIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  steps:            Number of generation steps (20-50)
+                    • 20 = Fast (5-8 seconds)
+                    • 30 = Balanced (10-15 seconds)
+                    • 50 = High quality (20-30 seconds)
+
+  cfg_scale:        How closely to follow prompt (7-12)
+                    • 7 = More creative
+                    • 10 = Balanced
+                    • 12 = Very literal
+
+  sampler_name:     Algorithm used for generation
+                    • "Euler a" = Fast
+                    • "DPM++ 2M Karras" = Best quality
+                    • "DDIM" = Consistent results
+
+  negative_prompt:  What to avoid in the image
+                    Common: "blurry, low quality, distorted"
+
+🎯 RECOMMENDED SETTINGS FOR YOUR RTX 2080 SUPER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Fast Mode (5-8 seconds):
+{
+  "steps": 20,
+  "cfg_scale": 7,
+  "width": 512,
+  "height": 512,
+  "sampler_name": "Euler a"
+}
+
+Balanced Mode (10-15 seconds):
+{
+  "steps": 30,
+  "cfg_scale": 8,
+  "width": 768,
+  "height": 768,
+  "sampler_name": "DPM++ 2M Karras"
+}
+
+Quality Mode (20-30 seconds):
+{
+  "steps": 50,
+  "cfg_scale": 10,
+  "width": 768,
+  "height": 768,
+  "sampler_name": "DPM++ 2M Karras",
+  "negative_prompt": "blurry, low quality, distorted, ugly, bad anatomy"
+}
+
+🧪 TESTING IMAGE GENERATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+After configuration, test in Open WebUI chat:
+
+  Example 1:
+  "Generate an image of a beautiful sunset over mountains"
+
+  Example 2:
+  "Create an image of a futuristic city at night with neon lights"
+
+  Example 3:
+  "Generate a portrait of a cat wearing a hat, professional photography"
+
+💡 TIPS FOR BETTER IMAGES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ✅ Be specific and descriptive
+     Good: "a red sports car on a mountain road, sunset, photorealistic"
+     Bad: "car"
+
+  ✅ Add quality keywords
+     "highly detailed", "8k", "professional", "sharp focus"
+
+  ✅ Specify style
+     "photorealistic", "oil painting", "digital art", "anime style"
+
+  ✅ Include lighting
+     "studio lighting", "golden hour", "dramatic lighting"
+
+  ✅ Use negative prompts
+     "blurry, low quality, distorted, ugly, watermark"
+
+🔍 TROUBLESHOOTING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Issue: "Connection error" or "API not responding"
+  
+  Solution:
+    1. Check if Stable Diffusion is running:
+       docker ps | grep automatic1111
+    
+    2. Restart if needed:
+       docker restart automatic1111
+    
+    3. Wait 30 seconds and try again
+
+  Issue: "Out of memory" error
+  
+  Solution:
+    1. Reduce image size to 512x512
+    2. Reduce steps to 20
+    3. Check GPU usage: nvidia-smi
+
+  Issue: Images are blurry or low quality
+  
+  Solution:
+    1. Increase steps to 30-50
+    2. Add quality keywords to prompt
+    3. Use negative prompt
+    4. Try different sampler
+
+📊 MONITORING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Check Stable Diffusion status:
+    docker logs automatic1111 --tail 50
+
+  Check GPU usage:
+    nvidia-smi
+
+  Check API:
+    curl http://localhost:7860/sdapi/v1/sd-models
+
+  View generated images:
+    docker exec automatic1111 ls /output/txt2img-images/
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║  QUICK REFERENCE                                                             ║
+║                                                                              ║
+║  Engine:     AUTOMATIC1111                                                   ║
+║  URL:        http://automatic1111:7860                                       ║
+║  API Key:    (empty)                                                         ║
+║                                                                              ║
+║  Save these settings in Open WebUI Admin Panel!                             ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝

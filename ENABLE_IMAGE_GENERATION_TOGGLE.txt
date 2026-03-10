@@ -1,0 +1,122 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║  ⚠️  IMPORTANT: ENABLE IMAGE GENERATION TOGGLE                               ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+🔴 CRITICAL STEP YOU MISSED
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+There is a TOGGLE SWITCH at the top of the Image Generation settings that must
+be turned ON. Without this, image generation won't work!
+
+📍 STEP-BY-STEP INSTRUCTIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Go to: https://mirmi-llm.mirmi.tum.de
+
+2. Click your profile icon (top right) → Admin Panel
+
+3. Left sidebar: Settings → Images
+
+4. Look at the TOP of the page - you'll see:
+
+   ┌────────────────────────────────────────────────────────────────────┐
+   │                                                                    │
+   │  Image Generation                                    ⚪ OFF       │
+   │                                                                    │
+   └────────────────────────────────────────────────────────────────────┘
+
+5. ⚠️  CLICK THE TOGGLE TO TURN IT ON:
+
+   ┌────────────────────────────────────────────────────────────────────┐
+   │                                                                    │
+   │  Image Generation                                    🟢 ON        │
+   │                                                                    │
+   └────────────────────────────────────────────────────────────────────┘
+
+6. NOW you'll see all the configuration fields below. Fill them in:
+
+   ┌────────────────────────────────────────────────────────────────────┐
+   │ CREATE IMAGE                                                       │
+   ├────────────────────────────────────────────────────────────────────┤
+   │                                                                    │
+   │ Image Generation Engine:                                           │
+   │ ┌──────────────────────────────────────────────────────────────┐  │
+   │ │ AUTOMATIC1111                                      ▼         │  │
+   │ └──────────────────────────────────────────────────────────────┘  │
+   │                                                                    │
+   │ AUTOMATIC1111 Base URL:                                            │
+   │ ┌──────────────────────────────────────────────────────────────┐  │
+   │ │ http://automatic1111:7860                                    │  │
+   │ └──────────────────────────────────────────────────────────────┘  │
+   │                                                                    │
+   │ AUTOMATIC1111 Api Auth String:                                     │
+   │ ┌──────────────────────────────────────────────────────────────┐  │
+   │ │                                                              │  │
+   │ └──────────────────────────────────────────────────────────────┘  │
+   │ (leave empty)                                                      │
+   │                                                                    │
+   │ Image Size:                                                        │
+   │ ┌──────────────────────────────────────────────────────────────┐  │
+   │ │ 768x768                                                      │  │
+   │ └──────────────────────────────────────────────────────────────┘  │
+   │                                                                    │
+   │ Steps:                                                             │
+   │ ┌──────────────────────────────────────────────────────────────┐  │
+   │ │ 30                                                           │  │
+   │ └──────────────────────────────────────────────────────────────┘  │
+   │                                                                    │
+   │ Additional Parameters:                                             │
+   │ ┌──────────────────────────────────────────────────────────────┐  │
+   │ │ {                                                            │  │
+   │ │   "cfg_scale": 8,                                            │  │
+   │ │   "sampler_name": "DPM++ 2M Karras",                         │  │
+   │ │   "negative_prompt": "blurry, low quality, distorted"        │  │
+   │ │ }                                                            │  │
+   │ └──────────────────────────────────────────────────────────────┘  │
+   │                                                                    │
+   └────────────────────────────────────────────────────────────────────┘
+
+7. Scroll to bottom and click "Save"
+
+8. Go back to chat and try again:
+   "Generate an image of a sunset"
+
+✅ WHAT TO EXPECT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+After enabling the toggle and saving:
+
+  • The LLM will recognize image generation requests
+  • You'll see a loading indicator
+  • Image appears in 10-15 seconds
+  • No more "I'm a text-based AI" responses
+
+🔍 HOW TO VERIFY IT'S ENABLED
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+After saving, go back to Settings → Images and check:
+
+  ✓ Toggle is ON (green/blue)
+  ✓ Engine shows "AUTOMATIC1111"
+  ✓ Base URL shows "http://automatic1111:7860"
+
+💡 ALTERNATIVE: USE ENVIRONMENT VARIABLE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+If the toggle doesn't work, we can enable it via environment variable in
+docker-compose.yaml:
+
+  environment:
+    - ENABLE_IMAGE_GENERATION=true
+    - IMAGE_GENERATION_ENGINE=automatic1111
+    - AUTOMATIC1111_BASE_URL=http://automatic1111:7860
+
+But try the toggle first - it's easier!
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║  The toggle is the key! Turn it ON first, then configure. 🔑                ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
