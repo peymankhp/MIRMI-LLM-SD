@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# Fix Open WebUI nginx configuration to support WebSocket and LLM streaming
+# Fix MIRMI LLM nginx configuration to support WebSocket and LLM streaming
 # This script backs up the current config and applies the fix
 
 set -e
 
-echo "🔧 Fixing Open WebUI nginx configuration..."
+echo "🔧 Fixing MIRMI LLM nginx configuration..."
 echo ""
 
 # Check if running as root

@@ -2,7 +2,7 @@
 
 ## 🎯 Goal
 
-Isolate Open WebUI and Ollama (LLMs) from internet access for secure document classification while:
+Isolate MIRMI LLM and Ollama (LLMs) from internet access for secure document classification while:
 - ✅ Keeping Ubuntu host internet access
 - ✅ Allowing local network access (10.157.174.0/23)
 - ✅ Maintaining service to local users
@@ -12,13 +12,13 @@ Isolate Open WebUI and Ollama (LLMs) from internet access for secure document cl
 
 ### Current Status
 - ✅ Ollama already on internal network (no internet)
-- ⚠️  Open WebUI has internet access (needs fixing)
+- ⚠️  MIRMI LLM has internet access (needs fixing)
 - ✅ Nginx properly configured
 - ✅ Local network access working
 
 ### Security Analysis
 Your setup is 80% secure already! Just need to:
-1. Move Open WebUI to internal network
+1. Move MIRMI LLM to internal network
 2. Add firewall rules for extra protection
 3. Verify isolation
 
@@ -79,14 +79,14 @@ services:
     dns:
       - 10.157.174.177  # Local DNS only
 
-  open-webui:
+  mirmi-llm:
     build:
       context: .
       dockerfile: Dockerfile
-    image: ghcr.io/open-webui/open-webui:${WEBUI_DOCKER_TAG-main}
-    container_name: open-webui
+    image: ghcr.io/mirmi-llm/mirmi-llm:${WEBUI_DOCKER_TAG-main}
+    container_name: mirmi-llm
     volumes:
-      - open-webui:/app/backend/data
+      - mirmi-llm:/app/backend/data
     depends_on:
       - ollama
     ports:
@@ -104,7 +104,7 @@ services:
 
 volumes:
   ollama: {}
-  open-webui: {}
+  mirmi-llm: {}
 
 networks:
   internal_net:
@@ -154,19 +154,19 @@ docker-compose up -d
 
 ### Test 1: Container Internet Access (Should FAIL)
 ```bash
-docker exec open-webui ping -c 1 8.8.8.8
+docker exec mirmi-llm ping -c 1 8.8.8.8
 # Expected: Network unreachable or timeout
 ```
 
 ### Test 2: Container Local Network (Should WORK)
 ```bash
-docker exec open-webui ping -c 1 10.157.174.177
+docker exec mirmi-llm ping -c 1 10.157.174.177
 # Expected: Success
 ```
 
 ### Test 3: Container to Ollama (Should WORK)
 ```bash
-docker exec open-webui curl http://ollama:11434/api/tags
+docker exec mirmi-llm curl http://ollama:11434/api/tags
 # Expected: JSON response with models
 ```
 
@@ -179,14 +179,14 @@ ping -c 1 8.8.8.8
 ### Test 5: User Access (Should WORK)
 ```bash
 curl -k https://mirmi-llm.mirmi.tum.de
-# Expected: Open WebUI page
+# Expected: MIRMI LLM page
 ```
 
 ## 📊 Architecture Diagram
 
 ### Before Isolation
 ```
-Internet ←→ Ubuntu Host ←→ Open WebUI (has internet)
+Internet ←→ Ubuntu Host ←→ MIRMI LLM (has internet)
                         ←→ Ollama (no internet) ✅
                         ←→ Local Network Users
 ```
@@ -197,7 +197,7 @@ Internet ←→ Ubuntu Host (only) ✅
             ↓
             Nginx (proxy)
             ↓
-            Open WebUI (no internet) ✅
+            MIRMI LLM (no internet) ✅
             ↓
             Ollama (no internet) ✅
             ↑
@@ -224,8 +224,8 @@ Internet ←→ Ubuntu Host (only) ✅
 ## ⚠️ Important Notes
 
 ### What Still Works
-- ✅ Local network users can access Open WebUI
-- ✅ Open WebUI can communicate with Ollama
+- ✅ Local network users can access MIRMI LLM
+- ✅ MIRMI LLM can communicate with Ollama
 - ✅ All LLM models work normally
 - ✅ Document classification works
 - ✅ Ubuntu host has internet
@@ -236,7 +236,7 @@ Internet ←→ Ubuntu Host (only) ✅
 - ❌ Containers cannot download updates
 - ❌ Containers cannot access external APIs
 - ❌ Containers cannot resolve external domains
-- ❌ Open WebUI cannot check for updates
+- ❌ MIRMI LLM cannot check for updates
 
 ### How to Update Containers
 
@@ -285,12 +285,12 @@ sudo iptables -L DOCKER-USER -n -v
 
 ### Check Container Network
 ```bash
-docker network inspect open-webui_internal_net
+docker network inspect mirmi-llm_internal_net
 ```
 
 ### Monitor Container Logs
 ```bash
-docker logs open-webui --tail 50
+docker logs mirmi-llm --tail 50
 docker logs ollama --tail 50
 ```
 
@@ -306,7 +306,7 @@ This isolation is perfect for:
 
 ## 📞 Troubleshooting
 
-### Issue: Users can't access Open WebUI
+### Issue: Users can't access MIRMI LLM
 
 **Check:**
 ```bash
@@ -334,10 +334,10 @@ docker-compose restart
 **Check:**
 ```bash
 # Are they on same network?
-docker network inspect open-webui_internal_net
+docker network inspect mirmi-llm_internal_net
 
 # Test connectivity
-docker exec open-webui ping ollama
+docker exec mirmi-llm ping ollama
 ```
 
 **Fix:**
@@ -380,7 +380,7 @@ Before going live:
 ## 🎉 Success Criteria
 
 Your isolation is successful when:
-- ✅ `docker exec open-webui ping 8.8.8.8` fails
+- ✅ `docker exec mirmi-llm ping 8.8.8.8` fails
 - ✅ `docker exec ollama ping 8.8.8.8` fails
 - ✅ `ping 8.8.8.8` succeeds (from host)
 - ✅ Users can access https://mirmi-llm.mirmi.tum.de

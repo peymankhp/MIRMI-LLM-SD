@@ -9,12 +9,12 @@ echo "1. Checking container status..."
 docker ps | grep automatic1111
 echo ""
 
-echo "2. Testing API from Open WebUI container..."
-docker exec open-webui curl -s http://automatic1111:7860/sdapi/v1/sd-models | python3 -c "import sys, json; data=json.load(sys.stdin); print(f'✅ API Working! Model: {data[0][\"model_name\"]}')" 2>&1
+echo "2. Testing API from MIRMI LLM container..."
+docker exec mirmi-llm curl -s http://automatic1111:7860/sdapi/v1/sd-models | python3 -c "import sys, json; data=json.load(sys.stdin); print(f'✅ API Working! Model: {data[0][\"model_name\"]}')" 2>&1
 echo ""
 
 echo "3. Testing simple image generation (this will take 10-15 seconds)..."
-docker exec open-webui curl -s -X POST http://automatic1111:7860/sdapi/v1/txt2img \
+docker exec mirmi-llm curl -s -X POST http://automatic1111:7860/sdapi/v1/txt2img \
   -H "Content-Type: application/json" \
   -d '{
     "prompt": "a beautiful sunset",
@@ -28,5 +28,5 @@ echo "=========================================="
 echo "✅ All tests passed!"
 echo "=========================================="
 echo ""
-echo "Next step: Configure Open WebUI Admin Panel"
+echo "Next step: Configure MIRMI LLM Admin Panel"
 echo "See: CONFIGURE_OPENWEBUI_IMAGES.txt"

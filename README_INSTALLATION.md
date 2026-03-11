@@ -2,7 +2,7 @@
 
 ## What I've Prepared for You
 
-I've analyzed your Open WebUI setup and created a safe installation solution. Your project is running with Docker Compose, and I've corrected the approach from the instructions you received.
+I've analyzed your MIRMI LLM setup and created a safe installation solution. Your project is running with Docker Compose, and I've corrected the approach from the instructions you received.
 
 ## The Problem with Original Instructions
 
@@ -41,7 +41,7 @@ The script will:
 
 After installation:
 
-### Open WebUI
+### MIRMI LLM
 - Still accessible at `http://localhost:8081`
 - New models appear in the dropdown automatically
 - All existing data and models preserved
@@ -93,7 +93,7 @@ The script will modify your `docker-compose.yaml`:
 
 - ✅ Full backup before any changes
 - ✅ Preserves all existing data and models
-- ✅ No downtime for Open WebUI
+- ✅ No downtime for MIRMI LLM
 - ✅ Rollback instructions provided
 - ✅ Verification tests after installation
 
@@ -180,10 +180,10 @@ docker-compose logs -f
 docker logs ollama
 
 # Verify network
-docker network inspect open-webui_internal_net
+docker network inspect mirmi-llm_internal_net
 
 # Test internal connectivity
-docker exec open-webui curl http://ollama:11434/api/tags
+docker exec mirmi-llm curl http://ollama:11434/api/tags
 ```
 
 ## Support
@@ -205,4 +205,4 @@ The script will guide you through each step and ask for confirmation before maki
 
 ---
 
-**Note:** Your Open WebUI project will continue running normally throughout this process. The script is designed to be safe and non-disruptive.
+**Note:** Your MIRMI LLM project will continue running normally throughout this process. The script is designed to be safe and non-disruptive.

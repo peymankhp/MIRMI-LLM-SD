@@ -47,7 +47,7 @@
     ./auto-clear-cache.sh
     
     • Clears cache only
-    • Then use Mixtral in Open WebUI
+    • Then use Mixtral in MIRMI LLM
     • No password needed
 
 📝 COMMANDS CHEAT SHEET
@@ -147,7 +147,7 @@
 ║                                                                              ║
 ║  1. sudo ./setup-mixtral-memory.sh          (one-time setup)                 ║
 ║  2. ./ollama-memory-manager.sh mixtral...   (before using Mixtral)           ║
-║  3. Use Mixtral in Open WebUI               (wait for it to load)            ║
+║  3. Use Mixtral in MIRMI LLM               (wait for it to load)            ║
 ║                                                                              ║
 ║  That's it! No more manual cache clearing needed! 🎉                         ║
 ║                                                                              ║

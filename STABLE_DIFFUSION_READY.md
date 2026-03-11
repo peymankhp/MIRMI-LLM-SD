@@ -7,16 +7,16 @@ Your Stable Diffusion image generation service is running and tested successfull
 ```
 ✅ Container running
 ✅ Model loaded (Stable Diffusion v1.5)
-✅ API accessible from Open WebUI
+✅ API accessible from MIRMI LLM
 ✅ Authentication disabled
 ✅ Test image generated successfully
 ```
 
 ---
 
-## 🚀 NEXT STEP: Configure Open WebUI
+## 🚀 NEXT STEP: Configure MIRMI LLM
 
-You need to configure Open WebUI to use Stable Diffusion. This takes 2 minutes.
+You need to configure MIRMI LLM to use Stable Diffusion. This takes 2 minutes.
 
 ### Quick Configuration
 
@@ -137,7 +137,7 @@ nvidia-smi
 ## 🎯 What Was Fixed
 
 1. ✅ Installed Stable Diffusion WebUI container
-2. ✅ Connected to same network as Open WebUI
+2. ✅ Connected to same network as MIRMI LLM
 3. ✅ Disabled authentication for API access
 4. ✅ Loaded Stable Diffusion v1.5 model
 5. ✅ Verified API connectivity
@@ -147,8 +147,8 @@ nvidia-smi
 
 ## 🔒 Security Note
 
-The Stable Diffusion API is only accessible within the Docker network. It's not exposed to the internet, only to Open WebUI container.
+The Stable Diffusion API is only accessible within the Docker network. It's not exposed to the internet, only to MIRMI LLM container.
 
 ---
 
-**Ready to generate images! Just configure Open WebUI and start creating.** 🎨
+**Ready to generate images! Just configure MIRMI LLM and start creating.** 🎨

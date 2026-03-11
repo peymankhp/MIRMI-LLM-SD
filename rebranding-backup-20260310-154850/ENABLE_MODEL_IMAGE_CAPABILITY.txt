@@ -1,0 +1,160 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║  🔧 ENABLE IMAGE GENERATION FOR YOUR MODEL                                   ║
+║  Required for MIRMI LLM v0.7.0+                                            ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+❌ CURRENT PROBLEM
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Your settings are correct, but the LLM responds:
+"Unfortunately, I'm a text-based AI and don't have the ability to generate 
+visual images."
+
+This is because the MODEL doesn't have image generation capability enabled.
+
+✅ SOLUTION: Enable Image Generation Capability
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+METHOD 1: Enable in Model Settings (Recommended)
+────────────────────────────────────────────────────────────────────────────
+
+STEP 1: Go to Models
+  1. Admin Panel → Models (in left sidebar)
+  2. Find: llama3.1:8b-instruct-q4_K_M
+  3. Click the edit icon (pencil) next to it
+
+STEP 2: Enable Image Generation
+  Look for one of these sections:
+  
+  • "Capabilities" section
+  • "Tools" section  
+  • "Function Calling" section
+  
+  Find and ENABLE:
+  ☐ Image Generation
+  ☐ generate_image
+  ☐ Vision/Image capabilities
+  
+  (The exact name depends on your MIRMI LLM version)
+
+STEP 3: Save
+  Click "Save" at the bottom
+
+STEP 4: Test
+  Go to chat and type:
+  "Generate an image of a sunset"
+
+METHOD 2: Install Generate Image Action (Alternative)
+────────────────────────────────────────────────────────────────────────────
+
+If Method 1 doesn't work or you can't find the capability setting:
+
+STEP 1: Go to Functions
+  Workspace → Functions (or Admin Panel → Functions)
+
+STEP 2: Add Function
+  Click "+" or "Add Function"
+
+STEP 3: Import Community Action
+  Search for: "Generate Image Action"
+  Or visit: https://openwebui.com/f/matthewh/image_gen_pipe
+  Click "Get" or "Import"
+
+STEP 4: Enable It
+  Make sure the function is enabled (toggle ON)
+
+STEP 5: Use It
+  In chat, you'll see a "Generate Image" button on messages
+  Click it to generate images from text
+
+METHOD 3: Use Direct Prompt (Workaround)
+────────────────────────────────────────────────────────────────────────────
+
+If neither method works, try this specific prompt format:
+
+  "Use the image generation tool to create: a beautiful sunset"
+
+Or:
+
+  "Call the generate_image function with prompt: sunset over mountains"
+
+📊 WHAT EACH METHOD DOES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Method 1 (Capabilities):
+  • Model knows it can generate images
+  • Works with natural language: "Generate an image of..."
+  • Most seamless experience
+
+Method 2 (Action/Function):
+  • Adds a button to generate images
+  • Click button on any message to generate
+  • Good for iterating on prompts
+
+Method 3 (Direct):
+  • Explicitly tells model to use the tool
+  • Workaround if other methods fail
+  • Less natural but functional
+
+🔍 HOW TO CHECK IF IT'S WORKING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+BEFORE (Not Working):
+  You: "Generate an image of a sunset"
+  LLM: "Unfortunately, I'm a text-based AI and don't have the ability..."
+
+AFTER (Working):
+  You: "Generate an image of a sunset"
+  LLM: [Generates image] or "Generating image..." [image appears]
+
+💡 ADDITIONAL TIPS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+• Try different models: Some models have better function calling support
+  (Qwen 2.5 14B is excellent for this)
+
+• Check model info: In Models settings, look for "Function Calling" support
+
+• Update Additional Parameters: In Images settings, make sure you have:
+  {
+    "cfg_scale": 8,
+    "sampler_name": "DPM++ 2M Karras",
+    "negative_prompt": "blurry, low quality, distorted"
+  }
+
+• Restart MIRMI LLM: After enabling capabilities:
+  docker restart mirmi-llm
+
+🔧 TROUBLESHOOTING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Problem: Can't find "Capabilities" in model settings
+
+Solution:
+  • Your MIRMI LLM version might be older
+  • Use Method 2 (Install Generate Image Action)
+  • Or update MIRMI LLM to latest version
+
+Problem: Model still says "text-based AI"
+
+Solution:
+  • Try using Qwen 2.5 14B instead (better function calling)
+  • Use Method 2 (Generate Image Action button)
+  • Try Method 3 (Direct prompt)
+
+Problem: "Connection error" when generating
+
+Solution:
+  • Check Stable Diffusion is running:
+    docker ps | grep automatic1111
+  • Restart if needed:
+    docker restart automatic1111
+  • Wait 30 seconds and try again
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║  Start with Method 1 - it's the cleanest solution! 🎯                        ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝

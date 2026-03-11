@@ -1,18 +1,18 @@
 #!/bin/bash
 
-# Install Stable Diffusion for Open WebUI Image Generation
+# Install Stable Diffusion for MIRMI LLM Image Generation
 # Zero downtime - runs alongside existing services
 
 set -e
 
-echo "🎨 Installing Stable Diffusion for Open WebUI"
+echo "🎨 Installing Stable Diffusion for MIRMI LLM"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 echo "This will:"
 echo "  ✅ Install AUTOMATIC1111 Stable Diffusion WebUI"
 echo "  ✅ Configure for your RTX 2080 SUPER (8GB VRAM)"
 echo "  ✅ Download Stable Diffusion v1.5 model"
-echo "  ✅ Integrate with Open WebUI"
+echo "  ✅ Integrate with MIRMI LLM"
 echo "  ✅ Zero downtime for existing services"
 echo ""
 
@@ -128,13 +128,13 @@ echo "✅ INSTALLATION COMPLETE!"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 echo "📊 Service Status:"
-docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}" | grep -E "NAME|automatic1111|open-webui|ollama"
+docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}" | grep -E "NAME|automatic1111|mirmi-llm|ollama"
 echo ""
 echo "🎨 Stable Diffusion WebUI:"
 echo "   URL: http://localhost:7860"
 echo "   API: http://localhost:7860/sdapi/v1"
 echo ""
-echo "🔧 Open WebUI Configuration:"
+echo "🔧 MIRMI LLM Configuration:"
 echo "   1. Go to: https://mirmi-llm.mirmi.tum.de"
 echo "   2. Admin Panel > Settings > Images > Image Generation"
 echo "   3. Set Image Generation Engine: AUTOMATIC1111"
@@ -143,7 +143,7 @@ echo "   5. Leave API Key empty (not needed for local)"
 echo "   6. Click Save"
 echo ""
 echo "🧪 Test Image Generation:"
-echo "   1. In Open WebUI chat, type: 'Generate an image of a sunset'"
+echo "   1. In MIRMI LLM chat, type: 'Generate an image of a sunset'"
 echo "   2. Or use the image generation button"
 echo ""
 echo "📚 Read: STABLE_DIFFUSION_GUIDE.md for details"

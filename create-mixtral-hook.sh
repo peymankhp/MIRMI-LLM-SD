@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# Create an Open WebUI hook that automatically clears cache before using Mixtral
+# Create an MIRMI LLM hook that automatically clears cache before using Mixtral
 
 HOOK_DIR=".kiro/hooks"
 HOOK_FILE="$HOOK_DIR/mixtral-memory-prep.json"
 
-echo "🎣 Creating Open WebUI hook for automatic memory management..."
+echo "🎣 Creating MIRMI LLM hook for automatic memory management..."
 echo ""
 
 # Create hooks directory if it doesn't exist

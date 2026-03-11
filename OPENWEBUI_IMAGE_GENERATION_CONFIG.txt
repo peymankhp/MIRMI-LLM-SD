@@ -104,7 +104,7 @@ Quality Mode (20-30 seconds):
 🧪 TESTING IMAGE GENERATION
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-After configuration, test in Open WebUI chat:
+After configuration, test in MIRMI LLM chat:
 
   Example 1:
   "Generate an image of a beautiful sunset over mountains"
@@ -186,6 +186,6 @@ After configuration, test in Open WebUI chat:
 ║  URL:        http://automatic1111:7860                                       ║
 ║  API Key:    (empty)                                                         ║
 ║                                                                              ║
-║  Save these settings in Open WebUI Admin Panel!                             ║
+║  Save these settings in MIRMI LLM Admin Panel!                             ║
 ║                                                                              ║
 ╚══════════════════════════════════════════════════════════════════════════════╝

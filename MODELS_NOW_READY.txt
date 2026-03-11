@@ -9,9 +9,9 @@
 
   You have TWO Ollama instances:
 
-  1. Ollama in Docker (for Open WebUI)
+  1. Ollama in Docker (for MIRMI LLM)
      → Port: Not exposed to host
-     → Used by: Open WebUI
+     → Used by: MIRMI LLM
      → Models: 14 models
 
   2. Ollama on Host (for Continue/VSCode)
@@ -48,9 +48,9 @@
     • qwen2.5:latest (already had)
     • mistral:latest (already had)
 
-  Docker Ollama (for Open WebUI):
+  Docker Ollama (for MIRMI LLM):
     • All your existing models still there
-    • Open WebUI continues to work normally
+    • MIRMI LLM continues to work normally
 
 🔄 NEXT STEP: Reload Continue
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -95,13 +95,13 @@
 
   This is actually GOOD:
 
-  ✓ Open WebUI uses Docker Ollama (isolated, secure)
+  ✓ MIRMI LLM uses Docker Ollama (isolated, secure)
   ✓ Continue uses Host Ollama (fast, direct access)
   ✓ Both can run simultaneously
   ✓ No conflicts between them
 
   You can use different models in each:
-  • Open WebUI: Mixtral, Llama2, etc.
+  • MIRMI LLM: Mixtral, Llama2, etc.
   • Continue: Qwen Coder, Llama 3.1, etc.
 
 📊 MEMORY USAGE:
@@ -144,7 +144,7 @@
     ollama pull <model>            # Add model
     ollama rm <model>              # Remove model
 
-  For Open WebUI (Docker Ollama):
+  For MIRMI LLM (Docker Ollama):
     docker exec ollama ollama list           # List models
     docker exec ollama ollama pull <model>   # Add model
     docker exec ollama ollama rm <model>     # Remove model
@@ -165,7 +165,7 @@
     Ctrl+I → Select code → "Add error handling"
     Tab → Accept autocomplete suggestions
 
-  In Open WebUI:
+  In MIRMI LLM:
     Use your existing models normally
     Everything continues to work as before
 

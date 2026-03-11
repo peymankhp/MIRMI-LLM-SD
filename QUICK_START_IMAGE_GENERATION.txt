@@ -1,7 +1,7 @@
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                                                                              ║
 ║  STABLE DIFFUSION - QUICK START GUIDE                                        ║
-║  Image Generation for Open WebUI                                             ║
+║  Image Generation for MIRMI LLM                                             ║
 ║                                                                              ║
 ╚══════════════════════════════════════════════════════════════════════════════╝
 
@@ -44,7 +44,7 @@
 🎨 TEST IT
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  In Open WebUI chat, type:
+  In MIRMI LLM chat, type:
 
     "Generate an image of a beautiful sunset over mountains"
 
@@ -99,6 +99,6 @@
 
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                                                                              ║
-║  Ready to generate images! Configure Open WebUI and start creating. 🎨      ║
+║  Ready to generate images! Configure MIRMI LLM and start creating. 🎨      ║
 ║                                                                              ║
 ╚══════════════════════════════════════════════════════════════════════════════╝

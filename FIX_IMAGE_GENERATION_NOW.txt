@@ -12,7 +12,7 @@ When you type "Generate an image of a sunset", the LLM responds:
 "Unfortunately, I'm a text-based AI and don't have the ability to generate 
 visual images."
 
-This means image generation is NOT enabled in Open WebUI.
+This means image generation is NOT enabled in MIRMI LLM.
 
 ✅ SOLUTION (3 Steps)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -106,7 +106,7 @@ AFTER (Toggle ON):
 💡 KEY POINT
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-The toggle is the most important step! Without turning it ON, Open WebUI 
+The toggle is the most important step! Without turning it ON, MIRMI LLM 
 doesn't know image generation is available, even though Stable Diffusion is 
 running perfectly in the background.
 

@@ -1,8 +1,8 @@
-# Open WebUI LLM Fix - Complete Summary
+# MIRMI LLM LLM Fix - Complete Summary
 
 ## ✅ Problem Solved!
 
-Your Open WebUI at **https://mirmi-llm.mirmi.tum.de** was loading correctly, but LLMs weren't responding due to missing WebSocket support in the nginx configuration.
+Your MIRMI LLM at **https://mirmi-llm.mirmi.tum.de** was loading correctly, but LLMs weren't responding due to missing WebSocket support in the nginx configuration.
 
 ## 🔧 What Was Fixed
 
@@ -70,11 +70,11 @@ Press `F12` to open developer tools and check the Console tab for:
 ## 📊 Your System Status
 
 ### ✅ Working Components
-- Open WebUI container: Running (healthy)
+- MIRMI LLM container: Running (healthy)
 - Ollama container: Running
 - 9 LLM models loaded and ready
 - HTTPS with valid Let's Encrypt certificate
-- Internal connectivity: Open WebUI ↔ Ollama
+- Internal connectivity: MIRMI LLM ↔ Ollama
 
 ### 🔧 Fixed Components
 - WebSocket support: Now enabled
@@ -128,14 +128,14 @@ sudo systemctl restart nginx
    sudo systemctl status nginx
    ```
 
-3. **Check Open WebUI logs:**
+3. **Check MIRMI LLM logs:**
    ```bash
-   docker logs open-webui --tail 50
+   docker logs mirmi-llm --tail 50
    ```
 
 4. **Test internal connectivity:**
    ```bash
-   docker exec open-webui curl -s http://ollama:11434/api/tags
+   docker exec mirmi-llm curl -s http://ollama:11434/api/tags
    ```
 
 5. **Try a different browser:**
@@ -167,14 +167,14 @@ sudo nginx -T | grep -A 5 "map.*http_upgrade"
 # Check site config
 sudo cat /etc/nginx/sites-available/openwebui | grep -A 3 "Upgrade"
 
-# Test Open WebUI health
+# Test MIRMI LLM health
 curl -s http://10.157.174.177:8080/health
 
 # List available models
 docker exec ollama ollama list
 
 # Check recent logs
-docker logs open-webui --tail 20
+docker logs mirmi-llm --tail 20
 ```
 
 ## 🎉 Success Indicators
@@ -268,7 +268,7 @@ When you send a message, you should see:
 If you still have issues:
 1. Check browser console (F12) for specific errors
 2. Run `./verify-fix.sh` to check configuration
-3. Check logs: `docker logs open-webui --tail 50`
+3. Check logs: `docker logs mirmi-llm --tail 50`
 4. Try different browser or incognito mode
 
 ---

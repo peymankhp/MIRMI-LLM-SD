@@ -1,8 +1,8 @@
-# Network Isolation Plan for Open WebUI & LLMs
+# Network Isolation Plan for MIRMI LLM & LLMs
 
 ## 🎯 Security Requirement
 
-**Goal:** Isolate Open WebUI and Ollama (LLMs) from internet access while:
+**Goal:** Isolate MIRMI LLM and Ollama (LLMs) from internet access while:
 - ✅ Keeping Ubuntu host internet access
 - ✅ Allowing local network access (10.157.174.0/23)
 - ✅ Maintaining service to local users
@@ -20,14 +20,14 @@ Host Machine:
   - Internet: ✅ Has access
 
 Docker Networks:
-  1. open-webui_internal_net (172.19.0.0/16)
+  1. mirmi-llm_internal_net (172.19.0.0/16)
      - Status: internal: true ✅
      - Containers: ollama (172.19.0.2)
      - Internet: ❌ Already blocked
   
-  2. open-webui_default (172.18.0.0/16)
+  2. mirmi-llm_default (172.18.0.0/16)
      - Status: bridge (has internet)
-     - Containers: open-webui (172.18.0.3)
+     - Containers: mirmi-llm (172.18.0.3)
      - Internet: ⚠️  Currently has access
 
 Nginx:
@@ -44,7 +44,7 @@ Nginx:
 - Docker compose configured correctly
 
 ⚠️ **Needs Fixing:**
-- Open WebUI container has internet access
+- MIRMI LLM container has internet access
 - Port 8080 exposed on 0.0.0.0 (all interfaces)
 - No explicit firewall rules for container isolation
 
@@ -61,7 +61,7 @@ Nginx:
 - Keep host internet access intact
 
 ### Layer 3: Port Binding
-- Bind Open WebUI only to localhost or LAN IP
+- Bind MIRMI LLM only to localhost or LAN IP
 - Remove 0.0.0.0 bindings
 - Nginx handles external access
 
@@ -167,7 +167,7 @@ If something goes wrong:
 │  │  ✅ Local Network Access (10.157.174.0/23)          │   │
 │  │                                                       │   │
 │  │  ┌──────────────────┐  ┌──────────────────┐        │   │
-│  │  │  Open WebUI      │  │  Ollama (LLMs)   │        │   │
+│  │  │  MIRMI LLM      │  │  Ollama (LLMs)   │        │   │
 │  │  │  172.19.0.3      │  │  172.19.0.2      │        │   │
 │  │  │  ❌ No Internet   │  │  ❌ No Internet   │        │   │
 │  │  └──────────────────┘  └──────────────────┘        │   │
@@ -178,7 +178,7 @@ If something goes wrong:
                               │
 ┌─────────────────────────────────────────────────────────────┐
 │         Local Network Users (10.157.174.0/23)                │
-│         ✅ Can access Open WebUI via HTTPS                   │
+│         ✅ Can access MIRMI LLM via HTTPS                   │
 └─────────────────────────────────────────────────────────────┘
 ```
 

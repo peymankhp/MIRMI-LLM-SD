@@ -13,11 +13,11 @@
 │  └──────────────────────────────────────────────────┘  │
 │                                                          │
 │  ┌──────────────────────────────────────────────────┐  │
-│  │ Docker: open-webui_internal_net                  │  │
+│  │ Docker: mirmi-llm_internal_net                  │  │
 │  │ Type: INTERNAL (isolated) ⚠️                      │  │
 │  │                                                    │  │
 │  │  ┌─────────────────┐    ┌──────────────────┐    │  │
-│  │  │ open-webui      │───▶│ ollama           │    │  │
+│  │  │ mirmi-llm      │───▶│ ollama           │    │  │
 │  │  │ Port: 8081→8080 │    │ Port: 11434      │    │  │
 │  │  │ (localhost only)│    │ (internal only)  │    │  │
 │  │  └─────────────────┘    └──────────────────┘    │  │
@@ -42,11 +42,11 @@
 │  └──────────────────────────────────────────────────┘  │
 │                                                          │
 │  ┌──────────────────────────────────────────────────┐  │
-│  │ Docker: open-webui_internal_net                  │  │
+│  │ Docker: mirmi-llm_internal_net                  │  │
 │  │ Type: BRIDGE (accessible) ✅                       │  │
 │  │                                                    │  │
 │  │  ┌─────────────────┐    ┌──────────────────┐    │  │
-│  │  │ open-webui      │───▶│ ollama           │    │  │
+│  │  │ mirmi-llm      │───▶│ ollama           │    │  │
 │  │  │ Port: 8081→8080 │    │ Port: 11434→11434│◀───┼──┼─ External Access ✅
 │  │  │ (localhost only)│    │ (exposed)        │    │  │
 │  │  └─────────────────┘    └──────────────────┘    │  │
@@ -102,9 +102,9 @@ networks:
 
 ## Access Patterns
 
-### Open WebUI Access (Unchanged)
+### MIRMI LLM Access (Unchanged)
 ```
-Browser → http://localhost:8081 → Open WebUI Container → Ollama Container
+Browser → http://localhost:8081 → MIRMI LLM Container → Ollama Container
 ```
 
 ### External API Access (NEW)
@@ -221,10 +221,10 @@ docker-compose down
 cp backups/<timestamp>/docker-compose.yaml ./
 
 # 3. Restore data (if needed)
-docker volume rm open-webui ollama
-docker run --rm -v open-webui:/data \
+docker volume rm mirmi-llm ollama
+docker run --rm -v mirmi-llm:/data \
   -v $(pwd)/backups/<timestamp>:/backup alpine \
-  tar xzf /backup/open-webui-data.tar.gz -C /data
+  tar xzf /backup/mirmi-llm-data.tar.gz -C /data
 
 docker run --rm -v ollama:/data \
   -v $(pwd)/backups/<timestamp>:/backup alpine \
@@ -238,8 +238,8 @@ docker-compose up -d
 
 After installation, verify:
 
-- [ ] Open WebUI accessible: `http://localhost:8081`
-- [ ] New models appear in Open WebUI dropdown
+- [ ] MIRMI LLM accessible: `http://localhost:8081`
+- [ ] New models appear in MIRMI LLM dropdown
 - [ ] Ollama API responds: `curl http://localhost:11434/api/tags`
 - [ ] Can generate text: `curl http://localhost:11434/api/generate -d '{"model":"llama3:8b","prompt":"Hi"}'`
 - [ ] No port conflicts: `sudo netstat -tlnp | grep 11434`
@@ -254,7 +254,7 @@ After installation, verify:
 | Ollama Port | Not exposed | Exposed (11434) |
 | Host Ollama | Running (conflict) | Stopped |
 | External API | ❌ Not possible | ✅ Available |
-| Open WebUI | ✅ Working | ✅ Working |
+| MIRMI LLM | ✅ Working | ✅ Working |
 | Security | Very high | High (with firewall) |
 | Model Storage | Single location | Single location |
 | GPU Access | ✅ Available | ✅ Available |

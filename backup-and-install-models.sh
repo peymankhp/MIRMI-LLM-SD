@@ -2,7 +2,7 @@
 set -e
 
 echo "=========================================="
-echo "Open WebUI - Safe Model Installation"
+echo "MIRMI LLM - Safe Model Installation"
 echo "=========================================="
 echo ""
 
@@ -24,10 +24,10 @@ if [ -f "docker-compose.yaml" ]; then
     echo "✓ Backed up docker-compose.yaml"
 fi
 
-# Backup Open WebUI data volume
-echo "Creating Open WebUI data backup..."
-docker run --rm -v open-webui:/data -v "$(pwd)/$BACKUP_DIR":/backup alpine tar czf /backup/open-webui-data.tar.gz -C /data .
-echo "✓ Backed up Open WebUI data volume"
+# Backup MIRMI LLM data volume
+echo "Creating MIRMI LLM data backup..."
+docker run --rm -v mirmi-llm:/data -v "$(pwd)/$BACKUP_DIR":/backup alpine tar czf /backup/mirmi-llm-data.tar.gz -C /data .
+echo "✓ Backed up MIRMI LLM data volume"
 
 # Backup Ollama models volume
 echo "Creating Ollama models backup (this may take a while)..."
@@ -40,7 +40,7 @@ echo ""
 # Check current setup
 echo -e "${YELLOW}Step 2: Analyzing current setup...${NC}"
 echo "Current containers:"
-docker ps --filter "name=open-webui" --filter "name=ollama" --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
+docker ps --filter "name=mirmi-llm" --filter "name=ollama" --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
 echo ""
 
 echo "Current models in Ollama container:"
@@ -188,7 +188,7 @@ echo "Backup location: $BACKUP_DIR"
 echo ""
 echo "To restore from backup if needed:"
 echo "  docker-compose down"
-echo "  docker volume rm open-webui ollama"
-echo "  docker run --rm -v open-webui:/data -v $(pwd)/$BACKUP_DIR:/backup alpine tar xzf /backup/open-webui-data.tar.gz -C /data"
+echo "  docker volume rm mirmi-llm ollama"
+echo "  docker run --rm -v mirmi-llm:/data -v $(pwd)/$BACKUP_DIR:/backup alpine tar xzf /backup/mirmi-llm-data.tar.gz -C /data"
 echo "  docker run --rm -v ollama:/data -v $(pwd)/$BACKUP_DIR:/backup alpine tar xzf /backup/ollama-models.tar.gz -C /data"
 echo "  docker-compose up -d"

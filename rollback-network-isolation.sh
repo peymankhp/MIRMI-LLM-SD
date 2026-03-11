@@ -31,7 +31,7 @@ fi
 
 echo ""
 echo "Step 1: Stopping containers..."
-cd /home/mirmi/open-webui || cd "$(dirname "$0")"
+cd /home/mirmi/mirmi-llm || cd "$(dirname "$0")"
 docker-compose down
 
 echo ""

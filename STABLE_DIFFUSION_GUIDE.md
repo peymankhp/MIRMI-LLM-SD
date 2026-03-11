@@ -1,8 +1,8 @@
-# Stable Diffusion Integration Guide for Open WebUI
+# Stable Diffusion Integration Guide for MIRMI LLM
 
 ## 🎨 Overview
 
-This guide explains how to add Stable Diffusion v1.5 image generation to your Open WebUI without disrupting existing services.
+This guide explains how to add Stable Diffusion v1.5 image generation to your MIRMI LLM without disrupting existing services.
 
 ## 📊 Your System
 
@@ -39,7 +39,7 @@ See detailed steps below.
 1. **AUTOMATIC1111 Stable Diffusion WebUI**
    - Industry standard SD interface
    - Full API support
-   - Compatible with Open WebUI
+   - Compatible with MIRMI LLM
 
 2. **Stable Diffusion v1.5 Model**
    - Size: ~4GB
@@ -90,7 +90,7 @@ wget -c https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-
 - SD v2.1: Higher quality but slower
 - Custom models from Civitai.com
 
-### Step 4: Configure Open WebUI
+### Step 4: Configure MIRMI LLM
 
 1. **Access Admin Panel:**
    - Go to: https://mirmi-llm.mirmi.tum.de
@@ -117,7 +117,7 @@ wget -c https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-
 
 ### Step 5: Test Image Generation
 
-**In Open WebUI chat:**
+**In MIRMI LLM chat:**
 ```
 Generate an image of a beautiful sunset over mountains
 ```
@@ -143,7 +143,7 @@ CLI_ARGS: >
 
 ### Image Generation Parameters
 
-**In Open WebUI, you can specify:**
+**In MIRMI LLM, you can specify:**
 
 - **Size:** 512x512 (fast), 768x768 (balanced), 1024x1024 (slow)
 - **Steps:** 20-30 (good quality), 50+ (best quality)
@@ -171,7 +171,7 @@ blurry, low quality, distorted, ugly, bad anatomy, watermark
 ### Before Adding Stable Diffusion
 ```
 ┌─────────────────────────────────────┐
-│  Open WebUI (port 8080)             │
+│  MIRMI LLM (port 8080)             │
 │  ↓                                   │
 │  Ollama (LLMs)                      │
 └─────────────────────────────────────┘
@@ -180,7 +180,7 @@ blurry, low quality, distorted, ugly, bad anatomy, watermark
 ### After Adding Stable Diffusion
 ```
 ┌─────────────────────────────────────┐
-│  Open WebUI (port 8080)             │
+│  MIRMI LLM (port 8080)             │
 │  ↓                    ↓              │
 │  Ollama (LLMs)    Stable Diffusion  │
 │                   (port 7860)        │
@@ -309,15 +309,15 @@ docker-compose -f docker-compose-stable-diffusion.yaml restart automatic1111
 - Close other GPU applications
 - Check: `nvidia-smi`
 
-### Issue: Open WebUI can't connect
+### Issue: MIRMI LLM can't connect
 
 **Check:**
 ```bash
 # Are they on same network?
-docker network inspect open-webui_internal_net
+docker network inspect mirmi-llm_internal_net
 
 # Test connectivity
-docker exec open-webui curl http://automatic1111:7860
+docker exec mirmi-llm curl http://automatic1111:7860
 ```
 
 **Fix:**
@@ -357,7 +357,7 @@ CFG Scale: 10
 ### Image-to-Image
 
 Generate variations of existing images:
-1. Upload an image in Open WebUI
+1. Upload an image in MIRMI LLM
 2. Describe desired changes
 3. Adjust denoising strength (0.3-0.7)
 
@@ -441,14 +441,14 @@ docker cp automatic1111:/data/models ./stable-diffusion-models-backup
 docker exec automatic1111 rm -rf /output/txt2img-images/*
 ```
 
-## 📝 Integration with Open WebUI
+## 📝 Integration with MIRMI LLM
 
 ### How It Works
 
-1. User requests image in Open WebUI
-2. Open WebUI sends request to Stable Diffusion API
+1. User requests image in MIRMI LLM
+2. MIRMI LLM sends request to Stable Diffusion API
 3. Stable Diffusion generates image
-4. Image returned to Open WebUI
+4. Image returned to MIRMI LLM
 5. User sees image in chat
 
 ### API Endpoints Used
@@ -463,14 +463,14 @@ docker exec automatic1111 rm -rf /output/txt2img-images/*
 - [ ] Stable Diffusion container running
 - [ ] SD v1.5 model downloaded
 - [ ] API responding on port 7860
-- [ ] Open WebUI configured
+- [ ] MIRMI LLM configured
 - [ ] Test image generated successfully
 - [ ] GPU being utilized
 - [ ] No errors in logs
 
 ## 🎉 You're Ready!
 
-Your Open WebUI now has image generation capabilities!
+Your MIRMI LLM now has image generation capabilities!
 
 **Test it:**
 1. Go to https://mirmi-llm.mirmi.tum.de

@@ -2,16 +2,16 @@
 
 # Diagnostic script to confirm the WebSocket issue
 
-echo "🔍 Diagnosing Open WebUI LLM Issue..."
+echo "🔍 Diagnosing MIRMI LLM LLM Issue..."
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 
 # Check 1: Container status
 echo "1️⃣  Checking container status..."
-if docker ps | grep -q "open-webui"; then
-    echo "   ✅ Open WebUI container is running"
+if docker ps | grep -q "mirmi-llm"; then
+    echo "   ✅ MIRMI LLM container is running"
 else
-    echo "   ❌ Open WebUI container is NOT running"
+    echo "   ❌ MIRMI LLM container is NOT running"
 fi
 
 if docker ps | grep -q "ollama"; then
@@ -23,12 +23,12 @@ echo ""
 
 # Check 2: Internal connectivity
 echo "2️⃣  Checking internal connectivity..."
-if docker exec open-webui curl -s http://ollama:11434/api/tags > /dev/null 2>&1; then
-    echo "   ✅ Open WebUI can reach Ollama"
-    MODEL_COUNT=$(docker exec open-webui curl -s http://ollama:11434/api/tags 2>/dev/null | grep -o '"name"' | wc -l)
+if docker exec mirmi-llm curl -s http://ollama:11434/api/tags > /dev/null 2>&1; then
+    echo "   ✅ MIRMI LLM can reach Ollama"
+    MODEL_COUNT=$(docker exec mirmi-llm curl -s http://ollama:11434/api/tags 2>/dev/null | grep -o '"name"' | wc -l)
     echo "   ✅ $MODEL_COUNT models available"
 else
-    echo "   ❌ Open WebUI CANNOT reach Ollama"
+    echo "   ❌ MIRMI LLM CANNOT reach Ollama"
 fi
 echo ""
 
@@ -49,7 +49,7 @@ echo ""
 
 # Check 4: Recent WebSocket errors
 echo "4️⃣  Checking for WebSocket errors in logs..."
-WS_ERRORS=$(docker logs open-webui --tail 100 2>&1 | grep -c "socket.io.*400")
+WS_ERRORS=$(docker logs mirmi-llm --tail 100 2>&1 | grep -c "socket.io.*400")
 if [ "$WS_ERRORS" -gt 0 ]; then
     echo "   ❌ Found $WS_ERRORS WebSocket errors in last 100 log lines"
     echo "   ❌ This confirms WebSocket connections are failing"

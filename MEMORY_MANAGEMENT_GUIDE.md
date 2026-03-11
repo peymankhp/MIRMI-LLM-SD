@@ -165,7 +165,7 @@ Mixtral needs:    ~27GB RAM
 ```bash
 # Clear cache and load Mixtral
 ./auto-clear-cache.sh
-# Then use Mixtral in Open WebUI
+# Then use Mixtral in MIRMI LLM
 ```
 
 ### Example 2: Automatic Preparation
@@ -175,7 +175,7 @@ Mixtral needs:    ~27GB RAM
 ./ollama-memory-manager.sh mixtral:8x7b-instruct-v0.1-q4_0
 
 # Wait 1-2 minutes for model to load
-# Then use in Open WebUI
+# Then use in MIRMI LLM
 ```
 
 ### Example 3: Check Memory Before/After
@@ -295,13 +295,13 @@ sudo ./increase-swap.sh
 **Option A - Manual:**
 ```bash
 ./auto-clear-cache.sh
-# Then use Mixtral in Open WebUI
+# Then use Mixtral in MIRMI LLM
 ```
 
 **Option B - Automatic:**
 ```bash
 ./ollama-memory-manager.sh mixtral:8x7b-instruct-v0.1-q4_0
-# Wait for it to load, then use in Open WebUI
+# Wait for it to load, then use in MIRMI LLM
 ```
 
 ## 🔧 Troubleshooting

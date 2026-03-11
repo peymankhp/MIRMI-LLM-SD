@@ -1,6 +1,6 @@
-# Open WebUI Image Generation - Complete Settings Guide
+# MIRMI LLM Image Generation - Complete Settings Guide
 
-## 📍 Location in Open WebUI
+## 📍 Location in MIRMI LLM
 
 1. Go to: **https://mirmi-llm.mirmi.tum.de**
 2. Login as admin
@@ -206,7 +206,7 @@ Additional Parameters:
 
 ### Test 1: Simple Generation
 
-In Open WebUI chat, type:
+In MIRMI LLM chat, type:
 ```
 Generate an image of a sunset
 ```
@@ -255,7 +255,7 @@ docker restart automatic1111
 # Wait 30 seconds
 sleep 30
 
-# Try again in Open WebUI
+# Try again in MIRMI LLM
 ```
 
 ### Issue: "Model not found"
@@ -386,7 +386,7 @@ For internal network:
 To add authentication:
 1. Edit docker-compose-stable-diffusion.yaml
 2. Add to CLI_ARGS: `--api-auth username:password`
-3. In Open WebUI, set: `username:password`
+3. In MIRMI LLM, set: `username:password`
 4. Restart: `docker restart automatic1111`
 
 ---
@@ -422,7 +422,7 @@ To add authentication:
 Before testing:
 - [ ] Stable Diffusion container running: `docker ps | grep automatic1111`
 - [ ] API responding: `curl http://localhost:7860/sdapi/v1/sd-models`
-- [ ] Open WebUI settings saved
+- [ ] MIRMI LLM settings saved
 - [ ] Image Generation Engine set to AUTOMATIC1111
 - [ ] Base URL set to `http://automatic1111:7860`
 
@@ -436,7 +436,7 @@ After configuration:
 
 ## 🎉 YOU'RE READY!
 
-Your Open WebUI now has image generation!
+Your MIRMI LLM now has image generation!
 
 **Test it:**
 1. Go to chat

@@ -2,7 +2,7 @@
 
 ## Current Setup Analysis
 
-Your Open WebUI is running with:
+Your MIRMI LLM is running with:
 - **Docker Compose** deployment (not manual docker run)
 - **Internal network** (`internal: true`) - isolated from host
 - **No port exposure** for Ollama container
@@ -22,7 +22,7 @@ The instructions you received assume manual `docker run` commands, but you're us
 
 ### Option 1: Expose Ollama API (Recommended)
 
-This allows both Open WebUI and external tools (like Cursor) to use the same Ollama instance.
+This allows both MIRMI LLM and external tools (like Cursor) to use the same Ollama instance.
 
 **Pros:**
 - Single Ollama instance
@@ -39,7 +39,7 @@ This allows both Open WebUI and external tools (like Cursor) to use the same Oll
 Use the existing host-level Ollama for external API access.
 
 **Pros:**
-- No changes to Open WebUI
+- No changes to MIRMI LLM
 - Simpler setup
 
 **Cons:**
@@ -59,8 +59,8 @@ BACKUP_DIR="backups/$(date +%Y%m%d_%H%M%S)"
 # Backup docker-compose.yaml
 cp docker-compose.yaml "$BACKUP_DIR/"
 
-# Backup Open WebUI data
-docker run --rm -v open-webui:/data -v "$(pwd)/$BACKUP_DIR":/backup alpine tar czf /backup/open-webui-data.tar.gz -C /data .
+# Backup MIRMI LLM data
+docker run --rm -v mirmi-llm:/data -v "$(pwd)/$BACKUP_DIR":/backup alpine tar czf /backup/mirmi-llm-data.tar.gz -C /data .
 
 # Backup Ollama models (large, may take time)
 docker run --rm -v ollama:/data -v "$(pwd)/$BACKUP_DIR":/backup alpine tar czf /backup/ollama-models.tar.gz -C /data .
@@ -87,14 +87,14 @@ services:
     networks:
       - internal_net
 
-  open-webui:
+  mirmi-llm:
     build:
       context: .
       dockerfile: Dockerfile
-    image: ghcr.io/open-webui/open-webui:${WEBUI_DOCKER_TAG-main}
-    container_name: open-webui
+    image: ghcr.io/mirmi-llm/mirmi-llm:${WEBUI_DOCKER_TAG-main}
+    container_name: mirmi-llm
     volumes:
-      - open-webui:/app/backend/data
+      - mirmi-llm:/app/backend/data
     depends_on:
       - ollama
     ports:
@@ -110,7 +110,7 @@ services:
 
 volumes:
   ollama: {}
-  open-webui: {}
+  mirmi-llm: {}
 
 networks:
   internal_net:
@@ -212,11 +212,11 @@ If something goes wrong:
 docker-compose down
 
 # Remove volumes
-docker volume rm open-webui ollama
+docker volume rm mirmi-llm ollama
 
 # Restore from backup
 BACKUP_DIR="backups/<your-backup-timestamp>"
-docker run --rm -v open-webui:/data -v "$(pwd)/$BACKUP_DIR":/backup alpine tar xzf /backup/open-webui-data.tar.gz -C /data
+docker run --rm -v mirmi-llm:/data -v "$(pwd)/$BACKUP_DIR":/backup alpine tar xzf /backup/mirmi-llm-data.tar.gz -C /data
 docker run --rm -v ollama:/data -v "$(pwd)/$BACKUP_DIR":/backup alpine tar xzf /backup/ollama-models.tar.gz -C /data
 
 # Restore docker-compose.yaml
@@ -237,7 +237,7 @@ You can run one 8B model at a time comfortably. For concurrent usage, Ollama wil
 
 ## Alternative: Option 2 (Simpler but Less Efficient)
 
-If you want to avoid reconfiguring Open WebUI:
+If you want to avoid reconfiguring MIRMI LLM:
 
 1. Keep current docker-compose setup unchanged
 2. Use host-level Ollama for external API access
@@ -253,8 +253,8 @@ If you want to avoid reconfiguring Open WebUI:
 ## Verification Checklist
 
 After installation:
-- [ ] Open WebUI accessible at http://localhost:8081
-- [ ] Open WebUI shows new models in dropdown
+- [ ] MIRMI LLM accessible at http://localhost:8081
+- [ ] MIRMI LLM shows new models in dropdown
 - [ ] Ollama API responds: `curl http://localhost:11434/api/tags`
 - [ ] Can generate text with new models
 - [ ] External tools can connect to API
@@ -265,5 +265,5 @@ After installation:
 If you encounter issues:
 1. Check container logs: `docker-compose logs -f`
 2. Check Ollama logs: `docker logs ollama`
-3. Verify network: `docker network inspect open-webui_internal_net`
-4. Test connectivity: `docker exec open-webui curl http://ollama:11434/api/tags`
+3. Verify network: `docker network inspect mirmi-llm_internal_net`
+4. Test connectivity: `docker exec mirmi-llm curl http://ollama:11434/api/tags`

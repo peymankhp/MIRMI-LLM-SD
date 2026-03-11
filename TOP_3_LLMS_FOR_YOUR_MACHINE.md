@@ -402,7 +402,7 @@ docker exec ollama ollama pull llama3.1:8b-instruct-q4_K_M
 
 # Mistral already installed!
 
-# Test them in Open WebUI
+# Test them in MIRMI LLM
 # Go to: https://mirmi-llm.mirmi.tum.de
 # Select model from dropdown
 # Start chatting!

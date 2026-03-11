@@ -1,0 +1,117 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║  🔧 FIX: "I'm a text-based AI" Error                                         ║
+║  Enable Image Generation in 3 Steps                                         ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+❌ PROBLEM
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+When you type "Generate an image of a sunset", the LLM responds:
+"Unfortunately, I'm a text-based AI and don't have the ability to generate 
+visual images."
+
+This means image generation is NOT enabled in Open WebUI.
+
+✅ SOLUTION (3 Steps)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 1: Open Admin Panel
+  1. Go to: https://mirmi-llm.mirmi.tum.de
+  2. Click profile icon (top right)
+  3. Select "Admin Panel"
+  4. Click "Settings" in left sidebar
+  5. Click "Images" tab
+
+STEP 2: Enable the Toggle
+  At the TOP of the page, you'll see:
+  
+    Image Generation  [  OFF  ]  ← Click this to turn it ON
+  
+  Click the toggle switch to turn it ON (it will turn green/blue)
+
+STEP 3: Configure Settings
+  After enabling the toggle, fill in these fields:
+  
+  ┌──────────────────────────────────────────────────────────────────┐
+  │ Image Generation Engine:     AUTOMATIC1111                       │
+  │                                                                  │
+  │ AUTOMATIC1111 Base URL:      http://automatic1111:7860          │
+  │                                                                  │
+  │ Api Auth String:             (leave empty)                      │
+  │                                                                  │
+  │ Image Size:                  768x768                            │
+  │                                                                  │
+  │ Steps:                       30                                 │
+  │                                                                  │
+  │ Additional Parameters:                                          │
+  │ {                                                               │
+  │   "cfg_scale": 8,                                               │
+  │   "sampler_name": "DPM++ 2M Karras",                            │
+  │   "negative_prompt": "blurry, low quality, distorted"           │
+  │ }                                                               │
+  └──────────────────────────────────────────────────────────────────┘
+  
+  Click "Save" at the bottom
+
+🧪 TEST AGAIN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Go back to chat and type:
+
+  "Generate an image of a sunset"
+
+Expected result:
+  • Loading indicator appears
+  • Image generates in 10-15 seconds
+  • Image displays in chat
+
+🔍 VISUAL GUIDE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+BEFORE (Toggle OFF):
+  ┌────────────────────────────────────────────────────────────────┐
+  │ Admin Panel > Settings > Images                                │
+  ├────────────────────────────────────────────────────────────────┤
+  │                                                                │
+  │ Image Generation                              ⚪ OFF           │
+  │                                                                │
+  │ (No configuration fields visible)                              │
+  │                                                                │
+  └────────────────────────────────────────────────────────────────┘
+
+AFTER (Toggle ON):
+  ┌────────────────────────────────────────────────────────────────┐
+  │ Admin Panel > Settings > Images                                │
+  ├────────────────────────────────────────────────────────────────┤
+  │                                                                │
+  │ Image Generation                              🟢 ON            │
+  │                                                                │
+  │ CREATE IMAGE                                                   │
+  │   Image Generation Engine: [AUTOMATIC1111 ▼]                   │
+  │   AUTOMATIC1111 Base URL: [http://automatic1111:7860]          │
+  │   Api Auth String: [                        ]                  │
+  │   Image Size: [768x768]                                        │
+  │   Steps: [30]                                                  │
+  │   Additional Parameters: [{...}]                               │
+  │                                                                │
+  │ EDIT IMAGE                                                     │
+  │   (optional settings)                                          │
+  │                                                                │
+  │                                    [Save]                      │
+  │                                                                │
+  └────────────────────────────────────────────────────────────────┘
+
+💡 KEY POINT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+The toggle is the most important step! Without turning it ON, Open WebUI 
+doesn't know image generation is available, even though Stable Diffusion is 
+running perfectly in the background.
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║  Turn ON the toggle → Configure → Save → Test                               ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝

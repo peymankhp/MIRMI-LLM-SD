@@ -1,12 +1,12 @@
-# Open WebUI LLM Not Responding - NGINX Fix Guide
+# MIRMI LLM LLM Not Responding - NGINX Fix Guide
 
 ## 🔍 Problem Identified
 
-Your Open WebUI panel loads correctly at `https://mirmi-llm.mirmi.tum.de`, but the LLMs don't respond when you send messages.
+Your MIRMI LLM panel loads correctly at `https://mirmi-llm.mirmi.tum.de`, but the LLMs don't respond when you send messages.
 
 ### Root Cause
 
-The nginx configuration is **missing WebSocket support**, which is critical for Open WebUI's real-time communication. The logs show repeated errors:
+The nginx configuration is **missing WebSocket support**, which is critical for MIRMI LLM's real-time communication. The logs show repeated errors:
 
 ```
 GET /ws/socket.io/?EIO=4&transport=websocket HTTP/1.0" 400
@@ -16,7 +16,7 @@ This means WebSocket connections are being rejected, preventing the UI from comm
 
 ## ✅ What's Working
 
-- ✅ Open WebUI container is running and healthy
+- ✅ MIRMI LLM container is running and healthy
 - ✅ Ollama is running with 9 models loaded
 - ✅ Internal connectivity works (container can reach Ollama)
 - ✅ HTTPS is configured correctly
@@ -144,7 +144,7 @@ Open browser console (F12) at `https://mirmi-llm.mirmi.tum.de` and check for:
 ### 4. Check logs
 ```bash
 # Should show successful WebSocket connections
-docker logs open-webui --tail 20
+docker logs mirmi-llm --tail 20
 
 # Should show no more 400 errors on /ws/ endpoints
 sudo tail -f /var/log/nginx/access.log
@@ -153,7 +153,7 @@ sudo tail -f /var/log/nginx/access.log
 ## 📊 Your Current Setup
 
 - **Domain:** https://mirmi-llm.mirmi.tum.de
-- **Open WebUI:** Running on 10.157.174.177:8080 (container IP: 172.18.0.3)
+- **MIRMI LLM:** Running on 10.157.174.177:8080 (container IP: 172.18.0.3)
 - **Ollama:** Running with 9 models
 - **SSL:** Let's Encrypt certificate (valid)
 - **Nginx:** Version 1.18.0 (Ubuntu)
@@ -239,7 +239,7 @@ sudo systemctl reload nginx
 
 ### Why WebSocket is Required
 
-Open WebUI uses WebSocket for:
+MIRMI LLM uses WebSocket for:
 1. **Real-time streaming** - LLM responses appear word-by-word
 2. **Bidirectional communication** - UI can send/receive simultaneously
 3. **Connection persistence** - Maintains state during long generations
@@ -293,14 +293,14 @@ If you still have issues after applying the fix:
 
 1. **Check logs:**
    ```bash
-   docker logs open-webui --tail 50
+   docker logs mirmi-llm --tail 50
    sudo tail -f /var/log/nginx/error.log
    ```
 
 2. **Verify connectivity:**
    ```bash
    # From inside container
-   docker exec open-webui curl -s http://ollama:11434/api/tags
+   docker exec mirmi-llm curl -s http://ollama:11434/api/tags
    
    # From host
    curl -s http://10.157.174.177:8080/health

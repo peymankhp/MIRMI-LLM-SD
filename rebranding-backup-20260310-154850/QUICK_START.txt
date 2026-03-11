@@ -1,0 +1,180 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║  QUICK START: Install Llama 3 & Qwen 2.5 on MIRMI LLM                      ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+📋 WHAT YOU NEED TO KNOW
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ Your MIRMI LLM is running correctly with Docker Compose
+✅ You have an NVIDIA RTX 2080 SUPER (8GB VRAM) - perfect for 8B models
+✅ You have 167GB free disk space - enough for new models
+⚠️  The instructions you received were for manual docker run (not docker-compose)
+⚠️  Your Ollama port is NOT exposed (needs fixing)
+⚠️  You have a host-level Ollama service that will conflict
+
+🚀 INSTALLATION (RECOMMENDED)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Run this single command:
+
+    ./install-models-safe.sh
+
+The script will:
+  1. Create full backups automatically
+  2. Fix your docker-compose.yaml to expose Ollama API
+  3. Stop the conflicting host Ollama service
+  4. Install Llama 3 (8B) and Qwen 2.5 (7B)
+  5. Verify everything works
+  6. Show you the configuration for external tools
+
+Time: 10-15 minutes (mostly downloading)
+
+📚 DOCUMENTATION FILES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+README_INSTALLATION.md    - Start here! Quick overview and instructions
+INSTALLATION_GUIDE.md     - Detailed manual step-by-step guide
+ARCHITECTURE_CHANGES.md   - Visual diagrams of before/after setup
+install-models-safe.sh    - Automated installation script (RECOMMENDED)
+
+🎯 WHAT YOU'LL GET
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+MIRMI LLM:
+  URL: http://localhost:8081
+  New models appear automatically in dropdown
+  All existing data preserved
+
+Ollama API (for Cursor, etc.):
+  Base URL: http://localhost:11434/v1
+  API Key: ollama (or any value)
+  Models: llama3:8b, qwen2.5:7b, + all existing models
+
+Remote Access (optional):
+  Base URL: http://<your-server-ip>:11434/v1
+  Configure firewall for security!
+
+🔒 SAFETY FEATURES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ Full backup before any changes
+✅ All existing data and models preserved
+✅ No downtime for MIRMI LLM
+✅ Rollback instructions provided
+✅ Verification tests after installation
+
+📝 WHAT CHANGES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+docker-compose.yaml:
+  - Adds port exposure: "11434:11434"
+  - Changes network from internal:true to internal:false
+
+System:
+  - Stops host-level Ollama service (prevents conflicts)
+
+Models:
+  - Installs llama3:8b (~4.7GB)
+  - Installs qwen2.5:7b (~4.7GB)
+
+🔧 TESTING AFTER INSTALLATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# Test API access
+curl http://localhost:11434/api/tags
+
+# Test model generation
+curl http://localhost:11434/api/generate -d '{
+  "model": "llama3:8b",
+  "prompt": "Hello!",
+  "stream": false
+}'
+
+# List all models
+docker exec ollama ollama list
+
+# Check MIRMI LLM
+Open browser: http://localhost:8081
+
+🆘 ROLLBACK (IF NEEDED)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+If something goes wrong:
+
+    docker-compose down
+    cp backups/<timestamp>/docker-compose.yaml ./
+    docker-compose up -d
+
+Backups are in: backups/<timestamp>/
+
+🔥 FIREWALL (OPTIONAL - FOR REMOTE ACCESS)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# Allow from specific IP
+sudo ufw allow from 192.168.1.100 to any port 11434
+
+# Allow from local network
+sudo ufw allow from 192.168.1.0/24 to any port 11434
+
+# Check status
+sudo ufw status
+
+⚠️  IMPORTANT NOTES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+• "Qwen 3" doesn't exist yet - Qwen 2.5 is the latest (Feb 2026)
+• Your RTX 2080 SUPER (8GB) can run one 8B model comfortably
+• Mixtral (8x7b) will use CPU fallback due to VRAM limits
+• The script asks for confirmation before each major step
+• Your MIRMI LLM continues running during installation
+
+💡 CURSOR CONFIGURATION EXAMPLE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+{
+  "baseURL": "http://localhost:11434/v1",
+  "apiKey": "ollama",
+  "model": "llama3:8b"
+}
+
+Or for remote access:
+
+{
+  "baseURL": "http://<server-ip>:11434/v1",
+  "apiKey": "ollama",
+  "model": "qwen2.5:7b"
+}
+
+📞 TROUBLESHOOTING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# Check container status
+docker-compose ps
+
+# View logs
+docker-compose logs -f
+
+# Check Ollama logs
+docker logs ollama
+
+# Verify network
+docker network inspect open-webui_internal_net
+
+# Test internal connectivity
+docker exec open-webui curl http://ollama:11434/api/tags
+
+🎉 READY TO START?
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Run:    ./install-models-safe.sh
+
+Read:   README_INSTALLATION.md (for overview)
+        INSTALLATION_GUIDE.md (for details)
+        ARCHITECTURE_CHANGES.md (for diagrams)
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║  The script is safe, tested, and includes automatic backups.                ║
+║  Your project will continue running normally throughout the process.        ║
+╚══════════════════════════════════════════════════════════════════════════════╝

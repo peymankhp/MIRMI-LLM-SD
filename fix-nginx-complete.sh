@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Complete fix for Open WebUI WebSocket support
+# Complete fix for MIRMI LLM WebSocket support
 # Adds map directive and updates site configuration
 
 set -e

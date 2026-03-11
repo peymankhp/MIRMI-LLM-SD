@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# Add Stable Diffusion Image Generation to Open WebUI
+# Add Stable Diffusion Image Generation to MIRMI LLM
 # Zero downtime installation
 
 set -e
 
-echo "🎨 Adding Image Generation to Open WebUI"
+echo "🎨 Adding Image Generation to MIRMI LLM"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 
@@ -39,7 +39,7 @@ fi
 echo "This will install:"
 echo "  • AUTOMATIC1111 Stable Diffusion WebUI"
 echo "  • Stable Diffusion v1.5 model (~4GB)"
-echo "  • Integration with Open WebUI"
+echo "  • Integration with MIRMI LLM"
 echo ""
 echo "Estimated time: 20-30 minutes"
 echo "Downtime: Zero (runs alongside existing services)"
@@ -65,7 +65,7 @@ echo "Step 2: Starting Stable Diffusion"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 
-cd /home/mirmi/open-webui || cd "$(dirname "$0")"
+cd /home/mirmi/mirmi-llm || cd "$(dirname "$0")"
 
 docker-compose -f docker-compose-stable-diffusion.yaml up -d automatic1111
 
@@ -130,13 +130,13 @@ echo "✅ INSTALLATION COMPLETE!"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 echo "📊 Service Status:"
-docker ps --format "table {{.Names}}\t{{.Status}}" | grep -E "NAME|automatic1111|open-webui|ollama"
+docker ps --format "table {{.Names}}\t{{.Status}}" | grep -E "NAME|automatic1111|mirmi-llm|ollama"
 echo ""
 echo "🎨 Stable Diffusion WebUI:"
 echo "   API: http://localhost:7860"
 echo "   Status: Running"
 echo ""
-echo "🔧 Configure Open WebUI:"
+echo "🔧 Configure MIRMI LLM:"
 echo ""
 echo "   1. Go to: https://mirmi-llm.mirmi.tum.de"
 echo "   2. Login as admin"
@@ -151,7 +151,7 @@ echo ""
 echo "   6. Click Save"
 echo ""
 echo "🧪 Test Image Generation:"
-echo "   In Open WebUI chat, type:"
+echo "   In MIRMI LLM chat, type:"
 echo "   'Generate an image of a beautiful sunset over mountains'"
 echo ""
 echo "📚 Full guide: STABLE_DIFFUSION_GUIDE.md"

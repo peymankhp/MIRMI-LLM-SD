@@ -11,7 +11,7 @@ FAIL=0
 
 # Test 1: Container internet access (should fail)
 echo "Test 1: Container internet access (should FAIL)..."
-if docker exec open-webui ping -c 1 -W 2 8.8.8.8 > /dev/null 2>&1; then
+if docker exec mirmi-llm ping -c 1 -W 2 8.8.8.8 > /dev/null 2>&1; then
     echo "   ❌ FAILED: Container can reach internet!"
     echo "   ⚠️  Security risk: Containers have internet access"
     FAIL=$((FAIL + 1))
@@ -23,7 +23,7 @@ fi
 # Test 2: Container DNS resolution (should fail for external)
 echo ""
 echo "Test 2: Container external DNS (should FAIL)..."
-if docker exec open-webui nslookup google.com > /dev/null 2>&1; then
+if docker exec mirmi-llm nslookup google.com > /dev/null 2>&1; then
     echo "   ❌ FAILED: Container can resolve external domains!"
     FAIL=$((FAIL + 1))
 else
@@ -34,7 +34,7 @@ fi
 # Test 3: Container to local network (should work)
 echo ""
 echo "Test 3: Container to local network (should WORK)..."
-if docker exec open-webui ping -c 1 -W 2 10.157.174.177 > /dev/null 2>&1; then
+if docker exec mirmi-llm ping -c 1 -W 2 10.157.174.177 > /dev/null 2>&1; then
     echo "   ✅ PASSED: Container can reach local network"
     PASS=$((PASS + 1))
 else
@@ -46,11 +46,11 @@ fi
 # Test 4: Container to Ollama (should work)
 echo ""
 echo "Test 4: Container to Ollama (should WORK)..."
-if docker exec open-webui curl -s http://ollama:11434/api/tags > /dev/null 2>&1; then
-    echo "   ✅ PASSED: Open WebUI can reach Ollama"
+if docker exec mirmi-llm curl -s http://ollama:11434/api/tags > /dev/null 2>&1; then
+    echo "   ✅ PASSED: MIRMI LLM can reach Ollama"
     PASS=$((PASS + 1))
 else
-    echo "   ❌ FAILED: Open WebUI cannot reach Ollama!"
+    echo "   ❌ FAILED: MIRMI LLM cannot reach Ollama!"
     echo "   ⚠️  Service broken: Internal communication failed"
     FAIL=$((FAIL + 1))
 fi
@@ -79,11 +79,11 @@ else
     FAIL=$((FAIL + 1))
 fi
 
-# Test 7: Local network access to Open WebUI (should work)
+# Test 7: Local network access to MIRMI LLM (should work)
 echo ""
-echo "Test 7: Local network access to Open WebUI (should WORK)..."
+echo "Test 7: Local network access to MIRMI LLM (should WORK)..."
 if curl -s -k https://mirmi-llm.mirmi.tum.de > /dev/null 2>&1; then
-    echo "   ✅ PASSED: Open WebUI accessible from local network"
+    echo "   ✅ PASSED: MIRMI LLM accessible from local network"
     PASS=$((PASS + 1))
 else
     echo "   ⚠️  WARNING: Could not verify external access"
@@ -113,7 +113,7 @@ if [ $FAIL -eq 0 ]; then
     echo "🎉 All tests passed! Network isolation is working correctly."
     echo ""
     echo "✅ Security Status:"
-    echo "   • Open WebUI: Isolated from internet"
+    echo "   • MIRMI LLM: Isolated from internet"
     echo "   • Ollama (LLMs): Isolated from internet"
     echo "   • Local network: Can access services"
     echo "   • Host: Maintains internet access"

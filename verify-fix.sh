@@ -34,17 +34,17 @@ fi
 echo ""
 
 # Check 4: Container connectivity
-echo "4️⃣  Checking Open WebUI connectivity..."
+echo "4️⃣  Checking MIRMI LLM connectivity..."
 if curl -s http://10.157.174.177:8080/health | grep -q "true"; then
-    echo "   ✅ Open WebUI is responding"
+    echo "   ✅ MIRMI LLM is responding"
 else
-    echo "   ❌ Open WebUI not responding"
+    echo "   ❌ MIRMI LLM not responding"
 fi
 echo ""
 
 # Check 5: Recent logs
 echo "5️⃣  Checking recent WebSocket attempts..."
-RECENT_WS=$(docker logs open-webui --tail 20 2>&1 | grep -c "socket.io")
+RECENT_WS=$(docker logs mirmi-llm --tail 20 2>&1 | grep -c "socket.io")
 if [ "$RECENT_WS" -gt 0 ]; then
     echo "   ℹ️  Found $RECENT_WS WebSocket connection attempts in last 20 lines"
     echo "   ℹ️  Check browser console for connection status"
@@ -84,6 +84,6 @@ echo "📝 If still not working:"
 echo "   • Check browser console for specific errors"
 echo "   • Try a different browser"
 echo "   • Clear all browser cache and cookies"
-echo "   • Check: docker logs open-webui --tail 50"
+echo "   • Check: docker logs mirmi-llm --tail 50"
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"

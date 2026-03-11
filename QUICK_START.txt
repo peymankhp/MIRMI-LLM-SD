@@ -1,13 +1,13 @@
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                                                                              ║
-║  QUICK START: Install Llama 3 & Qwen 2.5 on Open WebUI                      ║
+║  QUICK START: Install Llama 3 & Qwen 2.5 on MIRMI LLM                      ║
 ║                                                                              ║
 ╚══════════════════════════════════════════════════════════════════════════════╝
 
 📋 WHAT YOU NEED TO KNOW
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-✅ Your Open WebUI is running correctly with Docker Compose
+✅ Your MIRMI LLM is running correctly with Docker Compose
 ✅ You have an NVIDIA RTX 2080 SUPER (8GB VRAM) - perfect for 8B models
 ✅ You have 167GB free disk space - enough for new models
 ⚠️  The instructions you received were for manual docker run (not docker-compose)
@@ -42,7 +42,7 @@ install-models-safe.sh    - Automated installation script (RECOMMENDED)
 🎯 WHAT YOU'LL GET
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Open WebUI:
+MIRMI LLM:
   URL: http://localhost:8081
   New models appear automatically in dropdown
   All existing data preserved
@@ -61,7 +61,7 @@ Remote Access (optional):
 
 ✅ Full backup before any changes
 ✅ All existing data and models preserved
-✅ No downtime for Open WebUI
+✅ No downtime for MIRMI LLM
 ✅ Rollback instructions provided
 ✅ Verification tests after installation
 
@@ -95,7 +95,7 @@ curl http://localhost:11434/api/generate -d '{
 # List all models
 docker exec ollama ollama list
 
-# Check Open WebUI
+# Check MIRMI LLM
 Open browser: http://localhost:8081
 
 🆘 ROLLBACK (IF NEEDED)
@@ -128,7 +128,7 @@ sudo ufw status
 • Your RTX 2080 SUPER (8GB) can run one 8B model comfortably
 • Mixtral (8x7b) will use CPU fallback due to VRAM limits
 • The script asks for confirmation before each major step
-• Your Open WebUI continues running during installation
+• Your MIRMI LLM continues running during installation
 
 💡 CURSOR CONFIGURATION EXAMPLE
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -160,10 +160,10 @@ docker-compose logs -f
 docker logs ollama
 
 # Verify network
-docker network inspect open-webui_internal_net
+docker network inspect mirmi-llm_internal_net
 
 # Test internal connectivity
-docker exec open-webui curl http://ollama:11434/api/tags
+docker exec mirmi-llm curl http://ollama:11434/api/tags
 
 🎉 READY TO START?
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

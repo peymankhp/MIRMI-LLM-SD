@@ -2,21 +2,21 @@
 
 ## 🎉 All Issues Resolved
 
-Authentication disabled and API fully accessible from Open WebUI. Ready for configuration!
+Authentication disabled and API fully accessible from MIRMI LLM. Ready for configuration!
 
 ## 📊 Current Status
 
 ```
 Container:  automatic1111
 Status:     Running ✅
-Network:    open-webui_default (same as Open WebUI) ✅
+Network:    mirmi-llm_default (same as MIRMI LLM) ✅
 API Port:   7860 (internal: 17860) ✅
 Model:      Stable Diffusion v1.5 (loaded) ✅
 API Status: ✅ Working and accessible
 Auth:       ✅ Disabled (no authentication required)
 ```
 
-## ⚙️ Open WebUI Configuration
+## ⚙️ MIRMI LLM Configuration
 
 ### Go to Admin Panel
 
@@ -52,7 +52,7 @@ Additional Parameters:
 
 ## 🧪 Test Image Generation
 
-In Open WebUI chat, type:
+In MIRMI LLM chat, type:
 
 ```
 Generate an image of a beautiful sunset over mountains
@@ -67,9 +67,9 @@ Expected result: Image appears in 10-15 seconds
 docker ps | grep automatic1111
 ```
 
-### Check API from Open WebUI
+### Check API from MIRMI LLM
 ```bash
-docker exec open-webui curl -s http://automatic1111:7860/sdapi/v1/sd-models
+docker exec mirmi-llm curl -s http://automatic1111:7860/sdapi/v1/sd-models
 ```
 
 ### Check logs
@@ -114,14 +114,14 @@ On your RTX 2080 SUPER:
 
 1. Verify network:
    ```bash
-   docker network inspect open-webui_default
+   docker network inspect mirmi-llm_default
    ```
 
 2. Both containers should be listed
 
-3. Restart Open WebUI:
+3. Restart MIRMI LLM:
    ```bash
-   docker restart open-webui
+   docker restart mirmi-llm
    ```
 
 ## 💡 Tips for Better Images
@@ -152,12 +152,12 @@ blurry, low quality, distorted, ugly, bad anatomy, watermark, text
 ### Before (Error)
 - Container on wrong network
 - Hostname not resolving
-- Open WebUI couldn't reach Stable Diffusion
+- MIRMI LLM couldn't reach Stable Diffusion
 
 ### After (Fixed)
-- Container on `open-webui_default` network
+- Container on `mirmi-llm_default` network
 - Hostname resolves correctly
-- Open WebUI can reach `automatic1111:7860`
+- MIRMI LLM can reach `automatic1111:7860`
 - API working perfectly
 
 ## 📝 Files Updated
@@ -173,12 +173,12 @@ blurry, low quality, distorted, ugly, bad anatomy, watermark, text
 - [x] API responding
 - [x] Model loaded (SD v1.5)
 - [x] Hostname resolving
-- [ ] Open WebUI configured (do this now!)
+- [ ] MIRMI LLM configured (do this now!)
 - [ ] Test image generated
 
 ## 🚀 Next Steps
 
-1. **Configure Open WebUI** (see settings above)
+1. **Configure MIRMI LLM** (see settings above)
 2. **Click Save**
 3. **Test generation** in chat
 4. **Enjoy AI-generated images!**

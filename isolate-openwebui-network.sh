@@ -1,15 +1,15 @@
 #!/bin/bash
 
-# Network Isolation Script for Open WebUI & Ollama
+# Network Isolation Script for MIRMI LLM & Ollama
 # Isolates containers from internet while preserving local network access
 
 set -e
 
-echo "🔒 Open WebUI & Ollama Network Isolation"
+echo "🔒 MIRMI LLM & Ollama Network Isolation"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 echo "This will:"
-echo "  ✅ Block Open WebUI & Ollama from internet"
+echo "  ✅ Block MIRMI LLM & Ollama from internet"
 echo "  ✅ Allow access to local network (10.157.174.0/23)"
 echo "  ✅ Keep Ubuntu host internet access"
 echo "  ✅ Maintain service to local users"
@@ -85,14 +85,14 @@ services:
     dns:
       - 10.157.174.177  # Local DNS only
 
-  open-webui:
+  mirmi-llm:
     build:
       context: .
       dockerfile: Dockerfile
-    image: ghcr.io/open-webui/open-webui:${WEBUI_DOCKER_TAG-main}
-    container_name: open-webui
+    image: ghcr.io/mirmi-llm/mirmi-llm:${WEBUI_DOCKER_TAG-main}
+    container_name: mirmi-llm
     volumes:
-      - open-webui:/app/backend/data
+      - mirmi-llm:/app/backend/data
     depends_on:
       - ollama
     # Bind only to localhost (nginx will proxy)
@@ -112,7 +112,7 @@ services:
 
 volumes:
   ollama: {}
-  open-webui: {}
+  mirmi-llm: {}
 
 networks:
   internal_net:
@@ -174,7 +174,7 @@ echo "Step 4: Restarting Containers"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 
-cd /home/mirmi/open-webui || cd "$(dirname "$0")"
+cd /home/mirmi/mirmi-llm || cd "$(dirname "$0")"
 
 echo "Stopping containers..."
 docker-compose down
@@ -193,7 +193,7 @@ echo ""
 
 # Test 1: Container internet access (should fail)
 echo "Test 1: Container internet access (should FAIL)..."
-if docker exec open-webui ping -c 1 -W 2 8.8.8.8 > /dev/null 2>&1; then
+if docker exec mirmi-llm ping -c 1 -W 2 8.8.8.8 > /dev/null 2>&1; then
     echo "   ❌ FAILED: Container can reach internet!"
     echo "   ⚠️  Isolation not complete"
 else
@@ -203,7 +203,7 @@ fi
 # Test 2: Container to local network (should work)
 echo ""
 echo "Test 2: Container to local network (should WORK)..."
-if docker exec open-webui ping -c 1 -W 2 10.157.174.177 > /dev/null 2>&1; then
+if docker exec mirmi-llm ping -c 1 -W 2 10.157.174.177 > /dev/null 2>&1; then
     echo "   ✅ PASSED: Container can reach local network"
 else
     echo "   ❌ FAILED: Container cannot reach local network!"
@@ -213,10 +213,10 @@ fi
 # Test 3: Container to Ollama (should work)
 echo ""
 echo "Test 3: Container to Ollama (should WORK)..."
-if docker exec open-webui curl -s http://ollama:11434/api/tags > /dev/null 2>&1; then
-    echo "   ✅ PASSED: Open WebUI can reach Ollama"
+if docker exec mirmi-llm curl -s http://ollama:11434/api/tags > /dev/null 2>&1; then
+    echo "   ✅ PASSED: MIRMI LLM can reach Ollama"
 else
-    echo "   ❌ FAILED: Open WebUI cannot reach Ollama!"
+    echo "   ❌ FAILED: MIRMI LLM cannot reach Ollama!"
     echo "   ⚠️  Internal communication broken"
 fi
 
@@ -230,11 +230,11 @@ else
     echo "   ⚠️  Host connectivity broken"
 fi
 
-# Test 5: Local network access to Open WebUI (should work)
+# Test 5: Local network access to MIRMI LLM (should work)
 echo ""
-echo "Test 5: Local network access to Open WebUI (should WORK)..."
+echo "Test 5: Local network access to MIRMI LLM (should WORK)..."
 if curl -s -k https://mirmi-llm.mirmi.tum.de > /dev/null 2>&1; then
-    echo "   ✅ PASSED: Open WebUI accessible from local network"
+    echo "   ✅ PASSED: MIRMI LLM accessible from local network"
 else
     echo "   ⚠️  WARNING: Could not verify external access"
     echo "   (This may be normal if testing from the host)"
@@ -246,9 +246,9 @@ echo "✅ NETWORK ISOLATION COMPLETE!"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 echo "📊 Summary:"
-echo "   ✅ Open WebUI: No internet access"
+echo "   ✅ MIRMI LLM: No internet access"
 echo "   ✅ Ollama (LLMs): No internet access"
-echo "   ✅ Local network: Can access Open WebUI"
+echo "   ✅ Local network: Can access MIRMI LLM"
 echo "   ✅ Host: Maintains internet access"
 echo ""
 echo "🔒 Security Status:"

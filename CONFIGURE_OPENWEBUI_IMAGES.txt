@@ -195,6 +195,6 @@
 ║  Size:       768x768                                                         ║
 ║  Steps:      30                                                              ║
 ║                                                                              ║
-║  Copy these values into Open WebUI Admin Panel → Settings → Images          ║
+║  Copy these values into MIRMI LLM Admin Panel → Settings → Images          ║
 ║                                                                              ║
 ╚══════════════════════════════════════════════════════════════════════════════╝

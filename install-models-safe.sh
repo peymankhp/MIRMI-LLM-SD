@@ -12,7 +12,7 @@ BLUE='\033[0;34m'
 NC='\033[0m'
 
 echo -e "${BLUE}=========================================="
-echo "Open WebUI - Safe Model Installation"
+echo "MIRMI LLM - Safe Model Installation"
 echo "Llama 3 & Qwen 2.5 with API Access"
 echo "==========================================${NC}"
 echo ""
@@ -38,9 +38,9 @@ echo "Backing up docker-compose.yaml..."
 cp docker-compose.yaml "$BACKUP_DIR/"
 echo -e "${GREEN}✓ Configuration backed up${NC}"
 
-echo "Backing up Open WebUI data volume..."
-docker run --rm -v open-webui:/data -v "$(pwd)/$BACKUP_DIR":/backup alpine tar czf /backup/open-webui-data.tar.gz -C /data . 2>/dev/null
-echo -e "${GREEN}✓ Open WebUI data backed up${NC}"
+echo "Backing up MIRMI LLM data volume..."
+docker run --rm -v mirmi-llm:/data -v "$(pwd)/$BACKUP_DIR":/backup alpine tar czf /backup/mirmi-llm-data.tar.gz -C /data . 2>/dev/null
+echo -e "${GREEN}✓ MIRMI LLM data backed up${NC}"
 
 echo "Backing up Ollama models (this may take several minutes)..."
 docker run --rm -v ollama:/data -v "$(pwd)/$BACKUP_DIR":/backup alpine tar czf /backup/ollama-models.tar.gz -C /data . 2>/dev/null
@@ -53,7 +53,7 @@ echo ""
 echo -e "${YELLOW}Step 2: Analyzing current setup...${NC}"
 
 echo "Current containers:"
-docker ps --filter "name=open-webui" --filter "name=ollama" --format "table {{.Names}}\t{{.Status}}"
+docker ps --filter "name=mirmi-llm" --filter "name=ollama" --format "table {{.Names}}\t{{.Status}}"
 echo ""
 
 echo "Current models:"
@@ -84,7 +84,7 @@ echo "  4. Recreate containers with new configuration"
 echo "  5. Install Llama 3 (8B) - ~4.7GB download"
 echo "  6. Install Qwen 2.5 (7B) - ~4.7GB download"
 echo ""
-echo -e "${BLUE}Note: Your Open WebUI will remain accessible during this process${NC}"
+echo -e "${BLUE}Note: Your MIRMI LLM will remain accessible during this process${NC}"
 echo -e "${BLUE}Backup location: $BACKUP_DIR${NC}"
 echo ""
 
@@ -131,14 +131,14 @@ services:
     networks:
       - internal_net
 
-  open-webui:
+  mirmi-llm:
     build:
       context: .
       dockerfile: Dockerfile
-    image: ghcr.io/open-webui/open-webui:${WEBUI_DOCKER_TAG-main}
-    container_name: open-webui
+    image: ghcr.io/mirmi-llm/mirmi-llm:${WEBUI_DOCKER_TAG-main}
+    container_name: mirmi-llm
     volumes:
-      - open-webui:/app/backend/data
+      - mirmi-llm:/app/backend/data
     depends_on:
       - ollama
     ports:
@@ -154,7 +154,7 @@ services:
 
 volumes:
   ollama: {}
-  open-webui: {}
+  mirmi-llm: {}
 
 networks:
   internal_net:
@@ -243,7 +243,7 @@ echo -e "${GREEN}=========================================="
 echo "Installation Completed Successfully!"
 echo "==========================================${NC}"
 echo ""
-echo -e "${BLUE}Open WebUI Access:${NC}"
+echo -e "${BLUE}MIRMI LLM Access:${NC}"
 echo "  URL: http://localhost:8081"
 echo "  The new models should appear in the model dropdown"
 echo ""
@@ -271,7 +271,7 @@ echo "  sudo ufw allow from 192.168.1.0/24 to any port 11434  # For local networ
 echo ""
 echo -e "${BLUE}Backup Information:${NC}"
 echo "  Location: $BACKUP_DIR"
-echo "  Files: docker-compose.yaml, open-webui-data.tar.gz, ollama-models.tar.gz"
+echo "  Files: docker-compose.yaml, mirmi-llm-data.tar.gz, ollama-models.tar.gz"
 echo ""
 echo -e "${YELLOW}To rollback if needed:${NC}"
 echo "  docker-compose down"

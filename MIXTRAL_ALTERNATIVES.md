@@ -172,7 +172,7 @@ docker exec ollama ollama run qwen2.5:14b "Explain quantum computing"
 docker exec ollama ollama run mixtral:8x7b-instruct-v0.1-q2_k "Write a poem"
 ```
 
-### Use in Open WebUI
+### Use in MIRMI LLM
 
 1. Go to https://mirmi-llm.mirmi.tum.de
 2. Select model from dropdown
@@ -255,7 +255,7 @@ docker exec ollama ollama pull qwen2.5:14b
 # Test it
 docker exec ollama ollama run qwen2.5:14b "Hello!"
 
-# Use in Open WebUI
+# Use in MIRMI LLM
 # Select qwen2.5:14b from dropdown
 ```
 

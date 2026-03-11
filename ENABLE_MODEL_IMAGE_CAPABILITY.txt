@@ -1,7 +1,7 @@
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                                                                              ║
 ║  🔧 ENABLE IMAGE GENERATION FOR YOUR MODEL                                   ║
-║  Required for Open WebUI v0.7.0+                                            ║
+║  Required for MIRMI LLM v0.7.0+                                            ║
 ║                                                                              ║
 ╚══════════════════════════════════════════════════════════════════════════════╝
 
@@ -37,7 +37,7 @@ STEP 2: Enable Image Generation
   ☐ generate_image
   ☐ Vision/Image capabilities
   
-  (The exact name depends on your Open WebUI version)
+  (The exact name depends on your MIRMI LLM version)
 
 STEP 3: Save
   Click "Save" at the bottom
@@ -59,7 +59,7 @@ STEP 2: Add Function
 
 STEP 3: Import Community Action
   Search for: "Generate Image Action"
-  Or visit: https://openwebui.com/f/matthewh/image_gen_pipe
+  Or visit: 
   Click "Get" or "Import"
 
 STEP 4: Enable It
@@ -124,8 +124,8 @@ AFTER (Working):
     "negative_prompt": "blurry, low quality, distorted"
   }
 
-• Restart Open WebUI: After enabling capabilities:
-  docker restart open-webui
+• Restart MIRMI LLM: After enabling capabilities:
+  docker restart mirmi-llm
 
 🔧 TROUBLESHOOTING
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -133,9 +133,9 @@ AFTER (Working):
 Problem: Can't find "Capabilities" in model settings
 
 Solution:
-  • Your Open WebUI version might be older
+  • Your MIRMI LLM version might be older
   • Use Method 2 (Install Generate Image Action)
-  • Or update Open WebUI to latest version
+  • Or update MIRMI LLM to latest version
 
 Problem: Model still says "text-based AI"
 
