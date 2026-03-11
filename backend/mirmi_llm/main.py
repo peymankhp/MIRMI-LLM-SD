@@ -96,6 +96,7 @@ from mirmi_llm.routers import (
     users,
     utils,
     scim,
+    ide,
 )
 
 from mirmi_llm.routers.retrieval import (
@@ -1517,6 +1518,7 @@ app.include_router(
 )
 app.include_router(analytics.router, prefix="/api/v1/analytics", tags=["analytics"])
 app.include_router(utils.router, prefix="/api/v1/utils", tags=["utils"])
+app.include_router(ide.router, prefix="/api/v1/ide", tags=["ide"])
 
 # SCIM 2.0 API for identity management
 if ENABLE_SCIM:

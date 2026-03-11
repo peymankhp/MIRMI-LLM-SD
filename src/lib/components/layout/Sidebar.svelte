@@ -58,6 +58,7 @@
 	import ChannelModal from './Sidebar/ChannelModal.svelte';
 	import ChannelItem from './Sidebar/ChannelItem.svelte';
 	import PencilSquare from '../icons/PencilSquare.svelte';
+	import Code from '../icons/Code.svelte';
 	import Search from '../icons/Search.svelte';
 	import SearchModal from './SearchModal.svelte';
 	import FolderModal from './Sidebar/Folders/FolderModal.svelte';
@@ -762,6 +763,28 @@
 								<Search className="size-4.5" />
 							</div>
 						</button>
+					</Tooltip>
+				</div>
+
+				<div>
+					<Tooltip content={$i18n.t('IDE')} placement="right">
+						<a
+							class=" cursor-pointer flex rounded-xl hover:bg-gray-100 dark:hover:bg-gray-850 transition group"
+							href="/ide"
+							draggable="false"
+							on:click={async (e) => {
+								e.stopImmediatePropagation();
+								e.preventDefault();
+
+								goto('/ide');
+								itemClickHandler();
+							}}
+							aria-label={$i18n.t('IDE')}
+						>
+							<div class=" self-center flex items-center justify-center size-9">
+								<Code className="size-4.5" />
+							</div>
+						</a>
 					</Tooltip>
 				</div>
 

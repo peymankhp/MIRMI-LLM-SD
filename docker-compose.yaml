@@ -26,15 +26,67 @@ services:
     environment:
       - 'OLLAMA_BASE_URL=http://ollama:11434'
       - 'WEBUI_SECRET_KEY='
+      - 'CODE_SERVER_URL=http://mirmi-code-server:8080'
+      - 'DEEPAGENTS_URL=http://deepagents:8000'
     extra_hosts:
       - host.docker.internal:host-gateway
     restart: unless-stopped
     networks:
       - internal_net
 
+  # Code Server (VS Code in browser) for IDE functionality
+  mirmi-code-server:
+    image: codercom/code-server:latest
+    container_name: mirmi-code-server
+    restart: unless-stopped
+    volumes:
+      - code-workspaces:/home/coder/workspaces
+      - code-extensions:/home/coder/.local/share/code-server/extensions
+    environment:
+      - PASSWORD=${CODE_SERVER_PASSWORD:-changeme123}
+      - SUDO_PASSWORD=${CODE_SERVER_PASSWORD:-changeme123}
+    ports:
+      - "127.0.0.1:8443:8080"
+    networks:
+      - internal_net
+
+  # DeepAgents Service for AI agent functionality
+  deepagents:
+    build:
+      context: ./deepagents
+      dockerfile: Dockerfile
+    container_name: deepagents
+    restart: unless-stopped
+    volumes:
+      - code-workspaces:/workspaces
+      - deepagents-data:/app/data
+    environment:
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - LLM_MODEL=${DEEPAGENTS_MODEL:-qwen2.5-coder:7b}
+    ports:
+      - "127.0.0.1:8000:8000"
+    depends_on:
+      - ollama
+    networks:
+      - internal_net
+
+  # Redis for job queue and caching
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    restart: unless-stopped
+    volumes:
+      - redis-data:/data
+    networks:
+      - internal_net
+
 volumes:
   ollama: {}
   mirmi-llm: {}
+  code-workspaces: {}
+  code-extensions: {}
+  deepagents-data: {}
+  redis-data: {}
 
 networks:
   internal_net:
