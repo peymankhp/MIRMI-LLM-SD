@@ -4,13 +4,6 @@
 
 # MIRMI LLM 👋
 
-![GitHub repo size](https://img.shields.io/github/repo-size/mirmi-llm/mirmi-llm)
-![GitHub language count](https://img.shields.io/github/languages/count/mirmi-llm/mirmi-llm)
-![GitHub top language](https://img.shields.io/github/languages/top/mirmi-llm/mirmi-llm)
-![GitHub last commit](https://img.shields.io/github/last-commit/mirmi-llm/mirmi-llm?color=red)
-[![](https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&color=%23fe8e86)](https://github.com/sponsors/tjbck)
-
-![MIRMI LLM Banner](./banner.png)
 
 **MIRMI LLM is an [extensible]( feature-rich, and user-friendly self-hosted AI platform designed to operate entirely offline.** It supports various LLM runners like **Ollama** and **OpenAI-compatible APIs**, with **built-in inference engine** for RAG, making it a **powerful AI deployment solution**.
 
