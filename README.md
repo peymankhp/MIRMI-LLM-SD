@@ -8,7 +8,6 @@
 **MIRMI LLM is an [extensible]( feature-rich, and user-friendly self-hosted AI platform designed to operate entirely offline.** It supports various LLM runners like **Ollama** and **OpenAI-compatible APIs**, with **built-in inference engine** for RAG, making it a **powerful AI deployment solution**.
 
 
-![MIRMI LLM Demo](./demo.png)
 
 > [!TIP]  
 
