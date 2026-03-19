@@ -1,15 +1,32 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Request
 from pydantic import BaseModel
 import httpx
 import os
 import time
+import uuid
 from typing import Optional
 from mirmi_llm.utils.auth import get_current_user
 
 router = APIRouter()
 
-CODE_SERVER_URL = os.getenv("CODE_SERVER_URL", "http://code-server:8080")
 DEEPAGENTS_URL = os.getenv("DEEPAGENTS_URL", "http://deepagents:8000")
+
+async def get_user_id(request: Request) -> str:
+    """Get user ID from auth or generate a session ID"""
+    try:
+        user = await get_current_user(
+            request=request,
+            response=None,
+            background_tasks=None,
+            auth_token=None
+        )
+        return user.id
+    except:
+        # If not authenticated, use a session-based ID
+        session_id = request.cookies.get("session_id")
+        if not session_id:
+            session_id = str(uuid.uuid4())
+        return f"session_{session_id}"
 
 class IDESessionResponse(BaseModel):
     url: str
@@ -26,18 +43,21 @@ class AgentTaskResponse(BaseModel):
     error: Optional[str] = None
 
 @router.post("/session", response_model=IDESessionResponse)
-async def create_ide_session(user=Depends(get_current_user)):
+async def create_ide_session(request: Request):
     """Create a new IDE session for the user"""
     try:
+        # Get user ID (authenticated or session-based)
+        user_id = await get_user_id(request)
+        
         # Generate unique workspace ID
-        workspace_id = f"user_{user.id}_{int(time.time())}"
+        workspace_id = f"user_{user_id}_{int(time.time())}"
         
         # Create workspace via DeepAgents
         async with httpx.AsyncClient(timeout=30.0) as client:
             try:
                 response = await client.post(
                     f"{DEEPAGENTS_URL}/workspaces",
-                    json={"workspace_id": workspace_id, "user_id": str(user.id)}
+                    json={"workspace_id": workspace_id, "user_id": str(user_id)}
                 )
                 
                 if response.status_code != 200:
@@ -46,8 +66,8 @@ async def create_ide_session(user=Depends(get_current_user)):
             except httpx.RequestError as e:
                 raise Exception(f"Could not connect to DeepAgents service: {str(e)}")
         
-        # Return code-server URL with workspace
-        ide_url = f"{CODE_SERVER_URL}/?folder=/home/coder/workspaces/{workspace_id}"
+        # Return a relative URL to the IDE page (the Svelte component handles everything)
+        ide_url = f"/ide"
         
         return IDESessionResponse(
             url=ide_url, 
@@ -115,18 +135,9 @@ async def list_user_workspaces(user=Depends(get_current_user)):
 async def ide_health():
     """Check health of IDE services"""
     health_status = {
-        "code_server": False,
         "deepagents": False,
         "timestamp": time.time()
     }
-    
-    # Check Code Server
-    try:
-        async with httpx.AsyncClient(timeout=5.0) as client:
-            response = await client.get(f"{CODE_SERVER_URL}/healthz")
-            health_status["code_server"] = response.status_code == 200
-    except:
-        pass
     
     # Check DeepAgents
     try:

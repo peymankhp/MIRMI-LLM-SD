@@ -141,145 +141,20 @@
 							<div class="flex flex-col text-xs text-gray-700 dark:text-gray-200">
 								<div class="flex gap-1">
 									<Tooltip content={WEBUI_BUILD_HASH}>
-										v{WEBUI_VERSION}
+										v0.1.0
 									</Tooltip>
-
-									{#if $config?.features?.enable_version_update_check}
-										<a
-											href="https://github.com/mirmi-llm/mirmi-llm/releases/tag/v{version.latest}"
-											target="_blank"
-										>
-											{updateAvailable === null
-												? $i18n.t('Checking for updates...')
-												: updateAvailable
-													? `(v${version.latest} ${$i18n.t('available!')})`
-													: $i18n.t('(latest)')}
-										</a>
-									{/if}
 								</div>
-
-								<button
-									class=" underline flex items-center space-x-1 text-xs text-gray-500 dark:text-gray-500"
-									type="button"
-									on:click={() => {
-										showChangelog.set(true);
-									}}
+								<a
+									href="https://github.com/peymankhp/MIRMI-LLM"
+									target="_blank"
+									class="mt-2 inline-flex items-center gap-2 px-3 py-1.5 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 rounded-lg transition text-xs font-medium text-gray-800 dark:text-gray-200"
 								>
-									<div>{$i18n.t("See what's new")}</div>
-								</button>
-							</div>
-
-							{#if $config?.features?.enable_version_update_check}
-								<button
-									class=" text-xs px-3 py-1.5 bg-gray-50 hover:bg-gray-100 dark:bg-gray-850 dark:hover:bg-gray-800 transition rounded-lg font-medium"
-									type="button"
-									on:click={() => {
-										checkForVersionUpdates();
-									}}
-								>
-									{$i18n.t('Check for updates')}
-								</button>
-							{/if}
-						</div>
-					</div>
-
-					<div class="mb-2.5">
-						<div class="flex w-full justify-between items-center">
-							<div class="text-xs pr-2">
-								<div class="">
-									{$i18n.t('Help')}
-								</div>
-								<div class=" text-xs text-gray-500">
-									{$i18n.t('Discover how to use MIRMI LLM and seek support from the community.')}
-								</div>
-							</div>
-
-							<a
-								class="flex-shrink-0 text-xs font-medium underline"
-								href=""
-								target="_blank"
-							>
-								{$i18n.t('Documentation')}
-							</a>
-						</div>
-
-						<div class="mt-1">
-							<div class="flex space-x-1">
-								<a href="" target="_blank">
-									<img
-										alt="Discord"
-										src="https://img.shields.io/badge/Discord-Open_WebUI-blue?logo=discord&logoColor=white"
-									/>
-								</a>
-
-								<a href="https://twitter.com/MIRMILLM" target="_blank">
-									<img
-										alt="X (formerly Twitter) Follow"
-										src="https://img.shields.io/twitter/follow/MIRMILLM"
-									/>
-								</a>
-
-								<a href="https://github.com/mirmi-llm/mirmi-llm" target="_blank">
-									<img
-										alt="Github Repo"
-										src="https://img.shields.io/github/stars/mirmi-llm/mirmi-llm?style=social&label=Star us on Github"
-									/>
+									<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+										<path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+									</svg>
+									GitHub
 								</a>
 							</div>
-						</div>
-					</div>
-
-					<div class="mb-2.5">
-						<div class="flex w-full justify-between items-center">
-							<div class="text-xs pr-2">
-								<div class="">
-									{$i18n.t('License')}
-								</div>
-
-								{#if $config?.license_metadata}
-									<a
-										href=""
-										target="_blank"
-										class="text-gray-500 mt-0.5"
-									>
-										<span class=" capitalize text-black dark:text-white"
-											>{$config?.license_metadata?.type}
-											license</span
-										>
-										registered to
-										<span class=" capitalize text-black dark:text-white"
-											>{$config?.license_metadata?.organization_name}</span
-										>
-										for
-										<span class=" font-medium text-black dark:text-white"
-											>{$config?.license_metadata?.seats ?? 'Unlimited'} users.</span
-										>
-									</a>
-									{#if $config?.license_metadata?.html}
-										<div class="mt-0.5">
-											{@html DOMPurify.sanitize($config?.license_metadata?.html)}
-										</div>
-									{/if}
-								{:else}
-									<a
-										class=" text-xs hover:underline"
-										href=""
-										target="_blank"
-									>
-										<span class="text-gray-500">
-											{$i18n.t(
-												'Upgrade to a licensed plan for enhanced capabilities, including custom theming and branding, and dedicated support.'
-											)}
-										</span>
-									</a>
-								{/if}
-							</div>
-
-							<!-- <button
-								class="flex-shrink-0 text-xs px-3 py-1.5 bg-gray-50 hover:bg-gray-100 dark:bg-gray-850 dark:hover:bg-gray-800 transition rounded-lg font-medium"
-							>
-								{$i18n.t('Activate')}
-							</button> -->
 						</div>
 					</div>
 				</div>

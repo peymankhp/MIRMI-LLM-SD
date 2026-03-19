@@ -1,214 +1,96 @@
-# MIRMI LLM 🤖
+# MIRMI-LLM 🤖🎨
 
-**MIRMI LLM** is a customized AI platform for the Munich Institute of Robotics and Machine Intelligence (MIRMI) at TUM.
+**MIRMI-LLM** is a self-hosted AI platform for the [Munich Institute of Robotics and Machine Intelligence (MIRMI)](https://www.mirmi.tum.de) at TUM.
 
-# MIRMI LLM 👋
-
-
-**MIRMI LLM is an [extensible]( feature-rich, and user-friendly self-hosted AI platform designed to operate entirely offline.** It supports various LLM runners like **Ollama** and **OpenAI-compatible APIs**, with **built-in inference engine** for RAG, making it a **powerful AI deployment solution**.
-
-
-
-> [!TIP]  
-
-For more information, be sure to check out our [MIRMI LLM Documentation](
-
-## Key Features of MIRMI LLM ⭐
-
-- 🚀 **Effortless Setup**: Install seamlessly using Docker or Kubernetes (kubectl, kustomize or helm) for a hassle-free experience with support for both `:ollama` and `:cuda` tagged images.
-
-- 🤝 **Ollama/OpenAI API Integration**: Effortlessly integrate OpenAI-compatible APIs for versatile conversations alongside Ollama models. Customize the OpenAI API URL to link with **LMStudio, GroqCloud, Mistral, OpenRouter, and more**.
-
-- 🛡️ **Granular Permissions and User Groups**: By allowing administrators to create detailed user roles and permissions, we ensure a secure user environment. This granularity not only enhances security but also allows for customized user experiences, fostering a sense of ownership and responsibility amongst users.
-
-- 📱 **Responsive Design**: Enjoy a seamless experience across Desktop PC, Laptop, and Mobile devices.
-
-- 📱 **Progressive Web App (PWA) for Mobile**: Enjoy a native app-like experience on your mobile device with our PWA, providing offline access on localhost and a seamless user interface.
-
-- ✒️🔢 **Full Markdown and LaTeX Support**: Elevate your LLM experience with comprehensive Markdown and LaTeX capabilities for enriched interaction.
-
-- 🎤📹 **Hands-Free Voice/Video Call**: Experience seamless communication with integrated hands-free voice and video call features using multiple Speech-to-Text providers (Local Whisper, OpenAI, Deepgram, Azure) and Text-to-Speech engines (Azure, ElevenLabs, OpenAI, Transformers, WebAPI), allowing for dynamic and interactive chat environments.
-
-- 🛠️ **Model Builder**: Easily create Ollama models via the Web UI. Create and add custom characters/agents, customize chat elements, and import models effortlessly through [MIRMI LLM Community]( integration.
-
-- 🐍 **Native Python Function Calling Tool**: Enhance your LLMs with built-in code editor support in the tools workspace. Bring Your Own Function (BYOF) by simply adding your pure Python functions, enabling seamless integration with LLMs.
-
-- 💾 **Persistent Artifact Storage**: Built-in key-value storage API for artifacts, enabling features like journals, trackers, leaderboards, and collaborative tools with both personal and shared data scopes across sessions.
-
-- 📚 **Local RAG Integration**: Dive into the future of chat interactions with groundbreaking Retrieval Augmented Generation (RAG) support using your choice of 9 vector databases and multiple content extraction engines (Tika, Docling, Document Intelligence, Mistral OCR, External loaders). Load documents directly into chat or add files to your document library, effortlessly accessing them using the `#` command before a query.
-
-- 🔍 **Web Search for RAG**: Perform web searches using 15+ providers including `SearXNG`, `Google PSE`, `Brave Search`, `Kagi`, `Mojeek`, `Tavily`, `Perplexity`, `serpstack`, `serper`, `Serply`, `DuckDuckGo`, `SearchApi`, `SerpApi`, `Bing`, `Jina`, `Exa`, `Sougou`, `Azure AI Search`, and `Ollama Cloud`, injecting results directly into your chat experience.
-
-- 🌐 **Web Browsing Capability**: Seamlessly integrate websites into your chat experience using the `#` command followed by a URL. This feature allows you to incorporate web content directly into your conversations, enhancing the richness and depth of your interactions.
-
-- 🎨 **Image Generation & Editing Integration**: Create and edit images using multiple engines including OpenAI's DALL-E, Gemini, ComfyUI (local), and AUTOMATIC1111 (local), with support for both generation and prompt-based editing workflows.
-
-- ⚙️ **Many Models Conversations**: Effortlessly engage with various models simultaneously, harnessing their unique strengths for optimal responses. Enhance your experience by leveraging a diverse set of models in parallel.
-
-- 🔐 **Role-Based Access Control (RBAC)**: Ensure secure access with restricted permissions; only authorized individuals can access your Ollama, and exclusive model creation/pulling rights are reserved for administrators.
-
-- 🗄️ **Flexible Database & Storage Options**: Choose from SQLite (with optional encryption), PostgreSQL, or configure cloud storage backends (S3, Google Cloud Storage, Azure Blob Storage) for scalable deployments.
-
-- 🔍 **Advanced Vector Database Support**: Select from 9 vector database options including ChromaDB, PGVector, Qdrant, Milvus, Elasticsearch, OpenSearch, Pinecone, S3Vector, and Oracle 23ai for optimal RAG performance.
-
-- 🔐 **Enterprise Authentication**: Full support for LDAP/Active Directory integration, SCIM 2.0 automated provisioning, and SSO via trusted headers alongside OAuth providers. Enterprise-grade user and group provisioning through SCIM 2.0 protocol, enabling seamless integration with identity providers like Okta, Azure AD, and Google Workspace for automated user lifecycle management.
-
-- ☁️ **Cloud-Native Integration**: Native support for Google Drive and OneDrive/SharePoint file picking, enabling seamless document import from enterprise cloud storage.
-
-- 📊 **Production Observability**: Built-in OpenTelemetry support for traces, metrics, and logs, enabling comprehensive monitoring with your existing observability stack.
-
-- ⚖️ **Horizontal Scalability**: Redis-backed session management and WebSocket support for multi-worker and multi-node deployments behind load balancers.
-
-- 🌐🌍 **Multilingual Support**: Experience MIRMI LLM in your preferred language with our internationalization (i18n) support. Join us in expanding our supported languages! We're actively seeking contributors!
-
-- 🧩 **Pipelines, MIRMI LLM Plugin Support**: Seamlessly integrate custom logic and Python libraries into MIRMI LLM using [Pipelines Plugin Framework](https://github.com/mirmi-llm/pipelines). Launch your Pipelines instance, set the OpenAI URL to the Pipelines URL, and explore endless possibilities. [Examples](https://github.com/mirmi-llm/pipelines/tree/main/examples) include **Function Calling**, User **Rate Limiting** to control access, **Usage Monitoring** with tools like Langfuse, **Live Translation with LibreTranslate** for multilingual support, **Toxic Message Filtering** and much more.
-
-- 🌟 **Continuous Updates**: We are committed to improving MIRMI LLM with regular updates, fixes, and new features.
-
-Want to learn more about MIRMI LLM's features? Check out our [MIRMI LLM documentation]( for a comprehensive overview!
+It combines a full-featured LLM chat interface with an integrated **Image Generator** powered by Stable Diffusion — all running locally, offline-capable, with enterprise authentication.
 
 ---
 
-We are incredibly grateful for the generous support of our sponsors. Their contributions help us to maintain and improve our project, ensuring we can continue to deliver quality work to our community. Thank you!
+## Features
 
-## How to Install 🚀
+- 💬 **LLM Chat** — multi-model conversations via Ollama or OpenAI-compatible APIs
+- 🎨 **Image Generator** — sidebar shortcut, prompt-to-image via Stable Diffusion (AUTOMATIC1111)
+- 🤖 **DeepAgents** — agentic AI service with tool use
+- 💻 **IDE** — in-browser code environment
+- 📚 **RAG** — document upload and retrieval-augmented generation
+- 🔍 **Web Search** — 15+ search providers
+- 🔐 **Enterprise Auth** — LDAP, SSO, RBAC, SCIM 2.0
+- 🌐 **Multilingual** — i18n support
+- 📱 **PWA** — installable, offline-capable
 
-### Installation via Python pip 🐍
+---
 
-MIRMI LLM can be installed using pip, the Python package installer. Before proceeding, ensure you're using **Python 3.11** to avoid compatibility issues.
+## Stack
 
-1. **Install MIRMI LLM**:
-   Open your terminal and run the following command to install MIRMI LLM:
+| Service | Technology |
+|---|---|
+| Frontend | SvelteKit 5 + TailwindCSS 4 |
+| Backend | FastAPI (Python) |
+| LLM | Ollama + OpenAI-compatible |
+| Image Gen | Stable Diffusion (AUTOMATIC1111) |
+| Database | SQLite (default) / PostgreSQL |
+| Sessions | Redis |
+| Proxy | Nginx + Let's Encrypt SSL |
 
-   ```bash
-   pip install mirmi-llm
-   ```
+---
 
-2. **Running MIRMI LLM**:
-   After installation, you can start MIRMI LLM by executing:
+## Quick Setup
 
-   ```bash
-   mirmi-llm serve
-   ```
+> For full details see [SETUP.md](./SETUP.md)
 
-This will start the MIRMI LLM server, which you can access at [http://localhost:8080](http://localhost:8080)
+### Requirements
 
-### Quick Start with Docker 🐳
+- Linux server (Ubuntu 22.04+ recommended)
+- Docker + Docker Compose v2
+- NVIDIA GPU with 8GB+ VRAM (for Stable Diffusion)
+- NVIDIA Container Toolkit
+- Domain name (optional, for HTTPS)
 
-> [!NOTE]  
-> Please note that for certain Docker environments, additional configurations might be needed. If you encounter any connection issues, our detailed guide on [MIRMI LLM Documentation]( is ready to assist you.
-
-> [!WARNING]
-> When using Docker to install MIRMI LLM, make sure to include the `-v mirmi-llm:/app/backend/data` in your Docker command. This step is crucial as it ensures your database is properly mounted and prevents any loss of data.
-
-> [!TIP]  
-> If you wish to utilize MIRMI LLM with Ollama included or CUDA acceleration, we recommend utilizing our official images tagged with either `:cuda` or `:ollama`. To enable CUDA, you must install the [Nvidia CUDA container toolkit](https://docs.nvidia.com/dgx/nvidia-container-runtime-upgrade/) on your Linux/WSL system.
-
-### Installation with Default Configuration
-
-- **If Ollama is on your computer**, use this command:
-
-  ```bash
-  docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway -v mirmi-llm:/app/backend/data --name mirmi-llm --restart always ghcr.io/mirmi-llm/mirmi-llm:main
-  ```
-
-- **If Ollama is on a Different Server**, use this command:
-
-  To connect to Ollama on another server, change the `OLLAMA_BASE_URL` to the server's URL:
-
-  ```bash
-  docker run -d -p 3000:8080 -e OLLAMA_BASE_URL=https://example.com -v mirmi-llm:/app/backend/data --name mirmi-llm --restart always ghcr.io/mirmi-llm/mirmi-llm:main
-  ```
-
-- **To run MIRMI LLM with Nvidia GPU support**, use this command:
-
-  ```bash
-  docker run -d -p 3000:8080 --gpus all --add-host=host.docker.internal:host-gateway -v mirmi-llm:/app/backend/data --name mirmi-llm --restart always ghcr.io/mirmi-llm/mirmi-llm:cuda
-  ```
-
-### Installation for OpenAI API Usage Only
-
-- **If you're only using OpenAI API**, use this command:
-
-  ```bash
-  docker run -d -p 3000:8080 -e OPENAI_API_KEY=your_secret_key -v mirmi-llm:/app/backend/data --name mirmi-llm --restart always ghcr.io/mirmi-llm/mirmi-llm:main
-  ```
-
-### Installing MIRMI LLM with Bundled Ollama Support
-
-This installation method uses a single container image that bundles MIRMI LLM with Ollama, allowing for a streamlined setup via a single command. Choose the appropriate command based on your hardware setup:
-
-- **With GPU Support**:
-  Utilize GPU resources by running the following command:
-
-  ```bash
-  docker run -d -p 3000:8080 --gpus=all -v ollama:/root/.ollama -v mirmi-llm:/app/backend/data --name mirmi-llm --restart always ghcr.io/mirmi-llm/mirmi-llm:ollama
-  ```
-
-- **For CPU Only**:
-  If you're not using a GPU, use this command instead:
-
-  ```bash
-  docker run -d -p 3000:8080 -v ollama:/root/.ollama -v mirmi-llm:/app/backend/data --name mirmi-llm --restart always ghcr.io/mirmi-llm/mirmi-llm:ollama
-  ```
-
-Both commands facilitate a built-in, hassle-free installation of both MIRMI LLM and Ollama, ensuring that you can get everything up and running swiftly.
-
-After installation, you can access MIRMI LLM at [http://localhost:3000](http://localhost:3000). Enjoy! 😄
-
-### Other Installation Methods
-
-We offer various installation alternatives, including non-Docker native installation methods, Docker Compose, Kustomize, and Helm. Visit our [MIRMI LLM Documentation]( or join our [Discord community]() for comprehensive guidance.
-
-Look at the [Local Development Guide]( for instructions on setting up a local development environment.
-
-### Troubleshooting
-
-Encountering connection issues? Our [MIRMI LLM Documentation]( has got you covered. For further assistance and to join our vibrant community, visit the [MIRMI LLM Discord]().
-
-#### MIRMI LLM: Server Connection Error
-
-If you're experiencing connection issues, it’s often due to the WebUI docker container not being able to reach the Ollama server at 127.0.0.1:11434 (host.docker.internal:11434) inside the container . Use the `--network=host` flag in your docker command to resolve this. Note that the port changes from 3000 to 8080, resulting in the link: `http://localhost:8080`.
-
-**Example Docker Command**:
+### 1. Clone
 
 ```bash
-docker run -d --network=host -v mirmi-llm:/app/backend/data -e OLLAMA_BASE_URL=http://127.0.0.1:11434 --name mirmi-llm --restart always ghcr.io/mirmi-llm/mirmi-llm:main
+git clone https://github.com/peymankhp/MIRMI-LLM-SD.git
+cd MIRMI-LLM-SD
 ```
 
-### Keeping Your Docker Installation Up-to-Date
-
-Check our Updating Guide available in our [MIRMI LLM Documentation](
-
-### Using the Dev Branch 🌙
-
-> [!WARNING]
-> The `:dev` branch contains the latest unstable features and changes. Use it at your own risk as it may have bugs or incomplete features.
-
-If you want to try out the latest bleeding-edge features and are okay with occasional instability, you can use the `:dev` tag like this:
+### 2. Configure
 
 ```bash
-docker run -d -p 3000:8080 -v mirmi-llm:/app/backend/data --name mirmi-llm --add-host=host.docker.internal:host-gateway --restart always ghcr.io/mirmi-llm/mirmi-llm:dev
+cp .env.example .env
+# Edit .env — set WEBUI_SECRET_KEY at minimum
+nano .env
 ```
 
-### Offline Mode
-
-If you are running MIRMI LLM in an offline environment, you can set the `HF_HUB_OFFLINE` environment variable to `1` to prevent attempts to download models from the internet.
+### 3. Start
 
 ```bash
-export HF_HUB_OFFLINE=1
+# Start everything (LLM + Image Generation)
+docker compose -f docker-compose.yaml -f docker-compose-stable-diffusion.yaml up -d
 ```
 
-## What's Next? 🌟
+### 4. Open
 
-Discover upcoming features on our roadmap in the [MIRMI LLM Documentation](
+```
+http://localhost:8080
+```
 
-## License 📜
+First user to register becomes admin.
 
-This project contains code under multiple licenses. The current codebase includes components licensed under the MIRMI LLM License with an additional requirement to preserve the "MIRMI LLM" branding, as well as prior contributions under their respective original licenses. For a detailed record of license changes and the applicable terms for each section of the code, please refer to [LICENSE_HISTORY](./LICENSE_HISTORY). For complete and updated licensing details, please see the [LICENSE](./LICENSE) and [LICENSE_HISTORY](./LICENSE_HISTORY) files.
+---
 
-## Support 💬
+## Image Generator
 
-If you have any questions, suggestions, or need assistance, please open an issue or join our
-[MIRMI LLM Discord community]() to connect with us! 🤝
+After setup, every user sees **Image Generator** in the left sidebar between Search and IDE.
 
+Configure it in Admin Panel → Settings → Images:
+- Engine: `AUTOMATIC1111`
+- Base URL: `http://automatic1111:7860`
+- Enable Image Generation: ON
+
+See [SETUP.md](./SETUP.md#stable-diffusion) for the full walkthrough.
+
+---
+
+## License
+
+See [LICENSE](./LICENSE) and [LICENSE_HISTORY](./LICENSE_HISTORY).

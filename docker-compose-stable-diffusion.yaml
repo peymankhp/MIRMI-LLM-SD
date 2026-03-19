@@ -12,7 +12,7 @@ services:
       - automatic1111-data:/workspace
     environment:
       - NVIDIA_VISIBLE_DEVICES=all
-      - WEBUI_FLAGS=--api --listen --port 7860 --medvram --xformers --no-half-vae
+      - WEBUI_FLAGS=--api --listen --port 7860 --xformers --opt-sdp-attention --no-half-vae
       - WEB_ENABLE_AUTH=false
     networks:
       - mirmi-llm_default
