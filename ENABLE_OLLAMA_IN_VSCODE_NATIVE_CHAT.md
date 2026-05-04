@@ -20,54 +20,54 @@ Paste this into your `settings.json`:
 
 ```json
 {
-  "chat.languageModels": [
-    {
-      "id": "ollama-qwen-coder-7b",
-      "name": "Qwen 2.5 Coder 7B",
-      "vendor": "ollama",
-      "family": "qwen2.5-coder",
-      "version": "7b",
-      "maxInputTokens": 32000,
-      "maxOutputTokens": 4096,
-      "endpoint": "http://localhost:11434/v1/chat/completions",
-      "apiKeyCommand": "echo 'ollama'"
-    },
-    {
-      "id": "ollama-qwen-14b",
-      "name": "Qwen 2.5 14B",
-      "vendor": "ollama",
-      "family": "qwen2.5",
-      "version": "14b",
-      "maxInputTokens": 32000,
-      "maxOutputTokens": 4096,
-      "endpoint": "http://localhost:11434/v1/chat/completions",
-      "apiKeyCommand": "echo 'ollama'"
-    },
-    {
-      "id": "ollama-llama-8b",
-      "name": "Llama 3.1 8B",
-      "vendor": "ollama",
-      "family": "llama3.1",
-      "version": "8b",
-      "maxInputTokens": 128000,
-      "maxOutputTokens": 4096,
-      "endpoint": "http://localhost:11434/v1/chat/completions",
-      "apiKeyCommand": "echo 'ollama'"
-    },
-    {
-      "id": "ollama-mistral-7b",
-      "name": "Mistral 7B",
-      "vendor": "ollama",
-      "family": "mistral",
-      "version": "7b",
-      "maxInputTokens": 32000,
-      "maxOutputTokens": 4096,
-      "endpoint": "http://localhost:11434/v1/chat/completions",
-      "apiKeyCommand": "echo 'ollama'"
-    }
-  ],
-  "github.copilot.chat.localization": "auto",
-  "github.copilot.chat.useProjectTemplates": true
+	"chat.languageModels": [
+		{
+			"id": "ollama-qwen-coder-7b",
+			"name": "Qwen 2.5 Coder 7B",
+			"vendor": "ollama",
+			"family": "qwen2.5-coder",
+			"version": "7b",
+			"maxInputTokens": 32000,
+			"maxOutputTokens": 4096,
+			"endpoint": "http://localhost:11434/v1/chat/completions",
+			"apiKeyCommand": "echo 'ollama'"
+		},
+		{
+			"id": "ollama-qwen-14b",
+			"name": "Qwen 2.5 14B",
+			"vendor": "ollama",
+			"family": "qwen2.5",
+			"version": "14b",
+			"maxInputTokens": 32000,
+			"maxOutputTokens": 4096,
+			"endpoint": "http://localhost:11434/v1/chat/completions",
+			"apiKeyCommand": "echo 'ollama'"
+		},
+		{
+			"id": "ollama-llama-8b",
+			"name": "Llama 3.1 8B",
+			"vendor": "ollama",
+			"family": "llama3.1",
+			"version": "8b",
+			"maxInputTokens": 128000,
+			"maxOutputTokens": 4096,
+			"endpoint": "http://localhost:11434/v1/chat/completions",
+			"apiKeyCommand": "echo 'ollama'"
+		},
+		{
+			"id": "ollama-mistral-7b",
+			"name": "Mistral 7B",
+			"vendor": "ollama",
+			"family": "mistral",
+			"version": "7b",
+			"maxInputTokens": 32000,
+			"maxOutputTokens": 4096,
+			"endpoint": "http://localhost:11434/v1/chat/completions",
+			"apiKeyCommand": "echo 'ollama'"
+		}
+	],
+	"github.copilot.chat.localization": "auto",
+	"github.copilot.chat.useProjectTemplates": true
 }
 ```
 
@@ -88,33 +88,33 @@ Ollama provides an OpenAI-compatible API endpoint. Configure it like this:
 
 ```json
 {
-  "chat.languageModels": [
-    {
-      "id": "ollama-local",
-      "name": "Ollama Local Models",
-      "provider": "openai-compatible",
-      "endpoint": "http://localhost:11434/v1",
-      "apiKey": "ollama",
-      "models": [
-        {
-          "id": "qwen2.5-coder:7b",
-          "name": "Qwen 2.5 Coder 7B"
-        },
-        {
-          "id": "qwen2.5:14b",
-          "name": "Qwen 2.5 14B"
-        },
-        {
-          "id": "llama3.1:8b-instruct-q4_K_M",
-          "name": "Llama 3.1 8B"
-        },
-        {
-          "id": "mistral:latest",
-          "name": "Mistral 7B"
-        }
-      ]
-    }
-  ]
+	"chat.languageModels": [
+		{
+			"id": "ollama-local",
+			"name": "Ollama Local Models",
+			"provider": "openai-compatible",
+			"endpoint": "http://localhost:11434/v1",
+			"apiKey": "ollama",
+			"models": [
+				{
+					"id": "qwen2.5-coder:7b",
+					"name": "Qwen 2.5 Coder 7B"
+				},
+				{
+					"id": "qwen2.5:14b",
+					"name": "Qwen 2.5 14B"
+				},
+				{
+					"id": "llama3.1:8b-instruct-q4_K_M",
+					"name": "Llama 3.1 8B"
+				},
+				{
+					"id": "mistral:latest",
+					"name": "Mistral 7B"
+				}
+			]
+		}
+	]
 }
 ```
 
@@ -177,21 +177,21 @@ litellm --model ollama/qwen2.5-coder:7b \
 
 ```json
 {
-  "chat.languageModels": [
-    {
-      "id": "litellm-proxy",
-      "name": "Local LLMs via LiteLLM",
-      "provider": "openai",
-      "endpoint": "http://localhost:8000/v1",
-      "apiKey": "sk-1234",
-      "models": [
-        {
-          "id": "ollama/qwen2.5-coder:7b",
-          "name": "Qwen 2.5 Coder 7B"
-        }
-      ]
-    }
-  ]
+	"chat.languageModels": [
+		{
+			"id": "litellm-proxy",
+			"name": "Local LLMs via LiteLLM",
+			"provider": "openai",
+			"endpoint": "http://localhost:8000/v1",
+			"apiKey": "sk-1234",
+			"models": [
+				{
+					"id": "ollama/qwen2.5-coder:7b",
+					"name": "Qwen 2.5 Coder 7B"
+				}
+			]
+		}
+	]
 }
 ```
 
@@ -219,6 +219,7 @@ litellm --model ollama/qwen2.5-coder:7b \
 ### Problem: Models don't appear
 
 **Solution 1: Check Ollama API**
+
 ```bash
 curl http://localhost:11434/v1/models
 ```
@@ -226,11 +227,13 @@ curl http://localhost:11434/v1/models
 Should return list of models.
 
 **Solution 2: Check VSCode Output**
+
 1. View → Output
 2. Select "Language Models" or "GitHub Copilot"
 3. Look for errors
 
 **Solution 3: Verify Settings**
+
 1. `Ctrl+Shift+P` → "Preferences: Open User Settings (JSON)"
 2. Check `chat.languageModels` is configured
 3. Reload window
@@ -238,11 +241,13 @@ Should return list of models.
 ### Problem: Can't select models
 
 **Possible causes:**
+
 - GitHub Copilot Chat not installed
 - Ollama API not compatible
 - VSCode version too old
 
 **Solution:**
+
 - Update VSCode to latest version
 - Ensure GitHub Copilot Chat extension is installed
 - Try LiteLLM proxy approach
@@ -250,6 +255,7 @@ Should return list of models.
 ### Problem: Models show but don't respond
 
 **Solution:**
+
 1. Check Ollama is running: `ollama list`
 2. Test API: `curl http://localhost:11434/v1/chat/completions -d '{"model":"qwen2.5-coder:7b","messages":[{"role":"user","content":"hi"}]}'`
 3. Check VSCode logs for errors
@@ -275,24 +281,19 @@ Here's the complete `settings.json` that should work:
 
 ```json
 {
-  "chat.languageModels": [
-    {
-      "id": "ollama-provider",
-      "name": "Ollama Local",
-      "provider": "openai-compatible",
-      "endpoint": "http://localhost:11434/v1",
-      "apiKey": "ollama",
-      "models": [
-        "qwen2.5-coder:7b",
-        "qwen2.5:14b",
-        "llama3.1:8b-instruct-q4_K_M",
-        "mistral:latest"
-      ]
-    }
-  ],
-  "github.copilot.enable": {
-    "*": true
-  }
+	"chat.languageModels": [
+		{
+			"id": "ollama-provider",
+			"name": "Ollama Local",
+			"provider": "openai-compatible",
+			"endpoint": "http://localhost:11434/v1",
+			"apiKey": "ollama",
+			"models": ["qwen2.5-coder:7b", "qwen2.5:14b", "llama3.1:8b-instruct-q4_K_M", "mistral:latest"]
+		}
+	],
+	"github.copilot.enable": {
+		"*": true
+	}
 }
 ```
 
@@ -348,6 +349,7 @@ echo "Now reload VSCode: Ctrl+Shift+P → 'Developer: Reload Window'"
 ```
 
 Run it:
+
 ```bash
 chmod +x configure-vscode-ollama.sh
 ./configure-vscode-ollama.sh

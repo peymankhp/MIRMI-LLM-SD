@@ -15,8 +15,8 @@ jobs:
 
       - name: Check for changes in package.json
         run: |
-          git diff --cached --diff-filter=d package.json || {
-            echo "No changes to package.json"
+          git diff HEAD~1 HEAD --name-only | grep -q "^package.json$" || {
+            echo "No changes to package.json, skipping release"
             exit 1
           }
 

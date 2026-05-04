@@ -13,12 +13,14 @@ Swap:   2GB (currently full - needs increase)
 ### Hardware Assessment
 
 ✅ **Strengths:**
+
 - Excellent CPU (8 cores, high clock speed)
 - Good RAM (32GB is solid for most models)
 - Decent GPU (8GB VRAM for partial offloading)
 - Fast NVMe storage
 
 ⚠️ **Limitations:**
+
 - GPU VRAM limited to 8GB (can't fit 13B+ models entirely)
 - Models larger than 8GB will use CPU fallback
 - Swap needs increase for safety margin
@@ -26,6 +28,7 @@ Swap:   2GB (currently full - needs increase)
 ### Optimal Model Size for Your System
 
 Based on research and benchmarks for 32GB RAM + 8GB VRAM:
+
 - **Sweet spot:** 7B-14B parameter models
 - **Maximum practical:** 20B with Q4 quantization
 - **Avoid:** 30B+ models (too slow with CPU fallback)
@@ -64,7 +67,7 @@ Quantization:   Q4_K_M (optimal quality/size)
 ✅ **Fast inference** on your hardware  
 ✅ **Fits comfortably** in 32GB RAM  
 ✅ **Partial GPU acceleration** with 8GB VRAM  
-✅ **Latest training data** (2024-2025)  
+✅ **Latest training data** (2024-2025)
 
 ### Use Cases
 
@@ -119,7 +122,7 @@ Quantization:   Q4_K_M
 ✅ **Excellent for coding** (trained on code)  
 ✅ **15% more efficient tokenization** than competitors  
 ✅ **Great instruction following**  
-✅ **Low memory footprint**  
+✅ **Low memory footprint**
 
 ### Use Cases
 
@@ -174,7 +177,7 @@ Quantization:   Q4_K_M
 ✅ **Best licensing** for commercial use  
 ✅ **Low resource usage** (can run multiple instances)  
 ✅ **Great for production** deployments  
-✅ **Reliable and stable**  
+✅ **Reliable and stable**
 
 ### Use Cases
 
@@ -200,44 +203,52 @@ Mistral 7B consistently outperforms other 7B models and even competes with some 
 
 ## 📊 Head-to-Head Comparison
 
-| Feature | Qwen 2.5 14B | Llama 3.1 8B | Mistral 7B |
-|---------|--------------|--------------|------------|
-| **Parameters** | 14B | 8B | 7B |
-| **Size** | 9GB | 4.9GB | 4.4GB |
-| **RAM Usage** | 10-12GB | 6-8GB | 5-6GB |
-| **Speed** | ⚡⚡ Fast | ⚡⚡⚡ Very Fast | ⚡⚡⚡⚡ Fastest |
-| **Quality** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐½ |
-| **Coding** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ |
-| **Multilingual** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐ |
-| **Context** | 32K | 128K | 32K |
-| **Response Time** | 3-8s | 2-5s | 1-4s |
-| **Fits in VRAM** | Partial | ✅ Yes | ✅ Yes |
-| **Best For** | Quality | Balance | Speed |
+| Feature           | Qwen 2.5 14B | Llama 3.1 8B     | Mistral 7B       |
+| ----------------- | ------------ | ---------------- | ---------------- |
+| **Parameters**    | 14B          | 8B               | 7B               |
+| **Size**          | 9GB          | 4.9GB            | 4.4GB            |
+| **RAM Usage**     | 10-12GB      | 6-8GB            | 5-6GB            |
+| **Speed**         | ⚡⚡ Fast    | ⚡⚡⚡ Very Fast | ⚡⚡⚡⚡ Fastest |
+| **Quality**       | ⭐⭐⭐⭐⭐   | ⭐⭐⭐⭐         | ⭐⭐⭐½          |
+| **Coding**        | ⭐⭐⭐⭐⭐   | ⭐⭐⭐⭐⭐       | ⭐⭐⭐⭐         |
+| **Multilingual**  | ⭐⭐⭐⭐⭐   | ⭐⭐⭐           | ⭐⭐⭐           |
+| **Context**       | 32K          | 128K             | 32K              |
+| **Response Time** | 3-8s         | 2-5s             | 1-4s             |
+| **Fits in VRAM**  | Partial      | ✅ Yes           | ✅ Yes           |
+| **Best For**      | Quality      | Balance          | Speed            |
 
 ---
 
 ## 🎯 Recommendation by Use Case
 
 ### For Best Overall Quality
+
 **→ Qwen 2.5 14B**
+
 - Most capable model for your hardware
 - Best for complex tasks
 - Excellent multilingual support
 
 ### For Daily General Use
+
 **→ Llama 3.1 8B**
+
 - Perfect balance of speed and quality
 - Huge context window
 - Fits entirely in GPU
 
 ### For Speed & Efficiency
+
 **→ Mistral 7B**
+
 - Fastest responses
 - Lowest resource usage
 - Great for automation
 
 ### For Coding Tasks
+
 **→ Qwen 2.5 14B or Llama 3.1 8B**
+
 - Both excellent for code
 - Qwen slightly better for complex logic
 - Llama faster for quick completions
@@ -296,13 +307,15 @@ sudo ./increase-swap.sh
 ### 3. GPU Offloading
 
 Your RTX 2080 SUPER (8GB VRAM) can fully accelerate:
+
 - ✅ Mistral 7B (4-5GB)
 - ✅ Llama 3.1 8B (5-6GB)
-- ⚠️  Qwen 2.5 14B (partial, 6-8GB in VRAM, rest in RAM)
+- ⚠️ Qwen 2.5 14B (partial, 6-8GB in VRAM, rest in RAM)
 
 ### 4. Model Switching Strategy
 
 **Keep all three installed:**
+
 - Use Mistral 7B for quick tasks
 - Use Llama 3.1 8B for daily work
 - Use Qwen 2.5 14B when you need best quality
@@ -342,6 +355,7 @@ docker stats ollama
 ## 📈 Expected Performance on Your System
 
 ### Qwen 2.5 14B
+
 ```
 Load time:      15-30 seconds
 First token:    0.5-1 second
@@ -351,6 +365,7 @@ Memory usage:   10-12GB RAM + 6-8GB VRAM
 ```
 
 ### Llama 3.1 8B
+
 ```
 Load time:      10-20 seconds
 First token:    0.3-0.5 seconds
@@ -360,6 +375,7 @@ Memory usage:   6-8GB RAM (or fully in VRAM)
 ```
 
 ### Mistral 7B
+
 ```
 Load time:      5-15 seconds
 First token:    0.2-0.4 seconds
@@ -373,6 +389,7 @@ Memory usage:   5-6GB RAM (or fully in VRAM)
 ## 🎓 Sources & Research
 
 This recommendation is based on:
+
 - [SiliconFlow's 2026 LLM Speed Analysis](https://www.siliconflow.com/articles/en/fastest-open-source-LLMs)
 - [Real-world benchmark comparisons](https://singhajit.com/llm-inference-speed-comparison/)
 - [Open-source model analysis](https://www.ankursnewsletter.com/p/comparing-open-source-ai-models-llama)

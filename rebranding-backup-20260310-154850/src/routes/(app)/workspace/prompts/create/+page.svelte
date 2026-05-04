@@ -36,11 +36,7 @@
 	onMount(async () => {
 		window.addEventListener('message', async (event) => {
 			console.log(event);
-			if (
-				!['', 'https://www.openwebui.com', 'http://localhost:9999'].includes(
-					event.origin
-				)
-			)
+			if (!['', 'https://www.openwebui.com', 'http://localhost:9999'].includes(event.origin))
 				return;
 			const _prompt = JSON.parse(event.data);
 			console.log('Received prompt via window message:', _prompt);

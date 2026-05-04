@@ -7,6 +7,7 @@ I've analyzed your MIRMI LLM setup and created a safe installation solution. You
 ## The Problem with Original Instructions
 
 The instructions you received were for manual `docker run` commands, but you're using `docker-compose`. Also:
+
 - Your network is set to `internal: true` (completely isolated)
 - Ollama port 11434 is NOT exposed to the host
 - You have a host-level Ollama service running that will conflict
@@ -14,6 +15,7 @@ The instructions you received were for manual `docker run` commands, but you're 
 ## My Solution
 
 I've created an automated script that will:
+
 1. ✅ Create full backups (docker-compose.yaml + all data)
 2. ✅ Safely reconfigure your setup to expose Ollama API
 3. ✅ Stop the conflicting host-level Ollama service
@@ -30,6 +32,7 @@ Simply run:
 ```
 
 The script will:
+
 - Ask for confirmation before each major step
 - Show you exactly what it's doing
 - Create backups automatically
@@ -42,11 +45,13 @@ The script will:
 After installation:
 
 ### MIRMI LLM
+
 - Still accessible at `http://localhost:8081`
 - New models appear in the dropdown automatically
 - All existing data and models preserved
 
 ### Ollama API (for Cursor, etc.)
+
 ```
 Base URL: http://localhost:11434/v1
 API Key: ollama (or any value)
@@ -54,6 +59,7 @@ Models: llama3:8b, qwen2.5:7b, and all your existing models
 ```
 
 ### For Remote Access
+
 ```
 Base URL: http://<your-server-ip>:11434/v1
 Note: Configure firewall for security
@@ -74,17 +80,19 @@ If you want to do it step-by-step manually, see `INSTALLATION_GUIDE.md` for deta
 The script will modify your `docker-compose.yaml`:
 
 1. Add port exposure for Ollama:
+
    ```yaml
    ports:
-     - "11434:11434"
+     - '11434:11434'
    ```
 
 2. Change network from isolated to accessible:
+
    ```yaml
    networks:
      internal_net:
        driver: bridge
-       internal: false  # Changed from true
+       internal: false # Changed from true
    ```
 
 3. Stop host-level Ollama service to avoid conflicts
@@ -100,6 +108,7 @@ The script will modify your `docker-compose.yaml`:
 ## System Requirements Check
 
 Your system:
+
 - ✅ GPU: NVIDIA RTX 2080 SUPER (8GB VRAM) - Perfect for 8B models
 - ✅ Disk: 167GB available - Enough for new models (~10GB needed)
 - ✅ Existing models: Will be preserved
@@ -120,12 +129,14 @@ Full restoration instructions are provided by the script.
 ## What About Llama 3.3 or Qwen 3?
 
 The script installs:
+
 - **Llama 3 (8B)** - Latest stable Llama 3 model
 - **Qwen 2.5 (7B)** - Latest Qwen 2.5 model
 
 Note: "Qwen 3" doesn't exist yet. Qwen 2.5 is the latest version (as of Feb 2026).
 
 If you want different variants:
+
 ```bash
 # After installation, you can add more models:
 docker exec ollama ollama pull llama3:70b  # Larger version (needs more VRAM)
@@ -189,6 +200,7 @@ docker exec mirmi-llm curl http://ollama:11434/api/tags
 ## Support
 
 If you need help:
+
 1. Check the logs: `docker-compose logs -f`
 2. Review `INSTALLATION_GUIDE.md` for detailed explanations
 3. All backups are in `backups/<timestamp>/`

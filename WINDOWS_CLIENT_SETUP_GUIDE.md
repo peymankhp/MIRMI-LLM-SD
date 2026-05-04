@@ -1,4 +1,5 @@
 # 🪟 Windows Client Setup Guide
+
 ## Connect to Remote LLM Server from VSCode
 
 This guide shows Windows users how to use the LLM server at **10.157.174.177** as an AI coding assistant in VSCode.
@@ -75,7 +76,7 @@ This guide shows Windows users how to use the LLM server at **10.157.174.177** a
 
 ### Verify Installation
 
-1. Look for the Continue icon in the left sidebar (looks like ">_")
+1. Look for the Continue icon in the left sidebar (looks like ">\_")
 2. Or press `Ctrl+L` - Continue chat should open
 
 ---
@@ -94,47 +95,48 @@ This guide shows Windows users how to use the LLM server at **10.157.174.177** a
 **Delete everything** in the file and paste this:
 
 ```typescript
-import { defineConfig } from "continue";
+import { defineConfig } from 'continue';
 
 export default defineConfig({
-  models: [
-    {
-      title: "Qwen 2.5 Coder 7B ⭐ (Best for Coding)",
-      provider: "ollama",
-      model: "qwen2.5-coder:7b",
-      apiBase: "http://10.157.174.177:11434"
-    },
-    {
-      title: "Qwen 2.5 14B (Best Overall)",
-      provider: "ollama",
-      model: "qwen2.5:14b",
-      apiBase: "http://10.157.174.177:11434"
-    },
-    {
-      title: "Llama 3.1 8B (Fast)",
-      provider: "ollama",
-      model: "llama3.1:8b-instruct-q4_K_M",
-      apiBase: "http://10.157.174.177:11434"
-    },
-    {
-      title: "Mistral 7B (Efficient)",
-      provider: "ollama",
-      model: "mistral:latest",
-      apiBase: "http://10.157.174.177:11434"
-    }
-  ],
-  tabAutocompleteModel: {
-    title: "Qwen 2.5 Coder 1.5B (Autocomplete)",
-    provider: "ollama",
-    model: "qwen2.5-coder:1.5b",
-    apiBase: "http://10.157.174.177:11434"
-  },
-  embeddingsProvider: {
-    provider: "ollama",
-    model: "nomic-embed-text",
-    apiBase: "http://10.157.174.177:11434"
-  },
-  systemMessage: "You are an expert programmer. Provide concise, production-ready code with proper error handling."
+	models: [
+		{
+			title: 'Qwen 2.5 Coder 7B ⭐ (Best for Coding)',
+			provider: 'ollama',
+			model: 'qwen2.5-coder:7b',
+			apiBase: 'http://10.157.174.177:11434'
+		},
+		{
+			title: 'Qwen 2.5 14B (Best Overall)',
+			provider: 'ollama',
+			model: 'qwen2.5:14b',
+			apiBase: 'http://10.157.174.177:11434'
+		},
+		{
+			title: 'Llama 3.1 8B (Fast)',
+			provider: 'ollama',
+			model: 'llama3.1:8b-instruct-q4_K_M',
+			apiBase: 'http://10.157.174.177:11434'
+		},
+		{
+			title: 'Mistral 7B (Efficient)',
+			provider: 'ollama',
+			model: 'mistral:latest',
+			apiBase: 'http://10.157.174.177:11434'
+		}
+	],
+	tabAutocompleteModel: {
+		title: 'Qwen 2.5 Coder 1.5B (Autocomplete)',
+		provider: 'ollama',
+		model: 'qwen2.5-coder:1.5b',
+		apiBase: 'http://10.157.174.177:11434'
+	},
+	embeddingsProvider: {
+		provider: 'ollama',
+		model: 'nomic-embed-text',
+		apiBase: 'http://10.157.174.177:11434'
+	},
+	systemMessage:
+		'You are an expert programmer. Provide concise, production-ready code with proper error handling.'
 });
 ```
 
@@ -199,13 +201,13 @@ export default defineConfig({
 
 ## ⌨️ Keyboard Shortcuts
 
-| Shortcut | Action | Description |
-|----------|--------|-------------|
-| `Ctrl+L` | Open Chat | Ask questions, generate code |
-| `Ctrl+I` | Inline Edit | Modify selected code |
-| `Tab` | Accept | Accept autocomplete suggestion |
-| `Ctrl+Shift+L` | New Chat | Start fresh conversation |
-| `Esc` | Cancel | Close chat or cancel operation |
+| Shortcut       | Action      | Description                    |
+| -------------- | ----------- | ------------------------------ |
+| `Ctrl+L`       | Open Chat   | Ask questions, generate code   |
+| `Ctrl+I`       | Inline Edit | Modify selected code           |
+| `Tab`          | Accept      | Accept autocomplete suggestion |
+| `Ctrl+Shift+L` | New Chat    | Start fresh conversation       |
+| `Esc`          | Cancel      | Close chat or cancel operation |
 
 ---
 
@@ -213,12 +215,12 @@ export default defineConfig({
 
 Click the model name in Continue chat to switch between:
 
-| Model | Speed | Best For |
-|-------|-------|----------|
-| **Qwen 2.5 Coder 7B** ⭐ | 3-5s | Code generation, debugging |
-| **Qwen 2.5 14B** | 5-8s | Complex refactoring |
-| **Llama 3.1 8B** | 2-4s | Quick questions |
-| **Mistral 7B** | 2-4s | Simple tasks |
+| Model                    | Speed | Best For                   |
+| ------------------------ | ----- | -------------------------- |
+| **Qwen 2.5 Coder 7B** ⭐ | 3-5s  | Code generation, debugging |
+| **Qwen 2.5 14B**         | 5-8s  | Complex refactoring        |
+| **Llama 3.1 8B**         | 2-4s  | Quick questions            |
+| **Mistral 7B**           | 2-4s  | Simple tasks               |
 
 **Autocomplete**: Qwen 2.5 Coder 1.5B (automatic, very fast)
 
@@ -227,31 +229,37 @@ Click the model name in Continue chat to switch between:
 ## 💡 Example Usage
 
 ### Generate Code
+
 ```
 Ctrl+L → "Create a REST API endpoint using Flask"
 ```
 
 ### Explain Code
+
 ```
 Select code → Ctrl+L → "Explain what this does"
 ```
 
 ### Add Documentation
+
 ```
 Select function → Ctrl+I → "Add docstring with examples"
 ```
 
 ### Fix Bugs
+
 ```
 Select buggy code → Ctrl+I → "Fix the bug in this code"
 ```
 
 ### Refactor
+
 ```
 Select code → Ctrl+I → "Refactor to use list comprehension"
 ```
 
 ### Search Codebase
+
 ```
 Ctrl+L → "@codebase where is the authentication logic?"
 ```
@@ -263,6 +271,7 @@ Ctrl+L → "@codebase where is the authentication logic?"
 ### Problem: "Failed to connect to server"
 
 **Solution 1: Check Network Connection**
+
 1. Open Command Prompt
 2. Run:
    ```cmd
@@ -271,12 +280,14 @@ Ctrl+L → "@codebase where is the authentication logic?"
 3. You should see replies. If not, check your network connection.
 
 **Solution 2: Test API Access**
+
 1. Open web browser
 2. Go to: http://10.157.174.177:11434/api/tags
 3. You should see JSON data with model names
 4. If you see an error, contact your network administrator
 
 **Solution 3: Check Firewall**
+
 1. Windows Firewall might be blocking the connection
 2. Open Windows Defender Firewall
 3. Click "Allow an app through firewall"
@@ -286,6 +297,7 @@ Ctrl+L → "@codebase where is the authentication logic?"
 ### Problem: Models not showing
 
 **Solution:**
+
 1. Press `Ctrl+Shift+P`
 2. Type: `Continue: Open Config`
 3. Verify `apiBase` is: `http://10.157.174.177:11434`
@@ -294,11 +306,13 @@ Ctrl+L → "@codebase where is the authentication logic?"
 ### Problem: Slow responses
 
 **Possible causes:**
+
 - Network congestion (many users)
 - Server is busy with other requests
 - Try switching to faster model (Llama 3.1 8B)
 
 **Solution:**
+
 1. Click model name in chat
 2. Select "Llama 3.1 8B (Fast)"
 3. Responses should be faster (2-4 seconds)
@@ -306,6 +320,7 @@ Ctrl+L → "@codebase where is the authentication logic?"
 ### Problem: Autocomplete not working
 
 **Solution:**
+
 1. Wait 2-3 seconds after typing
 2. Try pressing `Tab` manually
 3. Check Continue output: `View` → `Output` → Select "Continue"
@@ -384,6 +399,7 @@ Use `@` to add context to your prompts:
 ### Multiple File Editing
 
 Continue can edit multiple files at once:
+
 ```
 Ctrl+L → "Refactor the authentication system across all files"
 ```
@@ -401,6 +417,7 @@ Ctrl+L → "Refactor the authentication system across all files"
 ### Test Server Connection
 
 Open Command Prompt and run:
+
 ```cmd
 curl http://10.157.174.177:11434/api/tags
 ```
@@ -409,11 +426,11 @@ If this doesn't work, contact your network administrator.
 
 ### Common Issues
 
-| Issue | Solution |
-|-------|----------|
-| Can't connect | Check network, ping server |
-| Slow responses | Switch to faster model |
-| No autocomplete | Wait 2-3 seconds, press Tab |
+| Issue              | Solution                    |
+| ------------------ | --------------------------- |
+| Can't connect      | Check network, ping server  |
+| Slow responses     | Switch to faster model      |
+| No autocomplete    | Wait 2-3 seconds, press Tab |
 | Models not showing | Check config, reload window |
 
 ---
@@ -421,10 +438,12 @@ If this doesn't work, contact your network administrator.
 ## 📚 Additional Resources
 
 ### Continue Documentation
+
 - Official docs: https://docs.continue.dev/
 - Keyboard shortcuts: https://docs.continue.dev/features/shortcuts
 
 ### VSCode Documentation
+
 - Getting started: https://code.visualstudio.com/docs
 - Tips and tricks: https://code.visualstudio.com/docs/getstarted/tips-and-tricks
 
@@ -448,6 +467,7 @@ If this doesn't work, contact your network administrator.
 You now have a powerful AI coding assistant in VSCode, powered by the LLM server!
 
 **Quick Start:**
+
 1. Press `Ctrl+L` to chat
 2. Press `Ctrl+I` to edit code
 3. Press `Tab` to accept suggestions
@@ -457,6 +477,7 @@ You now have a powerful AI coding assistant in VSCode, powered by the LLM server
 ---
 
 **Server Information:**
+
 - Server IP: 10.157.174.177
 - Port: 11434
 - Network: 10.157.174.0/23

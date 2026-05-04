@@ -19,11 +19,13 @@ docker compose -f docker-compose-stable-diffusion.yaml up -d
 ```
 
 The container will:
+
 - Download the base SD v1.5 model on first run (~4GB, takes ~5 minutes)
 - Start the WebUI with `--api` flag enabled
 - Join the `open-webui_default` Docker network
 
 Wait for it to be ready (check logs):
+
 ```bash
 docker logs automatic1111 -f
 # Ready when you see: "Running on local URL: http://0.0.0.0:7860"
@@ -65,6 +67,7 @@ docker network connect open-webui_default mirmi-llm
 ```
 
 Verify connectivity:
+
 ```bash
 docker exec mirmi-llm curl -s -o /dev/null -w "%{http_code}" http://automatic1111:7860/sdapi/v1/sd-models
 # Should return: 200
@@ -96,12 +99,12 @@ The container is configured with these flags for best performance on 8GB VRAM:
 --api --listen --port 7860 --xformers --opt-sdp-attention --no-half-vae
 ```
 
-| Flag | Effect |
-|---|---|
-| `--xformers` | Memory-efficient attention (~30% faster) |
-| `--opt-sdp-attention` | PyTorch scaled dot-product attention |
-| `--no-half-vae` | Prevents VAE NaN errors |
-| ~~`--medvram`~~ | Removed — was limiting speed by 28x |
+| Flag                  | Effect                                   |
+| --------------------- | ---------------------------------------- |
+| `--xformers`          | Memory-efficient attention (~30% faster) |
+| `--opt-sdp-attention` | PyTorch scaled dot-product attention     |
+| `--no-half-vae`       | Prevents VAE NaN errors                  |
+| ~~`--medvram`~~       | Removed — was limiting speed by 28x      |
 
 **Recommended generation settings:**
 | Setting | Value |
@@ -129,6 +132,7 @@ docker exec automatic1111 curl -s -X POST http://localhost:7860/sdapi/v1/txt2img
 ## Troubleshooting
 
 **"Connection refused" from MIRMI-LLM to Stable Diffusion:**
+
 ```bash
 # Check both containers are on the same network
 docker inspect mirmi-llm | grep -A3 Networks
@@ -138,15 +142,18 @@ docker network connect open-webui_default mirmi-llm
 ```
 
 **"Enable Image Generation" save loops:**
+
 - The backend tries to verify the URL on save
 - Make sure the URL is `http://automatic1111:7860` (container name), not `http://127.0.0.1:7860`
 
 **Slow generation (>30s per image):**
+
 - Remove `--medvram` flag from `docker-compose-stable-diffusion.yaml`
 - Add `--opt-sdp-attention`
 - Restart: `docker compose -f docker-compose-stable-diffusion.yaml up -d --force-recreate`
 
 **Model resets to v1.5 after restart:**
+
 - Copy the model into the container after each restart (see step 2)
 - Or mount a host directory as the models volume in `docker-compose-stable-diffusion.yaml`
 
@@ -155,11 +162,13 @@ docker network connect open-webui_default mirmi-llm
 ## Generated images location
 
 Images are saved inside the MIRMI-LLM container at:
+
 ```
 /app/backend/data/uploads/*_generated-image.png
 ```
 
 On the host (Docker volume):
+
 ```
 /var/lib/docker/volumes/open-webui_mirmi-llm/_data/uploads/
 ```

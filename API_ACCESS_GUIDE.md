@@ -11,11 +11,13 @@ I tested it and it's working. You can use it right now with your existing models
 ### 1. Using cURL (Command Line)
 
 #### List Available Models
+
 ```bash
 curl http://localhost:11434/api/tags
 ```
 
 #### Generate Text (Simple)
+
 ```bash
 curl http://localhost:11434/api/generate -d '{
   "model": "mistral:latest",
@@ -25,6 +27,7 @@ curl http://localhost:11434/api/generate -d '{
 ```
 
 #### Chat Completion (Conversational)
+
 ```bash
 curl http://localhost:11434/api/chat -d '{
   "model": "mistral:latest",
@@ -36,6 +39,7 @@ curl http://localhost:11434/api/chat -d '{
 ```
 
 #### OpenAI-Compatible API (for tools like Cursor)
+
 ```bash
 curl http://localhost:11434/v1/chat/completions \
   -H "Content-Type: application/json" \
@@ -51,11 +55,13 @@ curl http://localhost:11434/v1/chat/completions \
 ### 2. Using Python
 
 #### Install OpenAI SDK
+
 ```bash
 pip install openai
 ```
 
 #### Python Code
+
 ```python
 from openai import OpenAI
 
@@ -77,6 +83,7 @@ print(response.choices[0].message.content)
 ```
 
 #### Using Requests Library
+
 ```python
 import requests
 import json
@@ -96,50 +103,51 @@ print(result['response'])
 ### 3. Using JavaScript/Node.js
 
 #### Install OpenAI SDK
+
 ```bash
 npm install openai
 ```
 
 #### JavaScript Code
+
 ```javascript
 import OpenAI from 'openai';
 
 const openai = new OpenAI({
-  baseURL: 'http://localhost:11434/v1',
-  apiKey: 'ollama' // Can be anything
+	baseURL: 'http://localhost:11434/v1',
+	apiKey: 'ollama' // Can be anything
 });
 
 async function chat() {
-  const completion = await openai.chat.completions.create({
-    model: 'mistral:latest',
-    messages: [
-      { role: 'user', content: 'Explain async/await in JavaScript' }
-    ]
-  });
-  
-  console.log(completion.choices[0].message.content);
+	const completion = await openai.chat.completions.create({
+		model: 'mistral:latest',
+		messages: [{ role: 'user', content: 'Explain async/await in JavaScript' }]
+	});
+
+	console.log(completion.choices[0].message.content);
 }
 
 chat();
 ```
 
 #### Using Fetch API
+
 ```javascript
 async function generateText() {
-  const response = await fetch('http://localhost:11434/api/generate', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      model: 'mistral:latest',
-      prompt: 'Write a joke about programming',
-      stream: false
-    })
-  });
-  
-  const data = await response.json();
-  console.log(data.response);
+	const response = await fetch('http://localhost:11434/api/generate', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({
+			model: 'mistral:latest',
+			prompt: 'Write a joke about programming',
+			stream: false
+		})
+	});
+
+	const data = await response.json();
+	console.log(data.response);
 }
 
 generateText();
@@ -151,19 +159,20 @@ Open Cursor Settings and add:
 
 ```json
 {
-  "models": [
-    {
-      "name": "Mistral Local",
-      "provider": "openai",
-      "baseURL": "http://localhost:11434/v1",
-      "apiKey": "ollama",
-      "model": "mistral:latest"
-    }
-  ]
+	"models": [
+		{
+			"name": "Mistral Local",
+			"provider": "openai",
+			"baseURL": "http://localhost:11434/v1",
+			"apiKey": "ollama",
+			"model": "mistral:latest"
+		}
+	]
 }
 ```
 
 Or in Cursor's model settings:
+
 - **Provider:** OpenAI Compatible
 - **Base URL:** `http://localhost:11434/v1`
 - **API Key:** `ollama` (or any value)
@@ -175,14 +184,14 @@ Install the Continue extension, then configure:
 
 ```json
 {
-  "models": [
-    {
-      "title": "Mistral Local",
-      "provider": "ollama",
-      "model": "mistral:latest",
-      "apiBase": "http://localhost:11434"
-    }
-  ]
+	"models": [
+		{
+			"title": "Mistral Local",
+			"provider": "ollama",
+			"model": "mistral:latest",
+			"apiBase": "http://localhost:11434"
+		}
+	]
 }
 ```
 
@@ -202,6 +211,7 @@ falcon:7b-instruct (4.2GB)
 ```
 
 After running the installation script, you'll also have:
+
 - `llama3:8b`
 - `qwen2.5:7b`
 
@@ -209,26 +219,26 @@ After running the installation script, you'll also have:
 
 ### Native Ollama API
 
-| Endpoint | Method | Purpose |
-|----------|--------|---------|
-| `/api/tags` | GET | List all models |
-| `/api/generate` | POST | Generate text (completion) |
-| `/api/chat` | POST | Chat conversation |
-| `/api/pull` | POST | Download a model |
-| `/api/push` | POST | Upload a model |
-| `/api/create` | POST | Create a model from Modelfile |
-| `/api/delete` | DELETE | Delete a model |
-| `/api/show` | POST | Show model information |
-| `/api/copy` | POST | Copy a model |
+| Endpoint        | Method | Purpose                       |
+| --------------- | ------ | ----------------------------- |
+| `/api/tags`     | GET    | List all models               |
+| `/api/generate` | POST   | Generate text (completion)    |
+| `/api/chat`     | POST   | Chat conversation             |
+| `/api/pull`     | POST   | Download a model              |
+| `/api/push`     | POST   | Upload a model                |
+| `/api/create`   | POST   | Create a model from Modelfile |
+| `/api/delete`   | DELETE | Delete a model                |
+| `/api/show`     | POST   | Show model information        |
+| `/api/copy`     | POST   | Copy a model                  |
 
 ### OpenAI-Compatible API
 
-| Endpoint | Method | Purpose |
-|----------|--------|---------|
-| `/v1/models` | GET | List models |
-| `/v1/chat/completions` | POST | Chat completion |
-| `/v1/completions` | POST | Text completion |
-| `/v1/embeddings` | POST | Generate embeddings |
+| Endpoint               | Method | Purpose             |
+| ---------------------- | ------ | ------------------- |
+| `/v1/models`           | GET    | List models         |
+| `/v1/chat/completions` | POST   | Chat completion     |
+| `/v1/completions`      | POST   | Text completion     |
+| `/v1/embeddings`       | POST   | Generate embeddings |
 
 ## Testing Your API
 
@@ -263,6 +273,7 @@ curl -s http://localhost:11434/v1/chat/completions \
 For real-time streaming (like ChatGPT):
 
 ### cURL with Streaming
+
 ```bash
 curl http://localhost:11434/api/generate -d '{
   "model": "mistral:latest",
@@ -272,6 +283,7 @@ curl http://localhost:11434/api/generate -d '{
 ```
 
 ### Python with Streaming
+
 ```python
 import requests
 import json
@@ -311,6 +323,7 @@ curl http://localhost:11434/api/generate -d '{
 ```
 
 Parameters:
+
 - `temperature`: 0.0-2.0 (lower = more focused, higher = more creative)
 - `top_p`: 0.0-1.0 (nucleus sampling)
 - `top_k`: Number of tokens to consider
@@ -322,11 +335,13 @@ Parameters:
 If you want to access from another computer on your network:
 
 ### 1. Find Your Server IP
+
 ```bash
 hostname -I | awk '{print $1}'
 ```
 
 ### 2. Configure Firewall (if needed)
+
 ```bash
 # Allow from specific IP
 sudo ufw allow from 192.168.1.100 to any port 11434
@@ -336,6 +351,7 @@ sudo ufw allow from 192.168.1.0/24 to any port 11434
 ```
 
 ### 3. Use Remote URL
+
 ```python
 client = OpenAI(
     base_url='http://192.168.1.50:11434/v1',  # Your server IP
@@ -346,6 +362,7 @@ client = OpenAI(
 ## Common Issues & Solutions
 
 ### Issue: Connection Refused
+
 ```bash
 # Check if Ollama is running
 docker ps | grep ollama
@@ -358,6 +375,7 @@ docker port ollama
 ```
 
 ### Issue: Model Not Found
+
 ```bash
 # List available models
 curl http://localhost:11434/api/tags
@@ -367,6 +385,7 @@ docker exec ollama ollama pull llama3:8b
 ```
 
 ### Issue: Slow Response
+
 ```bash
 # Check GPU usage
 nvidia-smi
@@ -378,9 +397,11 @@ docker logs ollama | tail -20
 ## API Documentation
 
 Full Ollama API documentation:
+
 - https://github.com/ollama/ollama/blob/main/docs/api.md
 
 OpenAI API compatibility:
+
 - https://github.com/ollama/ollama/blob/main/docs/openai.md
 
 ## Next Steps

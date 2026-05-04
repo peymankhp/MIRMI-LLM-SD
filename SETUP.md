@@ -22,14 +22,14 @@ This guide walks through setting up the entire MIRMI-LLM stack from scratch on a
 
 ## 1. Server Requirements
 
-| Component | Minimum | Recommended |
-|---|---|---|
-| OS | Ubuntu 20.04 | Ubuntu 22.04 LTS |
-| CPU | 4 cores | 8+ cores |
-| RAM | 16 GB | 32 GB |
-| Disk | 100 GB | 500 GB SSD |
-| GPU | NVIDIA 8GB VRAM | RTX 2080 / 3080+ |
-| GPU Driver | 525+ | Latest |
+| Component  | Minimum         | Recommended      |
+| ---------- | --------------- | ---------------- |
+| OS         | Ubuntu 20.04    | Ubuntu 22.04 LTS |
+| CPU        | 4 cores         | 8+ cores         |
+| RAM        | 16 GB           | 32 GB            |
+| Disk       | 100 GB          | 500 GB SSD       |
+| GPU        | NVIDIA 8GB VRAM | RTX 2080 / 3080+ |
+| GPU Driver | 525+            | Latest           |
 
 ---
 
@@ -100,6 +100,7 @@ OPENAI_API_KEY=sk-...
 ```
 
 Generate a secure secret key:
+
 ```bash
 openssl rand -hex 32
 ```
@@ -114,14 +115,15 @@ docker compose up -d
 
 This starts:
 
-| Container | Port | Description |
-|---|---|---|
-| `mirmi-llm` | 8080 | Main web UI + API |
-| `ollama` | 11434 | Local LLM runner |
-| `deepagents` | 8000 | DeepAgents API |
-| `redis` | 6379 | Session store |
+| Container    | Port  | Description       |
+| ------------ | ----- | ----------------- |
+| `mirmi-llm`  | 8080  | Main web UI + API |
+| `ollama`     | 11434 | Local LLM runner  |
+| `deepagents` | 8000  | DeepAgents API    |
+| `redis`      | 6379  | Session store     |
 
 Check all containers are running:
+
 ```bash
 docker compose ps
 ```
@@ -139,6 +141,7 @@ docker compose -f docker-compose-stable-diffusion.yaml up -d
 ```
 
 The container downloads SD v1.5 (~4GB) on first run. Watch progress:
+
 ```bash
 docker logs automatic1111 -f
 # Ready when you see: "Running on local URL: http://0.0.0.0:7860"
@@ -152,6 +155,7 @@ docker network connect open-webui_default mirmi-llm
 ```
 
 Verify connectivity:
+
 ```bash
 docker exec mirmi-llm curl -s -o /dev/null -w "%{http_code}" http://automatic1111:7860/
 # Should return: 200
@@ -214,6 +218,7 @@ Users will see **Image Generator** in the left sidebar (between Search and IDE).
 - Generated images are saved to `/app/backend/data/uploads/` inside the container
 
 **Tips for better results:**
+
 ```
 # Good prompt structure:
 a sunset over the ocean, photorealistic, 8k, RAW photo, sharp focus, cinematic lighting
@@ -304,22 +309,22 @@ The `docker-compose-stable-diffusion.yaml` is configured for best performance:
 WEBUI_FLAGS=--api --listen --port 7860 --xformers --opt-sdp-attention --no-half-vae
 ```
 
-| Flag | Effect |
-|---|---|
-| `--xformers` | Memory-efficient attention (~30% faster) |
-| `--opt-sdp-attention` | PyTorch scaled dot-product attention |
-| `--no-half-vae` | Prevents VAE NaN/black image errors |
+| Flag                  | Effect                                   |
+| --------------------- | ---------------------------------------- |
+| `--xformers`          | Memory-efficient attention (~30% faster) |
+| `--opt-sdp-attention` | PyTorch scaled dot-product attention     |
+| `--no-half-vae`       | Prevents VAE NaN/black image errors      |
 
 > ⚠️ Do NOT add `--medvram` unless you have less than 6GB VRAM — it reduces speed by up to 28x.
 
 ### Recommended generation settings
 
-| Setting | Value |
-|---|---|
-| Sampler | DPM++ 2M Karras |
-| Steps | 25–30 |
-| CFG Scale | 7 |
-| Size | 768×768 |
+| Setting   | Value           |
+| --------- | --------------- |
+| Sampler   | DPM++ 2M Karras |
+| Steps     | 25–30           |
+| CFG Scale | 7               |
+| Size      | 768×768         |
 
 ### MIRMI-LLM
 
@@ -337,6 +342,7 @@ environment:
 ### Image generation shows "You do not have permission"
 
 Two checks must pass:
+
 1. Admin Panel → Settings → Images → Enable Image Generation must be ON
 2. Admin Panel → Settings → Users → Default Permissions → Features → Image Generation must be ON
 
@@ -357,6 +363,7 @@ docker exec mirmi-llm curl -s -o /dev/null -w "%{http_code}" http://automatic111
 ### Save loops when enabling Image Generation
 
 The backend verifies the URL on save. Make sure you use the container name:
+
 - ✅ `http://automatic1111:7860`
 - ❌ `http://127.0.0.1:7860` (only works on host, not inside Docker)
 

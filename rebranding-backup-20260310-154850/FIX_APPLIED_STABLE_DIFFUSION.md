@@ -63,21 +63,25 @@ Expected result: Image appears in 10-15 seconds
 ## 🔍 Verification Commands
 
 ### Check if service is running
+
 ```bash
 docker ps | grep automatic1111
 ```
 
 ### Check API from MIRMI LLM
+
 ```bash
 docker exec open-webui curl -s http://automatic1111:7860/sdapi/v1/sd-models
 ```
 
 ### Check logs
+
 ```bash
 docker logs automatic1111 --tail 50
 ```
 
 ### Check GPU usage
+
 ```bash
 nvidia-smi
 ```
@@ -85,8 +89,9 @@ nvidia-smi
 ## 📊 Performance
 
 On your RTX 2080 SUPER:
+
 - 512x512: 5-8 seconds
-- 768x768: 10-15 seconds  
+- 768x768: 10-15 seconds
 - 1024x1024: 20-30 seconds
 
 ## 🔧 Troubleshooting
@@ -94,11 +99,13 @@ On your RTX 2080 SUPER:
 ### If images don't generate:
 
 1. **Check container is running:**
+
    ```bash
    docker ps | grep automatic1111
    ```
 
 2. **Restart if needed:**
+
    ```bash
    docker restart automatic1111
    ```
@@ -113,6 +120,7 @@ On your RTX 2080 SUPER:
 ### If you get "connection error":
 
 1. Verify network:
+
    ```bash
    docker network inspect open-webui_default
    ```
@@ -127,6 +135,7 @@ On your RTX 2080 SUPER:
 ## 💡 Tips for Better Images
 
 ### Good Prompts
+
 ```
 a beautiful landscape with mountains and a lake, sunset, highly detailed, 8k, photorealistic
 
@@ -136,6 +145,7 @@ futuristic city at night, neon lights, cyberpunk style, detailed architecture
 ```
 
 ### Quality Keywords
+
 - highly detailed
 - 8k or 4k
 - photorealistic
@@ -143,6 +153,7 @@ futuristic city at night, neon lights, cyberpunk style, detailed architecture
 - sharp focus
 
 ### Negative Prompts
+
 ```
 blurry, low quality, distorted, ugly, bad anatomy, watermark, text
 ```
@@ -150,11 +161,13 @@ blurry, low quality, distorted, ugly, bad anatomy, watermark, text
 ## 🎯 What Changed
 
 ### Before (Error)
+
 - Container on wrong network
 - Hostname not resolving
 - MIRMI LLM couldn't reach Stable Diffusion
 
 ### After (Fixed)
+
 - Container on `open-webui_default` network
 - Hostname resolves correctly
 - MIRMI LLM can reach `automatic1111:7860`

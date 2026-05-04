@@ -3,6 +3,7 @@
 ## Current Setup Analysis
 
 Your MIRMI LLM is running with:
+
 - **Docker Compose** deployment (not manual docker run)
 - **Internal network** (`internal: true`) - isolated from host
 - **No port exposure** for Ollama container
@@ -25,12 +26,14 @@ The instructions you received assume manual `docker run` commands, but you're us
 This allows both MIRMI LLM and external tools (like Cursor) to use the same Ollama instance.
 
 **Pros:**
+
 - Single Ollama instance
 - No model duplication
 - External API access
 - Clean architecture
 
 **Cons:**
+
 - Requires network reconfiguration
 - Need to manage firewall rules
 
@@ -39,10 +42,12 @@ This allows both MIRMI LLM and external tools (like Cursor) to use the same Olla
 Use the existing host-level Ollama for external API access.
 
 **Pros:**
+
 - No changes to MIRMI LLM
 - Simpler setup
 
 **Cons:**
+
 - Two separate Ollama instances
 - Models duplicated (uses more disk space)
 - More resource usage
@@ -83,7 +88,7 @@ services:
     volumes:
       - ollama:/root/.ollama
     ports:
-      - "11434:11434"  # ADD THIS LINE
+      - '11434:11434' # ADD THIS LINE
     networks:
       - internal_net
 
@@ -98,7 +103,7 @@ services:
     depends_on:
       - ollama
     ports:
-      - "127.0.0.1:8081:8080"
+      - '127.0.0.1:8081:8080'
     environment:
       - 'OLLAMA_BASE_URL=http://ollama:11434'
       - 'WEBUI_SECRET_KEY='
@@ -115,7 +120,7 @@ volumes:
 networks:
   internal_net:
     driver: bridge
-    internal: false  # CHANGE THIS FROM true TO false
+    internal: false # CHANGE THIS FROM true TO false
 ```
 
 ### Step 3: Stop Host-Level Ollama (Avoid Conflicts)
@@ -172,6 +177,7 @@ curl http://localhost:11434/api/generate -d '{
 ## Configuration for External Tools (Cursor, etc.)
 
 ### Local Machine Access
+
 ```
 Base URL: http://localhost:11434/v1
 API Key: ollama (or any value)
@@ -183,6 +189,7 @@ Models:
 ```
 
 ### Remote Machine Access
+
 ```
 Base URL: http://<your-server-ip>:11434/v1
 API Key: ollama (or any value)
@@ -229,6 +236,7 @@ docker-compose up -d
 ## GPU Memory Considerations
 
 Your RTX 2080 SUPER has 8GB VRAM. Model memory usage:
+
 - llama3:8b: ~5GB VRAM
 - qwen2.5:7b: ~4.5GB VRAM
 - mixtral:8x7b: ~24GB VRAM (will use CPU/RAM fallback)
@@ -253,6 +261,7 @@ If you want to avoid reconfiguring MIRMI LLM:
 ## Verification Checklist
 
 After installation:
+
 - [ ] MIRMI LLM accessible at http://localhost:8081
 - [ ] MIRMI LLM shows new models in dropdown
 - [ ] Ollama API responds: `curl http://localhost:11434/api/tags`
@@ -263,6 +272,7 @@ After installation:
 ## Support
 
 If you encounter issues:
+
 1. Check container logs: `docker-compose logs -f`
 2. Check Ollama logs: `docker logs ollama`
 3. Verify network: `docker network inspect mirmi-llm_internal_net`

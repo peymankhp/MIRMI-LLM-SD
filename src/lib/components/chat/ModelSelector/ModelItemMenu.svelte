@@ -131,10 +131,7 @@
 					e.stopPropagation();
 					e.preventDefault();
 
-					window.open(
-						` ?? '')}`,
-						'_blank'
-					);
+					window.open(` ?? '')}`, '_blank');
 					show = false;
 				}}
 			>

@@ -56,6 +56,7 @@ See detailed steps below.
 ### Step 1: Create Docker Compose File
 
 The file `docker-compose-stable-diffusion.yaml` is already created with:
+
 - AUTOMATIC1111 WebUI
 - GPU support
 - API enabled
@@ -86,6 +87,7 @@ wget -c https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-
 ```
 
 **Alternative models you can try:**
+
 - SD v1.5 Inpainting: For image editing
 - SD v2.1: Higher quality but slower
 - Custom models from Civitai.com
@@ -100,6 +102,7 @@ wget -c https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-
    - Settings → Images → Image Generation
 
 3. **Configure Image Generation:**
+
    ```
    Image Generation Engine: AUTOMATIC1111
    OpenAI API Base URL: http://automatic1111:7860
@@ -107,6 +110,7 @@ wget -c https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-
    ```
 
 4. **Configure Image Editing (Optional):**
+
    ```
    Image Edit Engine: AUTOMATIC1111
    OpenAI API Base URL: http://automatic1111:7860
@@ -118,6 +122,7 @@ wget -c https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-
 ### Step 5: Test Image Generation
 
 **In MIRMI LLM chat:**
+
 ```
 Generate an image of a beautiful sunset over mountains
 ```
@@ -153,6 +158,7 @@ CLI_ARGS: >
 ### Example Prompts
 
 **Good prompts:**
+
 ```
 a beautiful landscape with mountains and a lake, sunset, highly detailed, 8k, photorealistic
 
@@ -162,6 +168,7 @@ futuristic city at night, neon lights, cyberpunk style, detailed architecture
 ```
 
 **Negative prompts (what to avoid):**
+
 ```
 blurry, low quality, distorted, ugly, bad anatomy, watermark
 ```
@@ -169,6 +176,7 @@ blurry, low quality, distorted, ugly, bad anatomy, watermark
 ## 📊 Architecture
 
 ### Before Adding Stable Diffusion
+
 ```
 ┌─────────────────────────────────────┐
 │  MIRMI LLM (port 8080)             │
@@ -178,6 +186,7 @@ blurry, low quality, distorted, ugly, bad anatomy, watermark
 ```
 
 ### After Adding Stable Diffusion
+
 ```
 ┌─────────────────────────────────────┐
 │  MIRMI LLM (port 8080)             │
@@ -253,12 +262,14 @@ http://localhost:7860
 ### For Your 8GB VRAM
 
 **Optimal settings:**
+
 - Resolution: 512x512 or 768x768
 - Batch size: 1
 - Steps: 20-30
 - Use `--medvram` flag (already configured)
 
 **Avoid:**
+
 - Resolution above 1024x1024
 - Batch size > 2
 - Multiple simultaneous generations
@@ -268,6 +279,7 @@ http://localhost:7860
 ### Issue: Service won't start
 
 **Check:**
+
 ```bash
 # View logs
 docker logs automatic1111
@@ -280,6 +292,7 @@ netstat -tlnp | grep 7860
 ```
 
 **Fix:**
+
 ```bash
 # Restart service
 docker-compose -f docker-compose-stable-diffusion.yaml restart automatic1111
@@ -288,6 +301,7 @@ docker-compose -f docker-compose-stable-diffusion.yaml restart automatic1111
 ### Issue: Out of memory errors
 
 **Solution:**
+
 ```bash
 # Edit docker-compose-stable-diffusion.yaml
 # Add to CLI_ARGS: --lowvram
@@ -299,11 +313,13 @@ docker-compose -f docker-compose-stable-diffusion.yaml restart automatic1111
 ### Issue: Slow generation
 
 **Causes:**
+
 - Resolution too high
 - Too many steps
 - Other processes using GPU
 
 **Solutions:**
+
 - Reduce resolution to 512x512
 - Use 20 steps instead of 50
 - Close other GPU applications
@@ -312,6 +328,7 @@ docker-compose -f docker-compose-stable-diffusion.yaml restart automatic1111
 ### Issue: MIRMI LLM can't connect
 
 **Check:**
+
 ```bash
 # Are they on same network?
 docker network inspect mirmi-llm_internal_net
@@ -321,6 +338,7 @@ docker exec mirmi-llm curl http://automatic1111:7860
 ```
 
 **Fix:**
+
 ```bash
 # Ensure both containers on same network
 docker-compose -f docker-compose-stable-diffusion.yaml restart
@@ -331,6 +349,7 @@ docker-compose -f docker-compose-stable-diffusion.yaml restart
 ### For RTX 2080 SUPER (8GB)
 
 **Fast mode (5-8 seconds):**
+
 ```
 Resolution: 512x512
 Steps: 20
@@ -338,6 +357,7 @@ Sampler: Euler a
 ```
 
 **Balanced mode (10-15 seconds):**
+
 ```
 Resolution: 768x768
 Steps: 30
@@ -345,6 +365,7 @@ Sampler: DPM++ 2M Karras
 ```
 
 **Quality mode (20-30 seconds):**
+
 ```
 Resolution: 768x768
 Steps: 50
@@ -357,6 +378,7 @@ CFG Scale: 10
 ### Image-to-Image
 
 Generate variations of existing images:
+
 1. Upload an image in MIRMI LLM
 2. Describe desired changes
 3. Adjust denoising strength (0.3-0.7)
@@ -364,6 +386,7 @@ Generate variations of existing images:
 ### Inpainting
 
 Edit specific parts of images:
+
 1. Upload image
 2. Mark area to edit
 3. Describe what to generate
@@ -371,6 +394,7 @@ Edit specific parts of images:
 ### ControlNet (Advanced)
 
 For precise control over composition:
+
 - Requires additional models
 - More VRAM needed
 - See AUTOMATIC1111 documentation
@@ -380,6 +404,7 @@ For precise control over composition:
 ### Network Isolation
 
 Stable Diffusion runs on your internal network:
+
 - ✅ No internet access (same as Ollama)
 - ✅ Only accessible from local network
 - ✅ Isolated from external threats
@@ -387,6 +412,7 @@ Stable Diffusion runs on your internal network:
 ### Resource Usage
 
 Monitor GPU and RAM:
+
 ```bash
 # GPU usage
 nvidia-smi
@@ -473,6 +499,7 @@ docker exec automatic1111 rm -rf /output/txt2img-images/*
 Your MIRMI LLM now has image generation capabilities!
 
 **Test it:**
+
 1. Go to https://mirmi-llm.mirmi.tum.de
 2. In chat, type: "Generate an image of a sunset"
 3. Wait 10-15 seconds
@@ -483,17 +510,20 @@ Your MIRMI LLM now has image generation capabilities!
 ## 📞 Support
 
 **Check status:**
+
 ```bash
 docker ps | grep automatic1111
 docker logs automatic1111 --tail 50
 ```
 
 **Restart if needed:**
+
 ```bash
 docker-compose -f docker-compose-stable-diffusion.yaml restart automatic1111
 ```
 
 **Remove if needed:**
+
 ```bash
 docker-compose -f docker-compose-stable-diffusion.yaml down
 docker volume rm automatic1111-data automatic1111-output

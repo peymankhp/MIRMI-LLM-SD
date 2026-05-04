@@ -63,11 +63,7 @@
 
 	onMount(async () => {
 		window.addEventListener('message', async (event) => {
-			if (
-				!['', '', 'http://localhost:9999'].includes(
-					event.origin
-				)
-			) {
+			if (!['', '', 'http://localhost:9999'].includes(event.origin)) {
 				return;
 			}
 

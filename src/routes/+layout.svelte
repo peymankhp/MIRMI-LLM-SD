@@ -48,7 +48,7 @@
 	import { getAllTags, getChatList } from '$lib/apis/chats';
 	import { chatCompletion } from '$lib/apis/openai';
 
-import { APP_NAME, WEBUI_API_BASE_URL, WEBUI_BASE_URL, WEBUI_HOSTNAME } from '$lib/constants';
+	import { APP_NAME, WEBUI_API_BASE_URL, WEBUI_BASE_URL, WEBUI_HOSTNAME } from '$lib/constants';
 	import { bestMatchingLanguage } from '$lib/utils';
 	import { setTextScale } from '$lib/utils/text-scale';
 
@@ -614,11 +614,7 @@ import { APP_NAME, WEBUI_API_BASE_URL, WEBUI_BASE_URL, WEBUI_HOSTNAME } from '$l
 	};
 
 	const windowMessageEventHandler = async (event) => {
-		if (
-			!['', '', 'http://localhost:9999'].includes(
-				event.origin
-			)
-		) {
+		if (!['', '', 'http://localhost:9999'].includes(event.origin)) {
 			return;
 		}
 

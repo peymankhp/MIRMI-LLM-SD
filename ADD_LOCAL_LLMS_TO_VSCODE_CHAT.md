@@ -29,14 +29,17 @@ Based on your setup, Continue should already be working. Let me show you how to 
 ### Open Continue Chat Panel
 
 **Method 1: Keyboard Shortcut**
+
 - Press `Ctrl+L` (or `Cmd+L` on Mac)
 - Continue chat opens on the right side
 
 **Method 2: Click Icon**
-- Look for the Continue icon in the left sidebar (looks like ">_")
+
+- Look for the Continue icon in the left sidebar (looks like ">\_")
 - Click it to open the chat panel
 
 **Method 3: Command Palette**
+
 - Press `Ctrl+Shift+P`
 - Type: "Continue: Open Chat"
 - Press Enter
@@ -44,6 +47,7 @@ Based on your setup, Continue should already be working. Let me show you how to 
 ### Your Models Should Appear
 
 In the Continue chat, you should see a dropdown at the top with:
+
 - Qwen 2.5 Coder 7B ⭐
 - Qwen 2.5 14B
 - Llama 3.1 8B
@@ -62,23 +66,23 @@ These are YOUR local models!
 3. Verify your config looks like this:
 
 ```typescript
-import { defineConfig } from "continue";
+import { defineConfig } from 'continue';
 
 export default defineConfig({
-  models: [
-    {
-      title: "Qwen 2.5 Coder 7B ⭐",
-      provider: "ollama",
-      model: "qwen2.5-coder:7b",
-      apiBase: "http://localhost:11434"
-    },
-    {
-      title: "Llama 3.1 8B",
-      provider: "ollama",
-      model: "llama3.1:8b-instruct-q4_K_M",
-      apiBase: "http://localhost:11434"
-    }
-  ]
+	models: [
+		{
+			title: 'Qwen 2.5 Coder 7B ⭐',
+			provider: 'ollama',
+			model: 'qwen2.5-coder:7b',
+			apiBase: 'http://localhost:11434'
+		},
+		{
+			title: 'Llama 3.1 8B',
+			provider: 'ollama',
+			model: 'llama3.1:8b-instruct-q4_K_M',
+			apiBase: 'http://localhost:11434'
+		}
+	]
 });
 ```
 
@@ -88,14 +92,14 @@ export default defineConfig({
 
 ## 🆚 Continue vs GitHub Copilot Chat
 
-| Feature | Continue | GitHub Copilot |
-|---------|----------|----------------|
-| **Cost** | Free | $10-20/month |
-| **Models** | Your local LLMs | GPT-4, Claude (cloud) |
-| **Privacy** | 100% local | Sends code to cloud |
-| **Speed** | Fast (local) | Depends on internet |
-| **Offline** | Works offline | Requires internet |
-| **Customizable** | Yes | No |
+| Feature          | Continue        | GitHub Copilot        |
+| ---------------- | --------------- | --------------------- |
+| **Cost**         | Free            | $10-20/month          |
+| **Models**       | Your local LLMs | GPT-4, Claude (cloud) |
+| **Privacy**      | 100% local      | Sends code to cloud   |
+| **Speed**        | Fast (local)    | Depends on internet   |
+| **Offline**      | Works offline   | Requires internet     |
+| **Customizable** | Yes             | No                    |
 
 ---
 
@@ -125,19 +129,20 @@ This creates an OpenAI-compatible API at `http://localhost:8000`
 
 ```json
 {
-  "chat.models": [
-    {
-      "id": "qwen-coder",
-      "name": "Qwen 2.5 Coder 7B",
-      "provider": "openai",
-      "endpoint": "http://localhost:8000/v1",
-      "apiKey": "sk-1234"
-    }
-  ]
+	"chat.models": [
+		{
+			"id": "qwen-coder",
+			"name": "Qwen 2.5 Coder 7B",
+			"provider": "openai",
+			"endpoint": "http://localhost:8000/v1",
+			"apiKey": "sk-1234"
+		}
+	]
 }
 ```
 
 ### Limitations:
+
 - ⚠️ Requires running LiteLLM proxy
 - ⚠️ More complex setup
 - ⚠️ May not work with all VSCode chat features
@@ -169,6 +174,7 @@ This creates an OpenAI-compatible API at `http://localhost:8000`
 ### Look for These:
 
 1. **Continue Icon** in left sidebar:
+
    ```
    ┌─────┐
    │ >_  │  ← Continue icon
@@ -176,6 +182,7 @@ This creates an OpenAI-compatible API at `http://localhost:8000`
    ```
 
 2. **Continue Chat Panel** (press `Ctrl+L`):
+
    ```
    ┌──────────────────────────────────┐
    │ [Qwen 2.5 Coder 7B ⭐  ▼]        │
@@ -194,6 +201,7 @@ This creates an OpenAI-compatible API at `http://localhost:8000`
 ## 🎯 Side-by-Side Comparison
 
 ### GitHub Copilot Chat (What You See Now):
+
 ```
 Language Models
 ├── Copilot
@@ -208,6 +216,7 @@ Language Models
 ```
 
 ### Continue Chat (What You Should Use):
+
 ```
 Continue Chat
 ├── Qwen 2.5 Coder 7B ⭐ (selectable!)
@@ -234,6 +243,7 @@ Your local LLMs are ready to use in Continue - you don't need the GitHub Copilot
 ### Problem: Continue icon not visible
 
 **Solution:**
+
 1. Press `Ctrl+Shift+P`
 2. Type: "Continue: Open Chat"
 3. Or check if Continue extension is enabled:
@@ -243,6 +253,7 @@ Your local LLMs are ready to use in Continue - you don't need the GitHub Copilot
 ### Problem: Models not showing in Continue
 
 **Solution:**
+
 1. Check config: `Ctrl+Shift+P` → "Continue: Open Config"
 2. Verify Ollama is running: `ollama list`
 3. Reload window: `Ctrl+Shift+P` → "Reload Window"
@@ -250,6 +261,7 @@ Your local LLMs are ready to use in Continue - you don't need the GitHub Copilot
 ### Problem: Want to use both Continue and Copilot
 
 **Solution:**
+
 - You can use both!
 - Continue for local LLMs (free)
 - Copilot for cloud models (paid)
@@ -262,11 +274,13 @@ Your local LLMs are ready to use in Continue - you don't need the GitHub Copilot
 **The "Language Models" panel you see is for GitHub Copilot (cloud-based, paid).**
 
 **Your local LLMs work through Continue extension:**
+
 - Press `Ctrl+L` to open Continue chat
 - Select your model from dropdown
 - Chat with your local LLMs!
 
 **Continue is better for local LLMs:**
+
 - Free and unlimited
 - Works offline
 - Complete privacy

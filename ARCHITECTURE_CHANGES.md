@@ -70,6 +70,7 @@ External Tools (Cursor, etc.)
 ### docker-compose.yaml Changes
 
 #### BEFORE:
+
 ```yaml
 services:
   ollama:
@@ -81,38 +82,42 @@ services:
 networks:
   internal_net:
     driver: bridge
-    internal: true  # ❌ Isolated network
+    internal: true # ❌ Isolated network
 ```
 
 #### AFTER:
+
 ```yaml
 services:
   ollama:
     # ... other config ...
     ports:
-      - "11434:11434"  # ✅ Port exposed to host
+      - '11434:11434' # ✅ Port exposed to host
     networks:
       - internal_net
 
 networks:
   internal_net:
     driver: bridge
-    internal: false  # ✅ Accessible network
+    internal: false # ✅ Accessible network
 ```
 
 ## Access Patterns
 
 ### MIRMI LLM Access (Unchanged)
+
 ```
 Browser → http://localhost:8081 → MIRMI LLM Container → Ollama Container
 ```
 
 ### External API Access (NEW)
+
 ```
 Cursor/Other Tools → http://localhost:11434/v1 → Ollama Container
 ```
 
 ### Remote API Access (NEW, Optional)
+
 ```
 Remote Machine → http://<server-ip>:11434/v1 → Ollama Container
                  (requires firewall configuration)
@@ -139,15 +144,18 @@ Total Storage After: ~60GB (all models)
 ## Security Considerations
 
 ### Current (BEFORE)
+
 - ✅ Ollama completely isolated (very secure)
 - ❌ Cannot use API externally
 
 ### New (AFTER)
+
 - ✅ Ollama accessible on localhost (secure for local use)
 - ⚠️ Can be accessed from network (configure firewall!)
 - ✅ Still isolated from internet (bound to localhost by default)
 
 ### Recommended Firewall Rules
+
 ```bash
 # Allow only from specific trusted IPs
 sudo ufw allow from 192.168.1.100 to any port 11434
@@ -162,6 +170,7 @@ sudo ufw status
 ## Resource Usage
 
 ### GPU Memory (RTX 2080 SUPER - 8GB VRAM)
+
 ```
 Single Model Usage:
 ├── llama3:8b          → ~5GB VRAM    ✅ Fits comfortably
@@ -175,6 +184,7 @@ Concurrent Usage:
 ```
 
 ### Disk Space
+
 ```
 Current Usage: 267GB / 457GB (58%)
 New Models:    ~9.4GB
@@ -248,15 +258,15 @@ After installation, verify:
 
 ## Summary
 
-| Aspect | Before | After |
-|--------|--------|-------|
-| Network Type | Internal (isolated) | Bridge (accessible) |
-| Ollama Port | Not exposed | Exposed (11434) |
-| Host Ollama | Running (conflict) | Stopped |
-| External API | ❌ Not possible | ✅ Available |
-| MIRMI LLM | ✅ Working | ✅ Working |
-| Security | Very high | High (with firewall) |
-| Model Storage | Single location | Single location |
-| GPU Access | ✅ Available | ✅ Available |
+| Aspect        | Before              | After                |
+| ------------- | ------------------- | -------------------- |
+| Network Type  | Internal (isolated) | Bridge (accessible)  |
+| Ollama Port   | Not exposed         | Exposed (11434)      |
+| Host Ollama   | Running (conflict)  | Stopped              |
+| External API  | ❌ Not possible     | ✅ Available         |
+| MIRMI LLM     | ✅ Working          | ✅ Working           |
+| Security      | Very high           | High (with firewall) |
+| Model Storage | Single location     | Single location      |
+| GPU Access    | ✅ Available        | ✅ Available         |
 
 The changes are minimal but enable full API access while maintaining security and functionality.

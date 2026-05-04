@@ -3,7 +3,16 @@
 /**
  * @docgroup pyodide.ffi
  */
-export type TypedArray = Int8Array | Uint8Array | Int16Array | Uint16Array | Int32Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array;
+export type TypedArray =
+	| Int8Array
+	| Uint8Array
+	| Int16Array
+	| Uint16Array
+	| Int32Array
+	| Uint32Array
+	| Uint8ClampedArray
+	| Float32Array
+	| Float64Array;
 interface PyProxy {
 	[x: string]: any;
 }
@@ -57,10 +66,7 @@ declare class PyProxy {
 	 *        destroying. Defaults to "Object has already been destroyed".
 	 *
 	 */
-	destroy(options?: {
-		message?: string;
-		destroyRoundtrip?: boolean;
-	}): void;
+	destroy(options?: { message?: string; destroyRoundtrip?: boolean }): void;
 	/**
 	 * Make a new :js:class:`~pyodide.ffi.PyProxy` pointing to the same Python object.
 	 * Useful if the :js:class:`~pyodide.ffi.PyProxy` is destroyed somewhere else.
@@ -74,7 +80,14 @@ declare class PyProxy {
 	 * @param options
 	 * @return The JavaScript object resulting from the conversion.
 	 */
-	toJs({ depth, pyproxies, create_pyproxies, dict_converter, default_converter, eager_converter, }?: {
+	toJs({
+		depth,
+		pyproxies,
+		create_pyproxies,
+		dict_converter,
+		default_converter,
+		eager_converter
+	}?: {
 		/** How many layers deep to perform the conversion. Defaults to infinite */
 		depth?: number;
 		/**
@@ -100,15 +113,16 @@ declare class PyProxy {
 		 * ``(it) => new Map(it)`` converts it to a :js:class:`Map` (which is the
 		 * default behavior).
 		 */
-		dict_converter?: (array: Iterable<[
-			key: string,
-			value: any
-		]>) => any;
+		dict_converter?: (array: Iterable<[key: string, value: any]>) => any;
 		/**
 		 * Optional argument to convert objects with no default conversion. See the
 		 * documentation of :meth:`~pyodide.ffi.to_js`.
 		 */
-		default_converter?: (obj: PyProxy, convert: (obj: PyProxy) => any, cacheConversion: (obj: PyProxy, result: any) => void) => any;
+		default_converter?: (
+			obj: PyProxy,
+			convert: (obj: PyProxy) => any,
+			cacheConversion: (obj: PyProxy, result: any) => void
+		) => any;
 		/**
 		 * Optional callback to convert objects which gets called after ``str``,
 		 * ``int``, ``float``, ``bool``, ``None``, and ``JsProxy`` are converted but
@@ -117,7 +131,11 @@ declare class PyProxy {
 		 * Its arguments are the same as `dict_converter`.
 		 * See the documentation of :meth:`~pyodide.ffi.to_js`.
 		 */
-		eager_converter?: (obj: PyProxy, convert: (obj: PyProxy) => any, cacheConversion: (obj: PyProxy, result: any) => void) => any;
+		eager_converter?: (
+			obj: PyProxy,
+			convert: (obj: PyProxy) => any,
+			cacheConversion: (obj: PyProxy, result: any) => void
+		) => any;
 	}): any;
 }
 /**
@@ -128,8 +146,7 @@ declare class PyProxyWithLength extends PyProxy {
 	/** @private */
 	static [Symbol.hasInstance](obj: any): obj is PyProxy;
 }
-interface PyProxyWithLength extends PyLengthMethods {
-}
+interface PyProxyWithLength extends PyLengthMethods {}
 declare class PyLengthMethods {
 	/**
 	 * The length of the object.
@@ -144,8 +161,7 @@ declare class PyProxyWithGet extends PyProxy {
 	/** @private */
 	static [Symbol.hasInstance](obj: any): obj is PyProxy;
 }
-interface PyProxyWithGet extends PyGetItemMethods {
-}
+interface PyProxyWithGet extends PyGetItemMethods {}
 declare class PyGetItemMethods {
 	/**
 	 * This translates to the Python code ``obj[key]``.
@@ -178,8 +194,7 @@ declare class PyProxyWithSet extends PyProxy {
 	/** @private */
 	static [Symbol.hasInstance](obj: any): obj is PyProxy;
 }
-interface PyProxyWithSet extends PySetItemMethods {
-}
+interface PyProxyWithSet extends PySetItemMethods {}
 declare class PySetItemMethods {
 	/**
 	 * This translates to the Python code ``obj[key] = value``.
@@ -203,8 +218,7 @@ declare class PyProxyWithHas extends PyProxy {
 	/** @private */
 	static [Symbol.hasInstance](obj: any): obj is PyProxy;
 }
-interface PyProxyWithHas extends PyContainsMethods {
-}
+interface PyProxyWithHas extends PyContainsMethods {}
 declare class PyContainsMethods {
 	/**
 	 * This translates to the Python code ``key in obj``.
@@ -222,8 +236,7 @@ declare class PyIterable extends PyProxy {
 	/** @private */
 	static [Symbol.hasInstance](obj: any): obj is PyProxy;
 }
-interface PyIterable extends PyIterableMethods {
-}
+interface PyIterable extends PyIterableMethods {}
 declare class PyIterableMethods {
 	/**
 	 * This translates to the Python code ``iter(obj)``. Return an iterator
@@ -242,8 +255,7 @@ declare class PyAsyncIterable extends PyProxy {
 	/** @private */
 	static [Symbol.hasInstance](obj: any): obj is PyProxy;
 }
-interface PyAsyncIterable extends PyAsyncIterableMethods {
-}
+interface PyAsyncIterable extends PyAsyncIterableMethods {}
 declare class PyAsyncIterableMethods {
 	/**
 	 * This translates to the Python code ``aiter(obj)``. Return an async iterator
@@ -261,8 +273,7 @@ declare class PyIterator extends PyProxy {
 	/** @private */
 	static [Symbol.hasInstance](obj: any): obj is PyProxy;
 }
-interface PyIterator extends PyIteratorMethods {
-}
+interface PyIterator extends PyIteratorMethods {}
 declare class PyIteratorMethods {
 	/** @private */
 	[Symbol.iterator](): this;
@@ -290,8 +301,7 @@ declare class PyGenerator extends PyProxy {
 	/** @private */
 	static [Symbol.hasInstance](obj: any): obj is PyProxy;
 }
-interface PyGenerator extends PyGeneratorMethods {
-}
+interface PyGenerator extends PyGeneratorMethods {}
 declare class PyGeneratorMethods {
 	/**
 	 * Throws an exception into the Generator.
@@ -333,8 +343,7 @@ declare class PyAsyncIterator extends PyProxy {
 	/** @private */
 	static [Symbol.hasInstance](obj: any): obj is PyProxy;
 }
-interface PyAsyncIterator extends PyAsyncIteratorMethods {
-}
+interface PyAsyncIterator extends PyAsyncIteratorMethods {}
 declare class PyAsyncIteratorMethods {
 	/** @private */
 	[Symbol.asyncIterator](): this;
@@ -363,8 +372,7 @@ declare class PyAsyncGenerator extends PyProxy {
 	/** @private */
 	static [Symbol.hasInstance](obj: any): obj is PyProxy;
 }
-interface PyAsyncGenerator extends PyAsyncGeneratorMethods {
-}
+interface PyAsyncGenerator extends PyAsyncGeneratorMethods {}
 declare class PyAsyncGeneratorMethods {
 	/**
 	 * Throws an exception into the Generator.
@@ -405,8 +413,7 @@ declare class PySequence extends PyProxy {
 	/** @private */
 	static [Symbol.hasInstance](obj: any): obj is PyProxy;
 }
-interface PySequence extends PySequenceMethods {
-}
+interface PySequence extends PySequenceMethods {}
 declare class PySequenceMethods {
 	/** @hidden */
 	get [Symbol.isConcatSpreadable](): boolean;
@@ -503,7 +510,10 @@ declare class PySequenceMethods {
 	 * @param callbackfn A function to execute for each element in the ``Sequence``. Its
 	 * return value is discarded.
 	 */
-	reduce(callbackfn: (previousValue: any, currentValue: any, currentIndex: number, array: any) => any, initialValue?: any): any;
+	reduce(
+		callbackfn: (previousValue: any, currentValue: any, currentIndex: number, array: any) => any,
+		initialValue?: any
+	): any;
 	/**
 	 * See :js:meth:`Array.reduceRight`. Applies a function against an accumulator
 	 * and each value of the Sequence (from right to left) to reduce it to a
@@ -511,7 +521,10 @@ declare class PySequenceMethods {
 	 * @param callbackfn A function to execute for each element in the Sequence.
 	 * Its return value is discarded.
 	 */
-	reduceRight(callbackfn: (previousValue: any, currentValue: any, currentIndex: number, array: any) => any, initialValue: any): any;
+	reduceRight(
+		callbackfn: (previousValue: any, currentValue: any, currentIndex: number, array: any) => any,
+		initialValue: any
+	): any;
 	/**
 	 * See :js:meth:`Array.at`. Takes an integer value and returns the item at
 	 * that index.
@@ -542,10 +555,7 @@ declare class PySequenceMethods {
 	 * contains the key/value pairs for each index in the ``Sequence``.
 	 * @returns A new iterator object.
 	 */
-	entries(): IterableIterator<[
-		number,
-		any
-	]>;
+	entries(): IterableIterator<[number, any]>;
 	/**
 	 * The :js:meth:`Array.keys` method returns a new iterator object that
 	 * contains the keys for each index in the ``Sequence``.
@@ -605,8 +615,7 @@ declare class PyMutableSequence extends PyProxy {
 	/** @private */
 	static [Symbol.hasInstance](obj: any): obj is PyProxy;
 }
-interface PyMutableSequence extends PyMutableSequenceMethods {
-}
+interface PyMutableSequence extends PyMutableSequenceMethods {}
 declare class PyMutableSequenceMethods {
 	/**
 	 * The :js:meth:`Array.reverse` method reverses a :js:class:`PyMutableSequence` in
@@ -692,8 +701,7 @@ declare class PyAwaitable extends PyProxy {
 	/** @private */
 	static [Symbol.hasInstance](obj: any): obj is PyProxy;
 }
-interface PyAwaitable extends Promise<any> {
-}
+interface PyAwaitable extends Promise<any> {}
 /**
  * A :js:class:`~pyodide.ffi.PyProxy` whose proxied Python object is
  * :std:term:`callable` (i.e., has an :py:meth:`~object.__call__` method).
@@ -746,11 +754,18 @@ declare class PyCallableMethods {
 	 * @param jsargs Arguments to the Python function.
 	 * @returns
 	 */
-	callWithOptions({ relaxed, kwargs, promising, }: {
-		relaxed?: boolean;
-		kwargs?: boolean;
-		promising?: boolean;
-	}, ...jsargs: any): any;
+	callWithOptions(
+		{
+			relaxed,
+			kwargs,
+			promising
+		}: {
+			relaxed?: boolean;
+			kwargs?: boolean;
+			promising?: boolean;
+		},
+		...jsargs: any
+	): any;
 	/**
 	 * Call the function with keyword arguments. The last argument must be an
 	 * object with the keyword arguments.
@@ -873,8 +888,7 @@ declare class PyBuffer extends PyProxy {
 	/** @private */
 	static [Symbol.hasInstance](obj: any): obj is PyBuffer;
 }
-interface PyBuffer extends PyBufferMethods {
-}
+interface PyBuffer extends PyBufferMethods {}
 declare class PyBufferMethods {
 	/**
 	 * Get a view of the buffer data which is usable from JavaScript. No copy is
@@ -909,8 +923,8 @@ declare class PyDict extends PyProxy {
 	/** @private */
 	static [Symbol.hasInstance](obj: any): obj is PyProxy;
 }
-interface PyDict extends PyProxyWithGet, PyProxyWithSet, PyProxyWithHas, PyProxyWithLength, PyIterable {
-}
+interface PyDict
+	extends PyProxyWithGet, PyProxyWithSet, PyProxyWithHas, PyProxyWithLength, PyIterable {}
 /**
  * A class to allow access to Python data buffers from JavaScript. These are
  * produced by :js:meth:`~pyodide.ffi.PyBuffer.getBuffer` and cannot be constructed directly.
@@ -1127,4 +1141,24 @@ declare const ffi: {
 };
 
 export type {};
-export type {PyAsyncGenerator, PyAsyncIterable, PyAsyncIterator, PyAwaitable, PyBuffer, PyBufferView, PyCallable, PyDict, PyGenerator, PyIterable, PyIterator, PyMutableSequence, PyProxy, PyProxyWithGet, PyProxyWithHas, PyProxyWithLength, PyProxyWithSet, PySequence, PythonError};
+export type {
+	PyAsyncGenerator,
+	PyAsyncIterable,
+	PyAsyncIterator,
+	PyAwaitable,
+	PyBuffer,
+	PyBufferView,
+	PyCallable,
+	PyDict,
+	PyGenerator,
+	PyIterable,
+	PyIterator,
+	PyMutableSequence,
+	PyProxy,
+	PyProxyWithGet,
+	PyProxyWithHas,
+	PyProxyWithLength,
+	PyProxyWithSet,
+	PySequence,
+	PythonError
+};

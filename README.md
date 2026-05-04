@@ -22,15 +22,15 @@ It combines a full-featured LLM chat interface with an integrated **Image Genera
 
 ## Stack
 
-| Service | Technology |
-|---|---|
-| Frontend | SvelteKit 5 + TailwindCSS 4 |
-| Backend | FastAPI (Python) |
-| LLM | Ollama + OpenAI-compatible |
+| Service   | Technology                       |
+| --------- | -------------------------------- |
+| Frontend  | SvelteKit 5 + TailwindCSS 4      |
+| Backend   | FastAPI (Python)                 |
+| LLM       | Ollama + OpenAI-compatible       |
 | Image Gen | Stable Diffusion (AUTOMATIC1111) |
-| Database | SQLite (default) / PostgreSQL |
-| Sessions | Redis |
-| Proxy | Nginx + Let's Encrypt SSL |
+| Database  | SQLite (default) / PostgreSQL    |
+| Sessions  | Redis                            |
+| Proxy     | Nginx + Let's Encrypt SSL        |
 
 ---
 
@@ -83,6 +83,7 @@ First user to register becomes admin.
 After setup, every user sees **Image Generator** in the left sidebar between Search and IDE.
 
 Configure it in Admin Panel → Settings → Images:
+
 - Engine: `AUTOMATIC1111`
 - Base URL: `http://automatic1111:7860`
 - Enable Image Generation: ON

@@ -7,12 +7,14 @@ Your MIRMI LLM at **https://mirmi-llm.mirmi.tum.de** was loading correctly, but 
 ## 🔧 What Was Fixed
 
 ### Issue Identified
+
 - ❌ WebSocket connections failing (HTTP 400 errors)
 - ❌ Missing `map` directive for `$http_upgrade` in nginx.conf
 - ❌ Missing WebSocket headers in site configuration
 - ❌ Buffering enabled (blocking streaming responses)
 
 ### Solution Applied
+
 1. ✅ Added WebSocket map directive to `/etc/nginx/nginx.conf`
 2. ✅ Updated `/etc/nginx/sites-available/openwebui` with WebSocket support
 3. ✅ Disabled buffering for streaming responses
@@ -22,6 +24,7 @@ Your MIRMI LLM at **https://mirmi-llm.mirmi.tum.de** was loading correctly, but 
 ## 📋 Configuration Changes
 
 ### Added to nginx.conf
+
 ```nginx
 map $http_upgrade $connection_upgrade {
     default upgrade;
@@ -30,18 +33,19 @@ map $http_upgrade $connection_upgrade {
 ```
 
 ### Updated in openwebui site config
+
 ```nginx
 location / {
     proxy_pass http://10.157.174.177:8080;
     proxy_http_version 1.1;
-    
+
     # WebSocket support
     proxy_set_header Upgrade $http_upgrade;
     proxy_set_header Connection $connection_upgrade;
-    
+
     # Disable buffering for streaming
     proxy_buffering off;
-    
+
     # Increased timeouts
     proxy_read_timeout 600s;
     proxy_connect_timeout 600s;
@@ -52,16 +56,21 @@ location / {
 ## 🧪 How to Test
 
 ### Step 1: Hard Refresh Browser
+
 Clear your browser cache:
+
 - **Chrome/Firefox:** Press `Ctrl + Shift + R`
 - **Safari:** Press `Cmd + Shift + R`
 
 ### Step 2: Open Browser Console
+
 Press `F12` to open developer tools and check the Console tab for:
+
 - ✅ WebSocket connection established
 - ❌ No red errors
 
 ### Step 3: Test LLM Response
+
 1. Go to: https://mirmi-llm.mirmi.tum.de
 2. Select a model: `mistral:latest` or `llama2:7b-chat`
 3. Send a message: "Hello, how are you?"
@@ -70,6 +79,7 @@ Press `F12` to open developer tools and check the Console tab for:
 ## 📊 Your System Status
 
 ### ✅ Working Components
+
 - MIRMI LLM container: Running (healthy)
 - Ollama container: Running
 - 9 LLM models loaded and ready
@@ -77,6 +87,7 @@ Press `F12` to open developer tools and check the Console tab for:
 - Internal connectivity: MIRMI LLM ↔ Ollama
 
 ### 🔧 Fixed Components
+
 - WebSocket support: Now enabled
 - Streaming responses: Now working
 - Nginx configuration: Complete and correct
@@ -84,6 +95,7 @@ Press `F12` to open developer tools and check the Console tab for:
 ## 🎯 Available Models
 
 You have 9 models ready to use:
+
 - **mistral:latest** (4.4 GB) - Fast, good for general tasks
 - **llama2:7b-chat** (3.8 GB) - Conversational, fast
 - **llama2:13b-chat** (7.4 GB) - Better quality, slower
@@ -96,6 +108,7 @@ You have 9 models ready to use:
 ## 📁 Backup Locations
 
 All backups are saved in case you need to rollback:
+
 - `nginx-backup-20260302-114557/` - First backup
 - `nginx-backup-complete-20260302-114700/` - Complete fix backup
 
@@ -124,16 +137,19 @@ sudo systemctl restart nginx
    - Check network tab for failed requests
 
 2. **Verify nginx is running:**
+
    ```bash
    sudo systemctl status nginx
    ```
 
 3. **Check MIRMI LLM logs:**
+
    ```bash
    docker logs mirmi-llm --tail 50
    ```
 
 4. **Test internal connectivity:**
+
    ```bash
    docker exec mirmi-llm curl -s http://ollama:11434/api/tags
    ```
@@ -145,12 +161,15 @@ sudo systemctl restart nginx
 ### Common Issues
 
 **Issue:** Still seeing WebSocket 400 errors
+
 - **Solution:** Do a hard refresh (Ctrl+Shift+R) and clear all browser cache
 
 **Issue:** Response is very slow
+
 - **Solution:** Use smaller models (7B instead of 13B), check GPU with `nvidia-smi`
 
 **Issue:** Connection timeout
+
 - **Solution:** Already increased to 600s, should be sufficient for most responses
 
 ## 📞 Verification Commands
@@ -180,6 +199,7 @@ docker logs mirmi-llm --tail 20
 ## 🎉 Success Indicators
 
 You'll know it's working when:
+
 - ✅ Browser console shows WebSocket connected
 - ✅ No 400 errors in logs
 - ✅ LLM responses appear word-by-word (streaming)
@@ -191,12 +211,14 @@ You'll know it's working when:
 ### Why This Fix Works
 
 **Before:**
+
 - Nginx treated WebSocket as regular HTTP
 - Upgrade headers were missing
 - Connection was closed after each request
 - Streaming couldn't work
 
 **After:**
+
 - Nginx recognizes WebSocket upgrade requests
 - Maintains persistent connection
 - Allows bidirectional streaming
@@ -213,6 +235,7 @@ You'll know it's working when:
 ## 🔒 Security Notes
 
 All security features remain intact:
+
 - ✅ HTTPS encryption
 - ✅ Let's Encrypt certificate
 - ✅ Proper proxy headers
@@ -253,6 +276,7 @@ All security features remain intact:
 ## 🎊 Expected Result
 
 When you send a message, you should see:
+
 1. Message appears in chat
 2. "Thinking" animation starts
 3. Response begins appearing word-by-word
@@ -266,6 +290,7 @@ When you send a message, you should see:
 ## 📞 Support
 
 If you still have issues:
+
 1. Check browser console (F12) for specific errors
 2. Run `./verify-fix.sh` to check configuration
 3. Check logs: `docker logs mirmi-llm --tail 50`

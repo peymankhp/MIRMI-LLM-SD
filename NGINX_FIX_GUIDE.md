@@ -41,6 +41,7 @@ sudo ./fix-nginx.sh
 ```
 
 This will:
+
 1. Backup your current nginx configuration
 2. Apply the fixed configuration with WebSocket support
 3. Test the configuration
@@ -54,16 +55,19 @@ This will:
 If you prefer to fix it manually:
 
 1. **Backup current config:**
+
    ```bash
    sudo cp /etc/nginx/sites-available/openwebui /etc/nginx/sites-available/openwebui.backup
    ```
 
 2. **Apply the fix:**
+
    ```bash
    sudo cp nginx-openwebui-fixed.conf /etc/nginx/sites-available/openwebui
    ```
 
 3. **Test configuration:**
+
    ```bash
    sudo nginx -t
    ```
@@ -76,6 +80,7 @@ If you prefer to fix it manually:
 ## 📋 What Changed
 
 ### Before (Broken)
+
 ```nginx
 location / {
     proxy_pass http://10.157.174.177:8080;
@@ -85,15 +90,16 @@ location / {
 ```
 
 ### After (Fixed)
+
 ```nginx
 location / {
     proxy_pass http://10.157.174.177:8080;
     proxy_http_version 1.1;
-    
+
     # WebSocket support - CRITICAL
     proxy_set_header Upgrade $http_upgrade;
     proxy_set_header Connection "upgrade";
-    
+
     # Standard headers
     proxy_set_header Host $host;
     proxy_set_header X-Real-IP $remote_addr;
@@ -126,22 +132,27 @@ location / {
 ## 🧪 Testing After Fix
 
 ### 1. Check nginx status
+
 ```bash
 sudo systemctl status nginx
 ```
 
 ### 2. Test WebSocket connection
+
 Open browser console (F12) at `https://mirmi-llm.mirmi.tum.de` and check for:
+
 - ✅ No WebSocket errors
 - ✅ Connection established messages
 
 ### 3. Test LLM response
+
 1. Open: https://mirmi-llm.mirmi.tum.de
 2. Select a model: `mistral:latest` or `llama2:7b-chat`
 3. Send a simple message: "Hello, how are you?"
 4. You should see a streaming response appear word-by-word
 
 ### 4. Check logs
+
 ```bash
 # Should show successful WebSocket connections
 docker logs mirmi-llm --tail 20
@@ -159,6 +170,7 @@ sudo tail -f /var/log/nginx/access.log
 - **Nginx:** Version 1.18.0 (Ubuntu)
 
 ### Available Models
+
 - mistral:latest (4.4 GB)
 - llama2:7b-chat (3.8 GB)
 - llama2:13b-chat (7.4 GB)
@@ -186,6 +198,7 @@ sudo systemctl reload nginx
 ### Issue: Still getting 400 errors
 
 **Check:**
+
 ```bash
 # Verify the config was applied
 sudo cat /etc/nginx/sites-available/openwebui | grep -A 2 "Upgrade"
@@ -196,6 +209,7 @@ sudo cat /etc/nginx/sites-available/openwebui | grep -A 2 "Upgrade"
 ```
 
 **Fix:**
+
 ```bash
 # Reload nginx again
 sudo systemctl reload nginx
@@ -207,11 +221,13 @@ sudo systemctl restart nginx
 ### Issue: LLM responds but very slowly
 
 **Possible causes:**
+
 - GPU not being used (check with `nvidia-smi`)
 - Model too large for VRAM
 - Multiple models loaded simultaneously
 
 **Solutions:**
+
 ```bash
 # Check GPU usage
 nvidia-smi
@@ -226,11 +242,13 @@ docker restart ollama
 
 **Increase timeouts further:**
 Edit `/etc/nginx/sites-available/openwebui` and change:
+
 ```nginx
 proxy_read_timeout 1200s;  # 20 minutes
 ```
 
 Then reload:
+
 ```bash
 sudo systemctl reload nginx
 ```
@@ -240,12 +258,14 @@ sudo systemctl reload nginx
 ### Why WebSocket is Required
 
 MIRMI LLM uses WebSocket for:
+
 1. **Real-time streaming** - LLM responses appear word-by-word
 2. **Bidirectional communication** - UI can send/receive simultaneously
 3. **Connection persistence** - Maintains state during long generations
 4. **Event notifications** - Model loading, progress updates
 
 Without WebSocket:
+
 - ❌ Streaming doesn't work
 - ❌ UI appears frozen
 - ❌ No real-time feedback
@@ -254,11 +274,13 @@ Without WebSocket:
 ### HTTP vs WebSocket
 
 **HTTP (old config):**
+
 - Request → Response → Close
 - No streaming
 - New connection for each message
 
 **WebSocket (new config):**
+
 - Request → Upgrade → Persistent Connection
 - Bidirectional streaming
 - Single connection for entire session
@@ -266,12 +288,14 @@ Without WebSocket:
 ## 🎯 Expected Behavior After Fix
 
 ### Before Fix
+
 1. Type message → Send
 2. UI shows "thinking" animation
 3. Nothing happens (WebSocket fails)
 4. Eventually timeout or error
 
 ### After Fix
+
 1. Type message → Send
 2. UI shows "thinking" animation
 3. Response starts appearing word-by-word
@@ -281,6 +305,7 @@ Without WebSocket:
 ## 🔒 Security Notes
 
 The fixed configuration maintains all security features:
+
 - ✅ HTTPS with Let's Encrypt
 - ✅ Proper forwarding headers
 - ✅ No exposed internal IPs
@@ -292,25 +317,28 @@ The fixed configuration maintains all security features:
 If you still have issues after applying the fix:
 
 1. **Check logs:**
+
    ```bash
    docker logs mirmi-llm --tail 50
    sudo tail -f /var/log/nginx/error.log
    ```
 
 2. **Verify connectivity:**
+
    ```bash
    # From inside container
    docker exec mirmi-llm curl -s http://ollama:11434/api/tags
-   
+
    # From host
    curl -s http://10.157.174.177:8080/health
    ```
 
 3. **Test WebSocket directly:**
+
    ```bash
    # Install websocat if needed
    # sudo apt install websocat
-   
+
    websocat wss://mirmi-llm.mirmi.tum.de/ws/socket.io/
    ```
 
